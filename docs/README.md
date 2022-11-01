@@ -3,7 +3,7 @@ layout: home
 permalink: index.html
 
 # Please update this with your repository name and project title
-repository-name: e18-3yp-Smart-Plant-Pot
+repository-name: e18-3yp-Smart-Planting-System
 title: Smart Plant Pot
 ---
 

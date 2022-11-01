@@ -42,9 +42,10 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 
 ## Solution Architecture
 
-<p align="center">
-  <img src="images/Solution_Architecture.png"
+<p align="center" >
+  <img src="images/Solution_Architecture.png" style="width:600px;">
 </ p>
+<br>
 
 ## Hardware and Software Designs
 
@@ -58,9 +59,13 @@ Testing done on hardware and software, detailed + summarized results
 
 All items and costs
 
-| Item          | Quantity  | Unit Cost  | Total  |
+| Item          | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
 | ------------- |:---------:|:----------:|-------:|
+| Arduino Uno board   | 1         | 10 LKR     | 50 LKR |
 | Sample item   | 5         | 10 LKR     | 50 LKR |
+| Sample item   | 5         | 10 LKR     | 50 LKR |
+| Sample item   | 5         | 10 LKR     | 50 LKR |
+
 
 ## Conclusion
 

@@ -72,7 +72,6 @@ All items and costs
 | OV7670 Camera Module for Arduino | 1 | 960.00 | 960.00 |
 |12V 2500mAh Rechargeable Lipo Battery | 1 | 3300.00 | 3300.00|
 | Wires and other | | | 1000.00|
-|||||
 | Total |||12980.00|
 ## Conclusion
 

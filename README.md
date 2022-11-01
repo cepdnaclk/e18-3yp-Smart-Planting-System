@@ -1,5 +1,5 @@
 ___
-# Smart Plant Pot
+# Smart Planting System
 ___
 
 

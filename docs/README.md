@@ -42,10 +42,7 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 
 ## Solution Architecture
 
-<p align="center" >
-  <img src="images/Solution_Architecture.png" style="width:600px;">
-</ p>
-<br>
+<p align="center" > <img src="images/Solution_Architecture.png" style="width:600px;"> </ p>
 
 ## Hardware and Software Designs
 

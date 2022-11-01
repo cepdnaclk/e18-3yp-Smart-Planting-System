@@ -9,7 +9,7 @@ title: Smart Planting System
 
 [comment]: # "This is the standard layout for the project, but you can clean this and use your own template"
 
-# Smart Plant Pot
+# Smart Planting System
 
 ---
 
@@ -42,7 +42,7 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 
 ## Solution Architecture
 
-<p align="center" > <img src="images/Solution_Architecture.png" style="width:600px;"> </ p>
+<p align="center" > <img src="images/Solution_Architecture.png" style="width:600px;"> </p>
 
 ## Hardware and Software Designs
 

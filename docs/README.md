@@ -53,7 +53,7 @@ Detailed designs with many sub-sections
 
 ## Testing
 
-Testing done on hardware and software, detailed + summarized results
+Testing the API stepwise using Postman
 
 ## Detailed budget
 
@@ -62,7 +62,8 @@ All items and costs
 | Item          | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
 | ------------- |:---------:|:----------:|-------:|
 | Arduino Uno board   | 1         | 10 LKR     | 50 LKR |
-| Sample item   | 5         | 10 LKR     | 50 LKR |
+| Water Level Sensor Depth Detection| 1 | 120.00 | 120.00|
+
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 | Sample item   | 5         | 10 LKR     | 50 LKR |
 

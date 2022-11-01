@@ -58,7 +58,7 @@ All items and costs
 
 | Item          | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
 | ------------- |:---------:|:----------:|-------:|
-| Arduino Uno board   | 1         | 10.00    | 50.00 |
+| Arduino Uno board   | 1         | 3800.00    | 3800.00 |
 | Water level sensor depth detection| 1 | 120.00 | 120.00|
 | Capacitive soil moisture sensor | 1 | 400.00 | 400.00|
 |LDR light sensor| 1 | 200.00 | 200.00 |

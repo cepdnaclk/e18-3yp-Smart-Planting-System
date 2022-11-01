@@ -56,20 +56,21 @@ Testing the API stepwise using Postman
 
 All items and costs
 
-| Item          | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
-| ------------- |:---------:|:----------:|-------:|
-| Arduino Uno board   | 1         | 3800.00    | 3800.00 |
-| Water level sensor depth detection| 1 | 120.00 | 120.00|
-| Capacitive soil moisture sensor | 1 | 400.00 | 400.00|
-|LDR light sensor| 1 | 200.00 | 200.00 |
-|1.8 - inch 128x160 SPI TFT LCD Display mode | 1 | 1800.00 | 1800.00|
-| Serial WIFI Wireless Module | 1 | 550.00 | 550.00 |
-| DS18B20 Digital Temperature Sensor Probe | 1 | 400.00 | 400.00 |
-| Water Pump | 1 | 450.00 | 450.00|
-| OV7670 Camera Module for Arduino | 1 | 960.00 | 960.00 |
-|12V 2500mAh Rechargeable Lipo Battery | 1 | 3300.00 | 3300.00|
-| Wires and other | | | 1000.00|
-| Total |||12980.00|
+| Item                                        | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
+|:-------------------------------------------:|:---------:|:----------------:|:------------:|
+| Arduino Uno board                           | 1         | 3800.00          | 3800.00      |
+| Water level sensor depth detection          | 1         | 120.00           | 120.00       |
+| Capacitive soil moisture sensor             | 1         | 400.00           | 400.00       |
+|LDR light sensor                             | 1         | 200.00           | 200.00       |
+|1.8 - inch 128x160 SPI TFT LCD Display mode  | 1         | 1800.00          | 1800.00      |
+| Serial WIFI Wireless Module                 | 1         | 550.00           | 550.00       |
+| DS18B20 Digital Temperature Sensor Probe    | 1         | 400.00           | 400.00       |
+| Water Pump                                  | 1         | 450.00           | 450.00       |
+| OV7670 Camera Module for Arduino            | 1         | 960.00           | 960.00       |
+|12V 2500mAh Rechargeable Lipo Battery        | 1         | 3300.00          | 3300.00      |
+| Wires and other                             |           |                  | 1000.00      |
+| Total                                       |           |                  |12980.00      |
+
 ## Conclusion
 
 What was achieved, future developments, commercialization plans

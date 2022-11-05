@@ -46,7 +46,32 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+### Our solution
+#### A Smart Pot with,
+<table>
+            <tbody>
+                <tr>
+                    <td><img src="water.svg" width="90px" style="margin: 0px auto;"></td>
+                    <td><img src="light.svg" width="100px" style="margin: 0px auto;"></td>
+                    <td><img src="measure.svg" width="110px" style="margin: 0px auto;"></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;">Smart watering system</td>
+                    <td style="word-wrap: break-word;">Light intensity control</td>
+                    <td style="word-wrap: break-word;">Water level measuring system</td>
+                </tr>
+                <tr>
+                    <td><img src="temp.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="display.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="soil.svg" width="80px" style="margin: 0px auto;"></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;">Temperature measuring system</td>
+                    <td style="word-wrap: break-word;">Display</td>
+                    <td style="word-wrap: break-word;">Soil moisture measuring system</td>
+                </tr>
+            </tbody>
+        </table>
 
 ## Testing
 

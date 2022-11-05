@@ -5,6 +5,7 @@ title: ""
 remote_theme: cepdnaclk/eYY-project-theme
 description: ""
 markdown: kramdown
+theme: minima
 
 kramdown:
   parse_block_html: true

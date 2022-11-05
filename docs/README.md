@@ -51,9 +51,9 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 <table>
             <tbody>
                 <tr>
-                    <td><img src="water.svg" width="90px" style="margin: 0px auto;"></td>
-                    <td><img src="light.svg" width="100px" style="margin: 0px auto;"></td>
-                    <td><img src="measure.svg" width="110px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/water.svg" width="90px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/light.svg" width="100px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/measure.svg" width="110px" style="margin: 0px auto;"></td>
                 </tr>
                 <tr>
                     <td style="word-wrap: break-word;">Smart watering system</td>
@@ -61,9 +61,9 @@ But with the busy lifestyle people have less time and they don’t tend to plant
                     <td style="word-wrap: break-word;">Water level measuring system</td>
                 </tr>
                 <tr>
-                    <td><img src="temp.svg" width="80px" style="margin: 0px auto;"></td>
-                    <td><img src="display.svg" width="80px" style="margin: 0px auto;"></td>
-                    <td><img src="soil.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/temp.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/display.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/soil.svg" width="80px" style="margin: 0px auto;"></td>
                 </tr>
                 <tr>
                     <td style="word-wrap: break-word;">Temperature measuring system</td>

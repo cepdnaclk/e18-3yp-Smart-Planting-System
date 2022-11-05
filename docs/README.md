@@ -46,7 +46,32 @@ But with the busy lifestyle people have less time and they don’t tend to plant
 
 ## Hardware and Software Designs
 
-Detailed designs with many sub-sections
+### Our solution
+#### A Smart Pot with,
+<table>
+            <tbody>
+                <tr>
+                    <td><img src="images/img/water.svg" width="90px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/light.svg" width="100px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/measure.svg" width="110px" style="margin: 0px auto;"></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;">Smart watering system</td>
+                    <td style="word-wrap: break-word;">Light intensity control</td>
+                    <td style="word-wrap: break-word;">Water level measuring system</td>
+                </tr>
+                <tr>
+                    <td><img src="images/img/temp.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/display.svg" width="80px" style="margin: 0px auto;"></td>
+                    <td><img src="images/img/soil.svg" width="80px" style="margin: 0px auto;"></td>
+                </tr>
+                <tr>
+                    <td style="word-wrap: break-word;">Temperature measuring system</td>
+                    <td style="word-wrap: break-word;">Display</td>
+                    <td style="word-wrap: break-word;">Soil moisture measuring system</td>
+                </tr>
+            </tbody>
+        </table>
 
 ## Testing
 
@@ -78,7 +103,7 @@ What was achieved, future developments, commercialization plans
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/e18-3yp-Smart-Plant-Pot)
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}})
+- [Project Page](https://cepdnaclk.github.io/e18-3yp-Smart-Planting-System/)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 

@@ -103,7 +103,7 @@ What was achieved, future developments, commercialization plans
 ## Links
 
 - [Project Repository](https://github.com/cepdnaclk/e18-3yp-Smart-Plant-Pot)
-- [Project Page](https://cepdnaclk.github.io/{{ page.repository-name}})
+- [Project Page](https://cepdnaclk.github.io/e18-3yp-Smart-Planting-System/)
 - [Department of Computer Engineering](http://www.ce.pdn.ac.lk/)
 - [University of Peradeniya](https://eng.pdn.ac.lk/)
 

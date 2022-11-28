@@ -564,6 +564,10 @@ section {
   padding: 80px 0;
 }
 
+#about .container {
+  width: 100%;
+}
+
 #about .about-container .background {
   min-height: 300px;
   background: url(../img/intro-img.jpg) center top no-repeat;
@@ -588,6 +592,13 @@ section {
 
 #about .about-container p {
   line-height: 26px;
+}
+
+#about .about-container video {
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 #about .about-container p:last-child {
@@ -636,6 +647,13 @@ section {
   margin-left: 80px;
   line-height: 24px;
   font-size: 14px;
+}
+
+#about table {
+  width: 70%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Facts Section
@@ -1072,8 +1090,7 @@ section {
   padding: 0;
 }
 
-/* Team Section
---------------------------------*/
+/* Team Section --------------------------------*/
 #team {
   background: #fff;
   padding: 80px 0 60px 0;
@@ -1087,7 +1104,11 @@ section {
 #team .member .pic {
   margin-bottom: 15px;
   overflow: hidden;
-  height: 260px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 250px;
 }
 
 #team .member .pic img {
@@ -1121,6 +1142,74 @@ section {
 #team .member .social i {
   font-size: 18px;
   margin: 0 2px;
+}
+
+#team .container {
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+/* Supervisor Section --------------------------------*/
+#supervisor {
+  background: #fff;
+  padding: 80px 0 60px 0;
+}
+
+#supervisor .member {
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+#supervisor .member .pic {
+  margin-bottom: 15px;
+  overflow: hidden;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  height: 250px;
+  width: 250px;
+}
+
+#supervisor .member .pic img {
+  max-width: 100%;
+}
+
+#supervisor .member h4 {
+  font-weight: 700;
+  margin-bottom: 2px;
+  font-size: 18px;
+}
+
+#supervisor .member span {
+  font-style: italic;
+  display: block;
+  font-size: 13px;
+}
+
+#supervisor .member .social {
+  margin-top: 15px;
+}
+
+#supervisor .member .social a {
+  color: #b3b3b3;
+}
+
+#supervisor .member .social a:hover {
+  color: #2dc997;
+}
+
+#supervisor .member .social i {
+  font-size: 18px;
+  margin: 0 2px;
+}
+
+#supervisor .container {
+  width: 100%;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 /* Contact Section

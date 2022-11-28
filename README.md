@@ -44,7 +44,7 @@ All items and costs
 
 | Item          | Quantity  | Unit Cost (LKR)  | Total (LKR)  |
 | ------------- |:---------:|:----------:|-------:|
-| Arduino Uno board   | 1         | 10.00    | 50.00 |
+| Atmega328p Micro Controller   | 1         | 1600.00    | 1600.00 |
 | Water level sensor depth detection| 1 | 120.00 | 120.00|
 | Capacitive soil moisture sensor | 1 | 400.00 | 400.00|
 |LDR light sensor| 1 | 200.00 | 200.00 |
@@ -54,8 +54,8 @@ All items and costs
 | Water Pump | 1 | 450.00 | 450.00|
 | OV7670 Camera Module for Arduino | 1 | 960.00 | 960.00 |
 |12V 2500mAh Rechargeable Lipo Battery | 1 | 3300.00 | 3300.00|
-| Wires and other | | | 1000.00|
-| Total |||12980.00|
+| Wires, Circuit board, pot and other | | | 3500.00|
+| Total |||13380.00|
 
 
 ## Conclusion

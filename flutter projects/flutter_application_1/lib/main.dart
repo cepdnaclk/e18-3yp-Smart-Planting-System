@@ -9,6 +9,11 @@ main() {
 class MyApp extends StatelessWidget{
   @override
   Widget build(BuildContext context) {
+    int count = 0;
+
+    void increament(){
+      count = count + 1;
+    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: SafeArea(
@@ -35,7 +40,30 @@ class MyApp extends StatelessWidget{
             ),
           ),
           body: Container(
+            width: double.infinity,
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                crossAxisAlignment: CrossAxisAlignment.center,
+                children: [
+                  Text(
+                      "No. of times the button pressed:",
+                    style: TextStyle(
+                        fontSize: 20.0),
+                  ),
+                  Text(""
+                      "$count",
+                    style: TextStyle(
+                        fontSize: 20.0),
+                  )
+                ],)
+          ),
+          floatingActionButton: IconButton(
+              icon: Icon(
+                  Icons.add,
               ),
+            onPressed: increament,
+            color: Colors.lightGreen,
+          ),
         ),
       ),
       );

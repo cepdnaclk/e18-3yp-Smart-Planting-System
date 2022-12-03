@@ -7,19 +7,35 @@ main() {
 }
 
 class MyApp extends StatelessWidget{
-  const MyApp({super.key});
-
   @override
   Widget build(BuildContext context) {
-    return MaterialApp( 
-      home: Scaffold(
-        appBar: AppBar(
-          title: Text("Sample App"),
-        ),
-        body: Center(
-          child: Text(
-              "Smart Planting System",
-          style: TextStyle(fontSize: 30.0),),
+    return MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: SafeArea(
+        child: Scaffold(
+          appBar: AppBar(
+            title: Text("Smart Planting System"),
+            leading: IconButton(
+              icon: Icon(Icons.menu), 
+              onPressed: () { },
+              ),
+              actions: [
+                IconButton(
+                  icon: Icon(Icons.search), 
+                  onPressed: () { },
+                ),
+                IconButton(
+                  icon: Icon(Icons.more_vert), 
+                  onPressed: () { },
+                ),
+              ],
+            flexibleSpace: Image.asset(
+              "assests/appbar.jpg",
+              fit: BoxFit.cover, 
+            ),
+          ),
+          body: Container(
+              ),
         ),
       ),
       );

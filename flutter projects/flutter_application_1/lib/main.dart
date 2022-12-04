@@ -2,70 +2,24 @@
 
 import 'package:flutter/material.dart';
 
-main() {
-  runApp(MyApp());
+import 'screens/home_page.dart';
+import 'screens/second_screen.dart';
+
+void main() {
+  runApp(
+    MyApp(),
+  );
 }
 
-class MyApp extends StatelessWidget{
+class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
-    int count = 0;
-
-    void increament(){
-      count = count + 1;
-    }
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: SafeArea(
-        child: Scaffold(
-          appBar: AppBar(
-            title: Text("Smart Planting System"),
-            leading: IconButton(
-              icon: Icon(Icons.menu), 
-              onPressed: () { },
-              ),
-              actions: [
-                IconButton(
-                  icon: Icon(Icons.search), 
-                  onPressed: () { },
-                ),
-                IconButton(
-                  icon: Icon(Icons.more_vert), 
-                  onPressed: () { },
-                ),
-              ],
-            flexibleSpace: Image.asset(
-              "assests/appbar.jpg",
-              fit: BoxFit.cover, 
-            ),
-          ),
-          body: Container(
-            width: double.infinity,
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  Text(
-                      "No. of times the button pressed:",
-                    style: TextStyle(
-                        fontSize: 20.0),
-                  ),
-                  Text(""
-                      "$count",
-                    style: TextStyle(
-                        fontSize: 20.0),
-                  )
-                ],)
-          ),
-          floatingActionButton: IconButton(
-              icon: Icon(
-                  Icons.add,
-              ),
-            onPressed: increament,
-            color: Colors.lightGreen,
-          ),
-        ),
-      ),
-      );
+      useInheritedMediaQuery: true,
+      theme: ThemeData.light(),
+      darkTheme: ThemeData.dark(),
+      home: homepage(),
+    );
   }
 }

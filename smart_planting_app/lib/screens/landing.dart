@@ -34,7 +34,7 @@ class landingScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     shadowColor: Colors.lightBlue,
                   ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const registerScreen())),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => registerScreen())),
                 ),
                 const SizedBox(height: 20,),
                 ElevatedButton(

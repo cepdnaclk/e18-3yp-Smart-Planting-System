@@ -21,7 +21,7 @@ class _FormScreenState extends State<registerScreen> {
       maxLength: 20,
       maxLines: 1,
       decoration:
-      InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
+      const InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
       onSaved: (value) {
         _name = value!;
       },
@@ -38,7 +38,7 @@ class _FormScreenState extends State<registerScreen> {
         return null;
       },
       decoration:
-      InputDecoration(labelText: 'Email', hintText: 'Enter your email'),
+      const InputDecoration(labelText: 'Email', hintText: 'Enter your email'),
       onSaved: (value) {
         _email = value!;
       },
@@ -55,7 +55,7 @@ class _FormScreenState extends State<registerScreen> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Password', hintText: 'Enter your password'),
       onSaved: (value) {
         _password = value!;
@@ -73,7 +73,7 @@ class _FormScreenState extends State<registerScreen> {
         }
         return null;
       },
-      decoration: InputDecoration(
+      decoration: const InputDecoration(
           labelText: 'Mobile Number', hintText: 'Enter a mobile number'),
       onSaved: (value) {
         _mobile = int.parse(value!);
@@ -84,9 +84,6 @@ class _FormScreenState extends State<registerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text('Form - Tutorial 14'),
-      ),
       body: SingleChildScrollView(
         child: Container(
           margin: const EdgeInsets.all(24.0),
@@ -94,6 +91,7 @@ class _FormScreenState extends State<registerScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+                const SizedBox(height: 50,),
                 Padding(
                   padding: const EdgeInsets.all(8.0),
                   child: _buildNameField(),
@@ -110,15 +108,15 @@ class _FormScreenState extends State<registerScreen> {
                   padding: const EdgeInsets.all(8.0),
                   child: _buildMobileNumberField(),
                 ),
-                SizedBox(height: 50),
+                const SizedBox(height: 50),
                 Container(
                   width: 150,
                   child: ElevatedButton(
-                    child: Text(
-                      'Submit',
+                    child: const Text(
+                      'Register',
                       style: TextStyle(
-                        color: Colors.purple,
-                        fontSize: 16.0,
+                        color: Colors.white,
+                        fontSize: 20.0,
                       ),
                     ),
                     onPressed: () {

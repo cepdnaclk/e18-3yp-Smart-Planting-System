@@ -16,14 +16,14 @@ class _FormScreenState extends State<registerScreen> {
   Widget _buildNameField() {
     return TextFormField(
       validator: (text) {
-        return HelperValidator.nameValidate(text);
+        return HelperValidator.nameValidate(text!);
       },
       maxLength: 20,
       maxLines: 1,
       decoration:
       InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
       onSaved: (value) {
-        _name = value;
+        _name = value!;
       },
     );
   }
@@ -50,7 +50,7 @@ class _FormScreenState extends State<registerScreen> {
       obscureText: true,
       maxLength: 10,
       validator: (text) {
-        if (text.isEmpty) {
+        if (text!.isEmpty) {
           return "Please enter a password";
         }
         return null;
@@ -58,7 +58,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration: InputDecoration(
           labelText: 'Password', hintText: 'Enter your password'),
       onSaved: (value) {
-        _password = value;
+        _password = value!;
       },
     );
   }
@@ -68,7 +68,7 @@ class _FormScreenState extends State<registerScreen> {
       maxLength: 10,
       keyboardType: TextInputType.number,
       validator: (text) {
-        if (text.isEmpty) {
+        if (text!.isEmpty) {
           return "Please enter a mobile Number";
         }
         return null;
@@ -76,7 +76,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration: InputDecoration(
           labelText: 'Mobile Number', hintText: 'Enter a mobile number'),
       onSaved: (value) {
-        _mobile = int.parse(value);
+        _mobile = int.parse(value!);
       },
     );
   }
@@ -113,7 +113,7 @@ class _FormScreenState extends State<registerScreen> {
                 SizedBox(height: 50),
                 Container(
                   width: 150,
-                  child: RaisedButton(
+                  child: ElevatedButton(
                     child: Text(
                       'Submit',
                       style: TextStyle(
@@ -122,9 +122,9 @@ class _FormScreenState extends State<registerScreen> {
                       ),
                     ),
                     onPressed: () {
-                      if (_formKey.currentState.validate()) {
+                      if (_formKey.currentState!.validate()) {
                         print('valid form');
-                        _formKey.currentState.save();
+                        _formKey.currentState!.save();
                       } else {
                         print('not valid form');
 
@@ -143,7 +143,7 @@ class _FormScreenState extends State<registerScreen> {
 }
 
 class HelperValidator {
-  static String nameValidate(String value) {
+  static String? nameValidate(String value) {
     if (value.isEmpty) {
       return "Name can't be empty";
     }

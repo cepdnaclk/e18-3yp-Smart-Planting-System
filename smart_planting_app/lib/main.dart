@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import 'package:flutter/material.dart';
-import 'screens/landingPage.dart';
+import 'screens/splashScreen.dart';
 
 void main() {
   runApp(
@@ -17,7 +17,7 @@ class MyApp extends StatelessWidget {
       useInheritedMediaQuery: true,
       theme: ThemeData.light(),
       darkTheme: ThemeData.dark(),
-      home: landingScreen(),
+      home: splash(),
     );
   }
 }

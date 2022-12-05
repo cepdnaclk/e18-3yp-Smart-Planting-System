@@ -8,14 +8,8 @@ class landingScreen extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       home: Scaffold(
-        appBar: AppBar(
-          title: Text("Smart Planting"),
-          flexibleSpace: Image.asset("asset/appbar.jpg", fit: BoxFit.cover,),
-        ),
-        body: BottomAppBar(
-          color: Colors.green,
-        ),
-      ),
+        
+      )
     );
   }
 }

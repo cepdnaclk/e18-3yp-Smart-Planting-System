@@ -1,7 +1,6 @@
 import 'dart:async';
-import 'dart:ffi';
+
 import 'package:flutter/material.dart';
-import 'package:transparent_image/transparent_image.dart';
 import 'package:smart_planting_app/screens/landing.dart';
 
 class splash extends StatefulWidget {
@@ -13,7 +12,7 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 60),
+    Timer(Duration(seconds: 4),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>
@@ -44,15 +43,21 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
       child: Column(
           //mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Align(
-                alignment: Alignment.center,
+            Container(
+                height: 500,
+                alignment: Alignment.bottomCenter,
+                color: Colors.white,
                 child: Image.asset('asset/login.jpg' , cacheHeight: 200,),
             ),
-            Align(
+            Container(
+              height: 250,
               alignment: Alignment.bottomCenter,
               child: Text(
                 'Welcome',
-                style: TextStyle(fontSize: 20, color: Colors.black,),
+                style: TextStyle(
+                    fontSize: 25,
+                    color: Colors.lightGreen,
+                    fontWeight: FontWeight.bold),
               ),
             )
           ],

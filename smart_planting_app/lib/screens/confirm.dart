@@ -8,7 +8,7 @@ class confirmScreen extends StatefulWidget {
 class _FormScreenState extends State<confirmScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late int _code;
+  late String _code;
 
   Widget _buildConfirmEmailField() {
     return TextFormField(
@@ -26,7 +26,7 @@ class _FormScreenState extends State<confirmScreen> {
           labelText: 'Confirm Your Email',
           labelStyle: TextStyle(fontSize: 20,)),
       onSaved: (value) {
-        _code = value as int;
+        _code = value!;
       },
     );
   }

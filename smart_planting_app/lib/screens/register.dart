@@ -22,7 +22,7 @@ class _FormScreenState extends State<registerScreen> {
       maxLength: 50,
       maxLines: 1,
       decoration:
-      const InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
+      const InputDecoration(labelText: 'Name', hintText: 'Enter your full name', ),
       onSaved: (value) {
         _name = value!;
       },
@@ -110,9 +110,10 @@ class _FormScreenState extends State<registerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          //color: Colors.white,
           margin: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,

@@ -16,7 +16,7 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       useInheritedMediaQuery: true,
       theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      //darkTheme: ThemeData.dark(),
       home: splash(),
     );
   }

@@ -50,14 +50,15 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
                 child: Image.asset('asset/icon1.png' , cacheHeight: 200,),
             ),
             Container(
-              height: 150,
               color: Colors.white,
               alignment: Alignment.bottomCenter,
+              height: 150,
               child: const Text(
                 'Welcome',
                 style: TextStyle(
                     fontSize: 25,
                     color: Colors.black,
+                    fontStyle: FontStyle.normal,
                     fontWeight: FontWeight.bold),
               ),
             )

@@ -50,7 +50,7 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
                 child: Image.asset('asset/login.jpg' , cacheHeight: 200,),
             ),
             Container(
-              height: 250,
+              height: 150,
               alignment: Alignment.bottomCenter,
               child: Text(
                 'Welcome',

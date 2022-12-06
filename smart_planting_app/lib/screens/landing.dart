@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/login.dart';
 import 'package:smart_planting_app/screens/register.dart';
 
 class landingScreen extends StatelessWidget {
@@ -19,47 +20,39 @@ class landingScreen extends StatelessWidget {
               child: Image.asset("asset/icon2.png", cacheHeight: 300,height: 300,),
             ),
             const SizedBox(height: 50,),
-            Container(
-              width: double.infinity,
-              height: 297,
-              decoration: BoxDecoration(
-                  color: Colors.teal,
-                  borderRadius: BorderRadius.circular(30),
-                  image: DecorationImage(image: AssetImage('asset/appbar.jpg'), fit: BoxFit.cover,)),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  ElevatedButton(
-                    child: Text('Sign In'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreenAccent,
-                      minimumSize: Size(300.0, 50.0),
-                      //side: BorderSide(color: Colors.yellow, width: 5),
-                      textStyle: const TextStyle(
-                          color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      shadowColor: Colors.lightBlue,
-                    ),
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => registerScreen())),
+            Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                ElevatedButton(
+                  child: Text('Sign In'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    minimumSize: Size(300.0, 50.0),
+                    //side: BorderSide(color: Colors.yellow, width: 5),
+                    textStyle: const TextStyle(
+                        color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shadowColor: Colors.lightBlue,
                   ),
-                  const SizedBox(height: 20,),
-                  ElevatedButton(
-                    child: Text('Login In'),
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.lightGreenAccent,
-                      minimumSize: Size(300.0, 50.0),
-                      //side: BorderSide(color: Colors.yellow, width: 5),
-                      textStyle: const TextStyle(
-                          color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      shadowColor: Colors.lightBlue,
-                      ),
-                    onPressed: () {},
-                  )
-                ],
-              ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => registerScreen())),
+                ),
+                const SizedBox(height: 20,),
+                ElevatedButton(
+                  child: Text('Login'),
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    minimumSize: Size(300.0, 50.0),
+                    //side: BorderSide(color: Colors.yellow, width: 5),
+                    textStyle: const TextStyle(
+                        color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shadowColor: Colors.lightBlue,
+                    ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen())),
+                )
+              ],
             )
           ],
         ),

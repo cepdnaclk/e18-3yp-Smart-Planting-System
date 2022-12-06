@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/login.dart';
 import 'package:smart_planting_app/screens/register.dart';
 
 class landingScreen extends StatelessWidget {
@@ -25,7 +26,7 @@ class landingScreen extends StatelessWidget {
                 ElevatedButton(
                   child: Text('Sign In'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.lightGreenAccent,
+                    primary: Colors.black,
                     minimumSize: Size(300.0, 50.0),
                     //side: BorderSide(color: Colors.yellow, width: 5),
                     textStyle: const TextStyle(
@@ -38,9 +39,9 @@ class landingScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 20,),
                 ElevatedButton(
-                  child: Text('Login In'),
+                  child: Text('Login'),
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.lightGreenAccent,
+                    primary: Colors.black,
                     minimumSize: Size(300.0, 50.0),
                     //side: BorderSide(color: Colors.yellow, width: 5),
                     textStyle: const TextStyle(
@@ -49,7 +50,7 @@ class landingScreen extends StatelessWidget {
                         borderRadius: BorderRadius.all(Radius.circular(5))),
                     shadowColor: Colors.lightBlue,
                     ),
-                  onPressed: () {},
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen())),
                 )
               ],
             )

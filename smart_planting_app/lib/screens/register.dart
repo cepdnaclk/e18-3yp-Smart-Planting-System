@@ -11,6 +11,7 @@ class _FormScreenState extends State<registerScreen> {
   late String _name;
   late String _email;
   late String _password;
+  late String _confirmPwd;
   late int _mobile;
 
   Widget _buildNameField() {
@@ -18,7 +19,7 @@ class _FormScreenState extends State<registerScreen> {
       validator: (text) {
         return HelperValidator.nameValidate(text!);
       },
-      maxLength: 20,
+      maxLength: 50,
       maxLines: 1,
       decoration:
       const InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
@@ -30,7 +31,7 @@ class _FormScreenState extends State<registerScreen> {
 
   Widget _buildEmailField() {
     return TextFormField(
-      maxLength: 20,
+      maxLength: 50,
       validator: (text) {
         if (text!.isEmpty) {
           return "Please enter a valid email";
@@ -38,7 +39,7 @@ class _FormScreenState extends State<registerScreen> {
         return null;
       },
       decoration:
-      const InputDecoration(labelText: 'Email', hintText: 'Enter your email'),
+      const InputDecoration(labelText: 'Email', hintText: 'example@gmail.com'),
       onSaved: (value) {
         _email = value!;
       },
@@ -57,11 +58,36 @@ class _FormScreenState extends State<registerScreen> {
       },
       decoration: const InputDecoration(
           labelText: 'Password', hintText: 'Enter your password'),
+      onChanged: (value) {
+        _confirmPwd = value;
+      },
+      // onSaved: (value) {
+      //   _password = value!;
+      // },
+    );
+  }
+
+  Widget _buildConfirmPasswordField() {
+    return TextFormField(
+      obscureText: true,
+      maxLength: 10,
+      validator: (text) {
+        if (text!.isEmpty) {
+          return "Please enter a password";
+        }
+        else if (_confirmPwd == text) {
+          return "Password is incorrect";
+        }
+        return null;
+      },
+      decoration: const InputDecoration(
+          labelText: 'Confirm Password', hintText: 'Re-type your password'),
       onSaved: (value) {
         _password = value!;
       },
     );
   }
+
 
   Widget _buildMobileNumberField() {
     return TextFormField(
@@ -86,6 +112,7 @@ class _FormScreenState extends State<registerScreen> {
     return Scaffold(
       body: SingleChildScrollView(
         child: Container(
+          color: Colors.white,
           margin: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
@@ -93,31 +120,40 @@ class _FormScreenState extends State<registerScreen> {
               children: <Widget>[
                 const SizedBox(height: 50,),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: _buildNameField(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: _buildEmailField(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
                   child: _buildPasswordField(),
                 ),
                 Padding(
-                  padding: const EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(5.0),
+                  child: _buildConfirmPasswordField(),
+                ),
+                Padding(
+                  padding: const EdgeInsets.all(5.0),
                   child: _buildMobileNumberField(),
                 ),
                 const SizedBox(height: 50),
                 Container(
-                  width: 150,
                   child: ElevatedButton(
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.black,
+                      minimumSize: Size(150.0, 40.0),
+                      //side: BorderSide(color: Colors.yellow, width: 5),
+                      textStyle: const TextStyle(
+                          color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
+                      shape: BeveledRectangleBorder(
+                          borderRadius: BorderRadius.all(Radius.circular(5))),
+                      shadowColor: Colors.lightBlue,
+                    ),
                     child: const Text(
                       'Register',
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontSize: 20.0,
-                      ),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

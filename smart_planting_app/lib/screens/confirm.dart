@@ -1,19 +1,18 @@
 import 'package:flutter/material.dart';
 
-class loginScreen extends StatefulWidget {
+class confirmScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<loginScreen> {
+class _FormScreenState extends State<confirmScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  late String _email;
-  late String _password;
+  late int _code;
 
-  Widget _buildEmailField() {
+  Widget _buildConfirmEmailField() {
     return TextFormField(
-      maxLength: 50,
+      maxLength: 4,
       validator: (text) {
         if (text!.isEmpty) {
           return "Please enter a valid email";
@@ -27,25 +26,6 @@ class _FormScreenState extends State<loginScreen> {
       },
     );
   }
-
-  Widget _buildPasswordField() {
-    return TextFormField(
-      obscureText: true,
-      maxLength: 10,
-      validator: (text) {
-        if (text!.isEmpty) {
-          return "Please enter a password";
-        }
-        return null;
-      },
-      decoration: const InputDecoration(
-          labelText: 'Password', hintText: 'Enter your password'),
-      onSaved: (value) {
-        _password = value!;
-      },
-    );
-  }
-
 
   @override
   Widget build(BuildContext context) {
@@ -65,10 +45,6 @@ class _FormScreenState extends State<loginScreen> {
                   padding: const EdgeInsets.all(5.0),
                   child: _buildEmailField(),
                 ),
-                Padding(
-                  padding: const EdgeInsets.all(5.0),
-                  child: _buildPasswordField(),
-                ),
                 const SizedBox(height: 50),
                 Container(
                   child: ElevatedButton(
@@ -83,7 +59,7 @@ class _FormScreenState extends State<loginScreen> {
                       shadowColor: Colors.lightBlue,
                     ),
                     child: const Text(
-                      'Login',
+                      'Confirm',
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {

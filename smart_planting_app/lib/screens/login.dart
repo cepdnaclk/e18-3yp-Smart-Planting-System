@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/confirm.dart';
 
 class loginScreen extends StatefulWidget {
   @override
@@ -70,33 +71,21 @@ class _FormScreenState extends State<loginScreen> {
                   child: _buildPasswordField(),
                 ),
                 const SizedBox(height: 50),
-                Container(
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      minimumSize: Size(150.0, 40.0),
-                      //side: BorderSide(color: Colors.yellow, width: 5),
-                      textStyle: const TextStyle(
-                          color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      shadowColor: Colors.lightBlue,
-                    ),
-                    child: const Text(
-                      'Login',
-                    ),
-                    onPressed: () {
-                      if (_formKey.currentState!.validate()) {
-                        print('valid form');
-                        _formKey.currentState!.save();
-                      } else {
-                        print('not valid form');
-
-                        return;
-                      }
-                    },
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    primary: Colors.black,
+                    minimumSize: Size(150.0, 40.0),
+                    //side: BorderSide(color: Colors.yellow, width: 5),
+                    textStyle: const TextStyle(
+                        color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
+                    shape: BeveledRectangleBorder(
+                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shadowColor: Colors.lightBlue,
                   ),
-                ),
+                  child: const Text(
+                    'Login',
+                  ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()))),
               ],
             ),
           ),

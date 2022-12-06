@@ -13,16 +13,20 @@ class _FormScreenState extends State<confirmScreen> {
   Widget _buildConfirmEmailField() {
     return TextFormField(
       maxLength: 4,
+      keyboardType: TextInputType.number,
+      cursorHeight: 30,
       validator: (text) {
         if (text!.isEmpty) {
-          return "Please enter a valid email";
+          return "Please enter the code";
         }
         return null;
       },
       decoration:
-      const InputDecoration(labelText: 'Email', hintText: 'example@gmail.com'),
+      const InputDecoration(
+          labelText: 'Confirm Your Email',
+          labelStyle: TextStyle(fontSize: 20,)),
       onSaved: (value) {
-        _email = value!;
+        _code = value as int;
       },
     );
   }
@@ -43,7 +47,7 @@ class _FormScreenState extends State<confirmScreen> {
                 const SizedBox(height: 50,),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
-                  child: _buildEmailField(),
+                  child: _buildConfirmEmailField(),
                 ),
                 const SizedBox(height: 50),
                 Container(

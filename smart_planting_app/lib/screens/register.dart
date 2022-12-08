@@ -75,7 +75,7 @@ class _FormScreenState extends State<registerScreen> {
         if (text!.isEmpty) {
           return "Please enter a password";
         }
-        else if (_confirmPwd == text) {
+        else if (text != _confirmPwd) {
           return "Password is incorrect";
         }
         return null;

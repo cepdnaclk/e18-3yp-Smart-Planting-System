@@ -1,4 +1,10 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
+
+import 'profile_widget.dart';
 
 class registerScreen extends StatefulWidget {
   @override
@@ -7,6 +13,19 @@ class registerScreen extends StatefulWidget {
 
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  File? image;
+
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+        print('Failed to pick image: $e');
+      }
+    }
 
   late String _name;
   late String _email;
@@ -22,7 +41,7 @@ class _FormScreenState extends State<registerScreen> {
       maxLength: 50,
       maxLines: 1,
       decoration:
-      const InputDecoration(labelText: 'Name', hintText: 'Enter your full name'),
+      const InputDecoration(labelText: 'Name', hintText: 'Enter your full name', ),
       onSaved: (value) {
         _name = value!;
       },
@@ -75,7 +94,7 @@ class _FormScreenState extends State<registerScreen> {
         if (text!.isEmpty) {
           return "Please enter a password";
         }
-        else if (_confirmPwd == text) {
+        else if (text != _confirmPwd) {
           return "Password is incorrect";
         }
         return null;
@@ -87,7 +106,6 @@ class _FormScreenState extends State<registerScreen> {
       },
     );
   }
-
 
   Widget _buildMobileNumberField() {
     return TextFormField(
@@ -110,14 +128,21 @@ class _FormScreenState extends State<registerScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          color: Colors.white,
+          //color: Colors.white,
           margin: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
             child: Column(
               children: <Widget>[
+                image != null
+                    ? ProfileWidget(
+                        image: image!,
+                        onClicked: (source) => pickImage(source)
+                    )
+                    : FlutterLogo(size: 100),
                 const SizedBox(height: 50,),
                 Padding(
                   padding: const EdgeInsets.all(5.0),

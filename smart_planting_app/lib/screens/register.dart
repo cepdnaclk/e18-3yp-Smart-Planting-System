@@ -4,6 +4,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 
+import 'profile_widget.dart';
+
 class registerScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
@@ -24,7 +26,7 @@ class _FormScreenState extends State<registerScreen> {
         print('Failed to pick image: $e');
       }
     }
-  
+
   late String _name;
   late String _email;
   late String _password;
@@ -135,7 +137,7 @@ class _FormScreenState extends State<registerScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                image: image!,
+                image != null
                     ? ProfileWidget(
                         image: image!,
                         onClicked: (source) => pickImage(source)

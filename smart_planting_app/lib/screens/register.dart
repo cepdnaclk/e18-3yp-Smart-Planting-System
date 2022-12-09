@@ -88,7 +88,6 @@ class _FormScreenState extends State<registerScreen> {
     );
   }
 
-
   Widget _buildMobileNumberField() {
     return TextFormField(
       maxLength: 10,

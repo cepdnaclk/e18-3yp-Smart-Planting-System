@@ -1,4 +1,8 @@
+import 'dart:io';
+
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
+import 'package:image_picker/image_picker.dart';
 
 class registerScreen extends StatefulWidget {
   @override
@@ -7,7 +11,20 @@ class registerScreen extends StatefulWidget {
 
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  File? image;
 
+  Future pickImage(ImageSource source) async {
+    try {
+      final image = await ImagePicker().pickImage(source: source);
+      if (image == null) return;
+
+      final imageTemp = File(image.path);
+      setState(() => this.image = imageTemp);
+    } on PlatformException catch (e) {
+        print('Failed to pick image: $e');
+      }
+    }
+  
   late String _name;
   late String _email;
   late String _password;
@@ -118,6 +135,12 @@ class _FormScreenState extends State<registerScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
+                image: image!,
+                    ? ProfileWidget(
+                        image: image!,
+                        onClicked: (source) => pickImage(source)
+                    )
+                    : FlutterLogo(size: 100),
                 const SizedBox(height: 50,),
                 Padding(
                   padding: const EdgeInsets.all(5.0),

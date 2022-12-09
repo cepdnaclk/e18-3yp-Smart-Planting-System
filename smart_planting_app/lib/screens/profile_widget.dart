@@ -65,4 +65,5 @@ class ProfileWidget extends StatelessWidget {
  Widget buildEdition(Color color) {
 
  }
+
 }

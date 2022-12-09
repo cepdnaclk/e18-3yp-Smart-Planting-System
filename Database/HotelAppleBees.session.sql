@@ -8,4 +8,4 @@ CREATE TABLE IF NOT EXISTS user_table(
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 
 INSERT INTO user_table
-VALUES(0, 1, 0, null, 0),x
+VALUES(0, 1, 0, null, 0),

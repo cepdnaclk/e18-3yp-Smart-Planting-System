@@ -198,9 +198,10 @@ class _FormScreenState extends State<registerScreen> {
                       height: 130,
                       width: 130,
                       child: InkWell(
-                        onTap: () async {
-                          final source = await showImageSource(context);
-                          if (source == null) return;
+                        onTap: () {
+                          setState(() {
+
+                          });
                         },
                       ),
                     ),

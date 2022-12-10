@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -7,6 +8,8 @@ import 'package:image_picker/image_picker.dart';
 import 'profile_widget.dart';
 
 class registerScreen extends StatefulWidget {
+  const registerScreen({super.key});
+
   @override
   _FormScreenState createState() => _FormScreenState();
 }
@@ -125,6 +128,47 @@ class _FormScreenState extends State<registerScreen> {
     );
   }
 
+  Future<Future> showImageSource(BuildContext context) async {
+    if(Platform.isIOS) {
+      return showCupertinoModalPopup(
+          context: context,
+          builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+                  child: const Text('Camera')
+              ),
+              CupertinoActionSheetAction(
+                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+                child: const Text('Gallery'),
+              )
+            ],
+          )
+      );
+    }
+    else {
+      return showModalBottomSheet(
+          context: context,
+          builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () => Navigator.of(context).pop(ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+              )
+            ],
+          )
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -137,13 +181,32 @@ class _FormScreenState extends State<registerScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                image != null
-                    ? ProfileWidget(
+                const SizedBox(height: 50,),
+                if (image != null)
+                  ProfileWidget(
                         image: image!,
                         onClicked: (source) => pickImage(source)
                     )
-                    : FlutterLogo(size: 100),
-                const SizedBox(height: 50,),
+                else ClipOval(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Ink.image(
+                        image: const NetworkImage(
+                          'https://as2.ftcdn.net/v2/jpg/02/39/27/77/1000_F_239277786_ECErblLv6fA7Rx7SUvzso9MQyhWOg8ik.jpg'
+                        ),
+                      fit: BoxFit.cover,
+                      height: 130,
+                      width: 130,
+                      child: InkWell(
+                        onTap: () {
+                          setState(() {
+
+                          });
+                        },
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: _buildNameField(),
@@ -169,11 +232,11 @@ class _FormScreenState extends State<registerScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
-                      minimumSize: Size(150.0, 40.0),
+                      minimumSize: const Size(150.0, 40.0),
                       //side: BorderSide(color: Colors.yellow, width: 5),
                       textStyle: const TextStyle(
                           color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
+                      shape: const BeveledRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       shadowColor: Colors.lightBlue,
                     ),

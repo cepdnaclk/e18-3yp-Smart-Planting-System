@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -127,6 +128,47 @@ class _FormScreenState extends State<registerScreen> {
     );
   }
 
+  Future<Future> showImageSource(BuildContext context) async {
+    if(Platform.isIOS) {
+      return showCupertinoModalPopup(
+          context: context,
+          builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+                  child: const Text('Camera')
+              ),
+              CupertinoActionSheetAction(
+                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+                child: const Text('Gallery'),
+              )
+            ],
+          )
+      );
+    }
+    else {
+      return showModalBottomSheet(
+          context: context,
+          builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () => Navigator.of(context).pop(ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+              )
+            ],
+          )
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -139,14 +181,31 @@ class _FormScreenState extends State<registerScreen> {
             key: _formKey,
             child: Column(
               children: <Widget>[
-                image != null
-                    ? ProfileWidget(
+                const SizedBox(height: 50,),
+                if (image != null)
+                  ProfileWidget(
                         image: image!,
                         onClicked: (source) => pickImage(source)
                     )
-                    : Ink.image(
-                    image: Image.asset('asset/profile.jpg')),
-                const SizedBox(height: 50,),
+                else ClipOval(
+                  child: Material(
+                    color: Colors.transparent,
+                    child: Ink.image(
+                        image: const NetworkImage(
+                          'https://as2.ftcdn.net/v2/jpg/02/39/27/77/1000_F_239277786_ECErblLv6fA7Rx7SUvzso9MQyhWOg8ik.jpg'
+                        ),
+                      fit: BoxFit.cover,
+                      height: 130,
+                      width: 130,
+                      child: InkWell(
+                        onTap: () async {
+                          final source = await showImageSource(context);
+                          if (source == null) return;
+                        },
+                      ),
+                    ),
+                  ),
+                ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: _buildNameField(),

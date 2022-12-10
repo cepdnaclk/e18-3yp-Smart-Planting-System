@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'profile_widget.dart';
 
 class registerScreen extends StatefulWidget {
+  const registerScreen({super.key});
+
   @override
   _FormScreenState createState() => _FormScreenState();
 }
@@ -142,7 +144,8 @@ class _FormScreenState extends State<registerScreen> {
                         image: image!,
                         onClicked: (source) => pickImage(source)
                     )
-                    : FlutterLogo(size: 100),
+                    : Ink.image(
+                    image: Image.asset('asset/profile.jpg')),
                 const SizedBox(height: 50,),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -169,11 +172,11 @@ class _FormScreenState extends State<registerScreen> {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                       primary: Colors.black,
-                      minimumSize: Size(150.0, 40.0),
+                      minimumSize: const Size(150.0, 40.0),
                       //side: BorderSide(color: Colors.yellow, width: 5),
                       textStyle: const TextStyle(
                           color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
+                      shape: const BeveledRectangleBorder(
                           borderRadius: BorderRadius.all(Radius.circular(5))),
                       shadowColor: Colors.lightBlue,
                     ),

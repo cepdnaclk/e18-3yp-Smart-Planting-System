@@ -110,3 +110,28 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- Update Password. Return userID
+DELIMITER //
+
+CREATE PROCEDURE UpdatePassword(IN uEmail VARCHAR(100), IN uPassword VARCHAR(100), IN newDate DATETIME)
+
+BEGIN
+    DECLARE newUserID INT;
+    DECLARE entryCount INT;
+
+    SELECT userID INTO newUserID FROM user_table WHERE user_table.email = uEmail;
+
+    SELECT COUNT(*) INTO entryCount FROM password_table WHERE password_table.userID = newUserID;
+
+    IF entryCount = 0 THEN
+        INSERT INTO password_table(userID, userPassword, createDate) VALUES (newUserID, uPassword, joinDate);
+    ELSEIF entryCount = 1 THEN
+        UPDATE password_table SET password_table.userPassword = uPassword, password_table.createDate = newDate WHERE password_table.userID = newUserID;
+    END IF;
+
+    SELECT userID FROM user_table WHERE user_table.email = uEmail;
+
+END//
+
+DELIMITER ;

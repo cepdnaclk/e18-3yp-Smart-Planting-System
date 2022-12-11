@@ -74,3 +74,39 @@ ADD FOREIGN KEY (userID) REFERENCES user_table(userID);
 ALTER TABLE user_table AUTO_INCREMENT = 1001;
 ALTER TABLE plant_owner_table AUTO_INCREMENT = 10001;
 ALTER TABLE plants_status_table AUTO_INCREMENT = 1;
+
+
+/* Stored procedures for add data into tables. */
+
+-- Stored procedure to add data into user table password
+-- If user exists, return -1, if a new user: return new userID
+DELIMITER //
+
+CREATE PROCEDURE AddUser(IN uName VARCHAR(100), IN uEmail VARCHAR(100), IN uMobile INT, IN uPassword VARCHAR(100), IN jDate DATETIME)
+
+BEGIN
+    DECLARE newUserID INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM user_table WHERE user_table.email = uEmail;
+
+    IF entryCount > 0 THEN
+        SELECT -1 AS userID;
+    ELSE 
+        BEGIN
+            INSERT INTO user_table (userName, email, mobileNo, joinDate)
+            VALUES (uName, uEmail, uMobile, jDate);
+
+            SELECT userID INTO newUserID FROM user_table WHERE user_table.email = uEmail;
+
+            INSERT INTO password_table(userID, userPassword, createDate)
+            VALUES (newUserID, uPassword, jDate);
+
+            SELECT userID FROM user_table WHERE user_table.email = uEmail;
+        END;
+
+    END IF;
+
+END//
+
+DELIMITER ;

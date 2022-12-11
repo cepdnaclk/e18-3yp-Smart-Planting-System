@@ -166,3 +166,75 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- Get next plant ID from plant database table
+DELIMITER //
+
+CREATE PROCEDURE NextPlantID()
+
+BEGIN
+    DECLARE plantID VARCHAR(5);
+    DECLARE lastID VARCHAR(5);
+    DECLARE nextID VARCHAR(5);
+    DECLARE lastIDInt INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM plants_database_table;
+
+    IF entryCount = 0 THEN
+        SELECT 'P0001' AS plantID;
+    ELSE 
+        BEGIN
+            SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
+            SELECT SUBSTR(lastID, 2) INTO lastID;
+            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SET lastIDInt = lastIDInt + 1;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT CONCAT('P', nextID) INTO nextID;
+            SELECT nextID;
+        END;
+
+    END IF;
+
+END//
+
+DELIMITER ;
+
+-- Add new plant to plants database table
+DELIMITER //
+
+CREATE PROCEDURE AddPlantToDB(IN cName VARCHAR(150), IN sciName VARCHAR(200), IN pHeight INT,
+ IN pHabit VARCHAR(20), IN pGrowth VARCHAR(1), IN pShade VARCHAR(3), IN pSoil VARCHAR(3), IN pSoilMoist VARCHAR(4),
+ IN pMinTemp INT, IN pMaxTemp INT, IN pMinPH DECIMAL(2, 1), IN pMaxPH DECIMAL(2, 1), IN pEdible BOOLEAN)
+
+BEGIN
+    DECLARE plantID VARCHAR(5);
+    DECLARE lastID VARCHAR(5);
+    DECLARE nextID VARCHAR(5);
+    DECLARE lastIDInt INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM plants_database_table;
+
+    IF entryCount = 0 THEN
+        SELECT 'P0001' INTO nextID;
+    ELSE 
+        BEGIN
+            SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
+            SELECT SUBSTR(lastID, 2) INTO lastID;
+            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SET lastIDInt = lastIDInt + 1;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT CONCAT('P', nextID) INTO nextID;
+        END;
+
+    END IF;
+
+    INSERT INTO plants_database_table(plantTypeID, commonName, scientificName, height, habit, growth, shade, soil, soilMoisture, minTemp, maxTemp, minPH, maxPH, edible)
+    VALUES(nextID, cName, sciName, pHeight,pHabit, pGrowth, pShade, pSoil, pSoilMoist, pMinTemp, pMaxTemp, pMinPH, pMaxPH, pEdible);
+    
+    SELECT nextID;
+
+END//
+
+DELIMITER ;

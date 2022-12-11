@@ -53,3 +53,24 @@ CREATE TABLE IF NOT EXISTS plants_status_table(
     waterLevel DECIMAL(3, 2),
     lightIntensity DECIMAL(3, 2)
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
+
+/* Add foreign keys */
+ALTER TABLE password_table
+ADD FOREIGN KEY (userID) REFERENCES user_table(userID);
+
+ALTER TABLE plant_owner_table
+ADD FOREIGN KEY (userID) REFERENCES user_table(userID);
+
+ALTER TABLE plant_owner_table
+ADD FOREIGN KEY (plantTypeID) REFERENCES plants_database_table(plantTypeID);
+
+ALTER TABLE plants_status_table
+ADD FOREIGN KEY (plantID) REFERENCES plant_owner_table(plantID);
+
+ALTER TABLE password_table
+ADD FOREIGN KEY (userID) REFERENCES user_table(userID);
+
+-- Auto increment values
+ALTER TABLE user_table AUTO_INCREMENT = 1001;
+ALTER TABLE plant_owner_table AUTO_INCREMENT = 10001;
+ALTER TABLE plants_status_table AUTO_INCREMENT = 1;

@@ -135,3 +135,34 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- Add Plant to a user
+DELIMITER //
+
+CREATE PROCEDURE AddPlantUser(IN uEmail VARCHAR(100), IN pTypeID VARCHAR(5), IN addDate DATETIME)
+
+BEGIN
+    DECLARE newUserID INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM user_table WHERE user_table.email = uEmail;
+
+    IF entryCount = 0 THEN
+        SELECT -1 AS plantID;
+    ELSE 
+        BEGIN
+
+            SELECT userID INTO newUserID FROM user_table WHERE user_table.email = uEmail;
+
+            INSERT INTO plant_owner_table(userID, plantTypeID, addedDate)
+            VALUES (newUserID, pTypeID, addDate);
+
+            SELECT plantID FROM plant_owner_table ORDER BY userID DESC LIMIT 1;
+
+        END;
+
+    END IF;
+
+END//
+
+DELIMITER ;

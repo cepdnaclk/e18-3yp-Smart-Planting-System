@@ -238,3 +238,10 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- Populate tables
+CALL AddUser('Osmond Platt','osm.plat@acusage.net', 942946008, 'abc123', '2022-12-01 08:22:13');
+CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', 6774368358, 'abcd1234', '2022-11-20 13:00:13');
+CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', 5549549421, 'tavish999', '2022-12-05 00:55:10');
+CALL AddUser('Girija Aron','giriaro@acusage.net', 6963116836, '9876', '2022-11-30 05:20:45');
+CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', 914749490, '123456abcdef', '2022-12-02 15:35:10');

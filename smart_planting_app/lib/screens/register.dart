@@ -185,7 +185,8 @@ class _FormScreenState extends State<registerScreen> {
                 if (image != null)
                   ProfileWidget(
                         image: image!,
-                        onClicked: (source) => pickImage(source)
+                        onClicked: (source) => pickImage(source),
+                        imagePath: '',
                     )
                 else ClipOval(
                   child: Material(

@@ -166,3 +166,82 @@ BEGIN
 END//
 
 DELIMITER ;
+
+-- Get next plant ID from plant database table
+DELIMITER //
+
+CREATE PROCEDURE NextPlantID()
+
+BEGIN
+    DECLARE plantID VARCHAR(5);
+    DECLARE lastID VARCHAR(5);
+    DECLARE nextID VARCHAR(5);
+    DECLARE lastIDInt INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM plants_database_table;
+
+    IF entryCount = 0 THEN
+        SELECT 'P0001' AS plantID;
+    ELSE 
+        BEGIN
+            SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
+            SELECT SUBSTR(lastID, 2) INTO lastID;
+            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SET lastIDInt = lastIDInt + 1;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT CONCAT('P', nextID) INTO nextID;
+            SELECT nextID;
+        END;
+
+    END IF;
+
+END//
+
+DELIMITER ;
+
+-- Add new plant to plants database table
+DELIMITER //
+
+CREATE PROCEDURE AddPlantToDB(IN cName VARCHAR(150), IN sciName VARCHAR(200), IN pHeight INT,
+ IN pHabit VARCHAR(20), IN pGrowth VARCHAR(1), IN pShade VARCHAR(3), IN pSoil VARCHAR(3), IN pSoilMoist VARCHAR(4),
+ IN pMinTemp INT, IN pMaxTemp INT, IN pMinPH DECIMAL(2, 1), IN pMaxPH DECIMAL(2, 1), IN pEdible BOOLEAN)
+
+BEGIN
+    DECLARE plantID VARCHAR(5);
+    DECLARE lastID VARCHAR(5);
+    DECLARE nextID VARCHAR(5);
+    DECLARE lastIDInt INT;
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM plants_database_table;
+
+    IF entryCount = 0 THEN
+        SELECT 'P0001' INTO nextID;
+    ELSE 
+        BEGIN
+            SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
+            SELECT SUBSTR(lastID, 2) INTO lastID;
+            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SET lastIDInt = lastIDInt + 1;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT CONCAT('P', nextID) INTO nextID;
+        END;
+
+    END IF;
+
+    INSERT INTO plants_database_table(plantTypeID, commonName, scientificName, height, habit, growth, shade, soil, soilMoisture, minTemp, maxTemp, minPH, maxPH, edible)
+    VALUES(nextID, cName, sciName, pHeight,pHabit, pGrowth, pShade, pSoil, pSoilMoist, pMinTemp, pMaxTemp, pMinPH, pMaxPH, pEdible);
+    
+    SELECT nextID;
+
+END//
+
+DELIMITER ;
+
+-- Populate tables
+CALL AddUser('Osmond Platt','osm.plat@acusage.net', 942946008, 'abc123', '2022-12-01 08:22:13');
+CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', 6774368358, 'abcd1234', '2022-11-20 13:00:13');
+CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', 5549549421, 'tavish999', '2022-12-05 00:55:10');
+CALL AddUser('Girija Aron','giriaro@acusage.net', 6963116836, '9876', '2022-11-30 05:20:45');
+CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', 914749490, '123456abcdef', '2022-12-02 15:35:10');

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/confirm.dart';
 
+import 'user_profile.dart';
+
 class loginScreen extends StatefulWidget {
   @override
   _FormScreenState createState() => _FormScreenState();
@@ -85,7 +87,7 @@ class _FormScreenState extends State<loginScreen> {
                   child: const Text(
                     'Login',
                   ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()))),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => profileScreen()))),
               ],
             ),
           ),

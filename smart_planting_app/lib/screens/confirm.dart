@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/plant.dart';
 
 class confirmScreen extends StatefulWidget {
   @override
@@ -53,21 +54,22 @@ class _FormScreenState extends State<confirmScreen> {
                 Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      minimumSize: Size(150.0, 40.0),
+                      primary: Colors.white,
+                      minimumSize: const Size(120.0, 40.0),
                       //side: BorderSide(color: Colors.yellow, width: 5),
                       textStyle: const TextStyle(
-                          color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                      shape: BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      shadowColor: Colors.lightBlue,
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
+                      shadowColor: Colors.black,
                     ),
                     child: const Text(
                       'Confirm',
+                      style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const plantScreen()));
                         _formKey.currentState!.save();
                       } else {
                         print('not valid form');

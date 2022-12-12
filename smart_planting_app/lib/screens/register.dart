@@ -4,6 +4,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_planting_app/screens/confirm.dart';
 
 import 'profile_widget.dart';
 
@@ -16,7 +17,7 @@ class registerScreen extends StatefulWidget {
 
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  File? image;
+  File image = File('asset/profile.png');
 
   Future pickImage(ImageSource source) async {
     try {
@@ -29,6 +30,47 @@ class _FormScreenState extends State<registerScreen> {
         print('Failed to pick image: $e');
       }
     }
+
+  Future<ImageSource?> showImageSource(BuildContext context) async {
+    if(Platform.isIOS) {
+      return showCupertinoModalPopup<ImageSource>(
+          context: context,
+          builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+                  child: const Text('Camera')
+              ),
+              CupertinoActionSheetAction(
+                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+                child: const Text('Gallery'),
+              )
+            ],
+          )
+      );
+    }
+    else {
+      return showModalBottomSheet(
+          context: context,
+          builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () => Navigator.of(context).pop(ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+              )
+            ],
+          )
+      );
+    }
+  }
+
 
   late String _name;
   late String _email;
@@ -128,47 +170,6 @@ class _FormScreenState extends State<registerScreen> {
     );
   }
 
-  Future<Future> showImageSource(BuildContext context) async {
-    if(Platform.isIOS) {
-      return showCupertinoModalPopup(
-          context: context,
-          builder: (context) => CupertinoActionSheet(
-            actions: [
-              CupertinoActionSheetAction(
-                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
-                  child: const Text('Camera')
-              ),
-              CupertinoActionSheetAction(
-                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
-                child: const Text('Gallery'),
-              )
-            ],
-          )
-      );
-    }
-    else {
-      return showModalBottomSheet(
-          context: context,
-          builder: (context) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.camera_alt),
-                title: const Text('Camera'),
-                onTap: () => Navigator.of(context).pop(ImageSource.camera),
-              ),
-              ListTile(
-                leading: const Icon(Icons.image),
-                title: const Text('Gallery'),
-                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
-              )
-            ],
-          )
-      );
-    }
-  }
-
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -184,9 +185,8 @@ class _FormScreenState extends State<registerScreen> {
                 const SizedBox(height: 50,),
                 if (image != null)
                   ProfileWidget(
-                        image: image!,
+                        image: image,
                         onClicked: (source) => pickImage(source),
-                        imagePath: '',
                     )
                 else ClipOval(
                   child: Material(
@@ -200,10 +200,8 @@ class _FormScreenState extends State<registerScreen> {
                       width: 130,
                       child: InkWell(
                         onTap: () {
-                          setState(() {
-
-                          });
-                        },
+                          ProfileWidget(image: image, onClicked: (source) => pickImage(source),);
+                        }
                       ),
                     ),
                   ),
@@ -232,21 +230,22 @@ class _FormScreenState extends State<registerScreen> {
                 Container(
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
-                      primary: Colors.black,
-                      minimumSize: const Size(150.0, 40.0),
+                      primary: Colors.white,
+                      minimumSize: const Size(120.0, 40.0),
                       //side: BorderSide(color: Colors.yellow, width: 5),
                       textStyle: const TextStyle(
-                          color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                      shape: const BeveledRectangleBorder(
-                          borderRadius: BorderRadius.all(Radius.circular(5))),
-                      shadowColor: Colors.lightBlue,
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
+                      shadowColor: Colors.black,
                     ),
                     child: const Text(
-                      'Register',
+                      'Sign up',
+                      style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()));
                         _formKey.currentState!.save();
                       } else {
                         print('not valid form');

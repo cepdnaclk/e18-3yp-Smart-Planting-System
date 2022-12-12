@@ -6,13 +6,12 @@ import 'package:image_picker/image_picker.dart';
 class ProfileWidget extends StatelessWidget {
   final File? image;
   final ValueChanged<ImageSource> onClicked;
-  final String imagePath;
+  //final String imagePath;
 
   const ProfileWidget(
       {Key? key,
         required this.image,
         required this.onClicked,
-        required this.imagePath,
       }) : super(key: key);
 
   @override
@@ -37,19 +36,27 @@ class ProfileWidget extends StatelessWidget {
     final String imagePath;
     final Object image;
 
-    if(this.image == null) {
-      imagePath = this.imagePath;
-      image = NetworkImage(imagePath);
-    }
-    else{
-      imagePath = this.image!.path;
+    imagePath = this.image!.path;
 
-      if (imagePath.contains('https://')) {
-        image = NetworkImage(imagePath);
-      } else {
-        image = FileImage(File(imagePath));
-      }
+    if (imagePath.contains('https://')) {
+      image = NetworkImage(imagePath);
+    } else {
+      image = FileImage(File(imagePath));
     }
+
+    // if(this.image == null) {
+    //   imagePath = this.imagePath;
+    //   image = NetworkImage(imagePath);
+    // }
+    // else{
+    //   imagePath = this.image!.path;
+    //
+    //   if (imagePath.contains('https://')) {
+    //     image = NetworkImage(imagePath);
+    //   } else {
+    //     image = FileImage(File(imagePath));
+    //   }
+    // }
     
     return ClipOval(
       child: Material(
@@ -63,6 +70,8 @@ class ProfileWidget extends StatelessWidget {
               onTap: () async {
                 final source = await showImageSource(context);
                 if (source == null) return;
+
+                onClicked(source);
               }
           ),
         ),
@@ -95,9 +104,9 @@ class ProfileWidget extends StatelessWidget {
        ),
      );
 
-  Future<Future> showImageSource(BuildContext context) async {
+  Future<ImageSource?> showImageSource(BuildContext context) async {
     if(Platform.isIOS) {
-      return showCupertinoModalPopup(
+      return showCupertinoModalPopup<ImageSource>(
           context: context,
           builder: (context) => CupertinoActionSheet(
             actions: [

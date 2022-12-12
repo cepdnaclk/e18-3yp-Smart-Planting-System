@@ -31,8 +31,7 @@ class landingScreen extends StatelessWidget {
                     //side: BorderSide(color: Colors.yellow, width: 5),
                     textStyle: const TextStyle(
                         color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shape: StadiumBorder(),
                     shadowColor: Colors.lightBlue,
                   ),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => registerScreen())),
@@ -46,8 +45,7 @@ class landingScreen extends StatelessWidget {
                     //side: BorderSide(color: Colors.yellow, width: 5),
                     textStyle: const TextStyle(
                         color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
+                    shape: StadiumBorder(),
                     shadowColor: Colors.lightBlue,
                     ),
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen())),

@@ -1,4 +1,6 @@
 -- Create the database
+DROP DATABASE smart_planting_system;
+
 CREATE DATABASE smart_planting_system;
 
 USE smart_planting_system;
@@ -7,7 +9,7 @@ CREATE TABLE IF NOT EXISTS user_table(
     userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     userName VARCHAR(100) NOT NULL,
     email VARCHAR(100) UNIQUE,
-    mobileNo INT,
+    mobileNo VARCHAR(15),
     joinDate DATETIME,
     profileImg LONGBLOB
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
@@ -82,7 +84,7 @@ ALTER TABLE plants_status_table AUTO_INCREMENT = 1;
 -- If user exists, return -1, if a new user: return new userID
 DELIMITER //
 
-CREATE PROCEDURE AddUser(IN uName VARCHAR(100), IN uEmail VARCHAR(100), IN uMobile INT, IN uPassword VARCHAR(100), IN jDate DATETIME)
+CREATE PROCEDURE AddUser(IN uName VARCHAR(100), IN uEmail VARCHAR(100), IN uMobile VARCHAR(15), IN uPassword VARCHAR(100), IN jDate DATETIME)
 
 BEGIN
     DECLARE newUserID INT;
@@ -187,9 +189,9 @@ BEGIN
         BEGIN
             SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
             SELECT SUBSTR(lastID, 2) INTO lastID;
-            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SELECT CAST(lastID AS SIGNED) INTO lastIDInt;
             SET lastIDInt = lastIDInt + 1;
-            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR)), 4) INTO nextID;
             SELECT CONCAT('P', nextID) INTO nextID;
             SELECT nextID;
         END;
@@ -222,9 +224,9 @@ BEGIN
         BEGIN
             SELECT plantTypeID INTO lastID FROM plants_database_table ORDER BY plantTypeID DESC LIMIT 1;
             SELECT SUBSTR(lastID, 2) INTO lastID;
-            SELECT CAST(lastID AS INT) INTO lastIDInt;
+            SELECT CAST(lastID AS SIGNED) INTO lastIDInt;
             SET lastIDInt = lastIDInt + 1;
-            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS VARCHAR(4))), 4) INTO nextID;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR)), 4) INTO nextID;
             SELECT CONCAT('P', nextID) INTO nextID;
         END;
 
@@ -240,8 +242,8 @@ END//
 DELIMITER ;
 
 -- Populate tables
-CALL AddUser('Osmond Platt','osm.plat@acusage.net', 942946008, 'abc123', '2022-12-01 08:22:13');
-CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', 6774368358, 'abcd1234', '2022-11-20 13:00:13');
-CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', 5549549421, 'tavish999', '2022-12-05 00:55:10');
-CALL AddUser('Girija Aron','giriaro@acusage.net', 6963116836, '9876', '2022-11-30 05:20:45');
-CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', 914749490, '123456abcdef', '2022-12-02 15:35:10');
+CALL AddUser('Osmond Platt','osm.plat@acusage.net', '+942946008', 'abc123', '2022-12-01 08:22:13');
+CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', '+6774368358', 'abcd1234', '2022-11-20 13:00:13');
+CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', '+5549549421', 'tavish999', '2022-12-05 00:55:10');
+CALL AddUser('Girija Aron','giriaro@acusage.net', '+66963116836', '9876', '2022-11-30 05:20:45');
+CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', '+914749490', '123456abcdef', '2022-12-02 15:35:10');

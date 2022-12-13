@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_planting_app/screens/plant.dart';
+import 'package:smart_planting_app/screens/plant_page.dart';
 
 class confirmScreen extends StatefulWidget {
   @override

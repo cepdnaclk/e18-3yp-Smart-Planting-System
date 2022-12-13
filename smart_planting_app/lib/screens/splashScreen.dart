@@ -12,7 +12,7 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
   @override
   void initState() {
     super.initState();
-    Timer(Duration(seconds: 60),
+    Timer(Duration(seconds: 4),
             ()=>Navigator.pushReplacement(context,
             MaterialPageRoute(builder:
                 (context) =>

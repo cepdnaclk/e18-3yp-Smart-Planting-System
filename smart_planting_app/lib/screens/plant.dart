@@ -1,20 +1,14 @@
-import 'package:flutter/material.dart';
+class Plant{
+  final String imagePath;
+  final String name;
+  final String scientificName;
+  final String about;
 
-class plantScreen extends StatefulWidget {
-  const plantScreen({Key? key}) : super(key: key);
+  User({
+    required this.imagePath,
+    required this.name,
+    required this.email,
+    required this.about,
+  });
 
-  @override
-  State<plantScreen> createState() => _plantScreenState();
-}
-
-class _plantScreenState extends State<plantScreen> {
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text(''),
-        centerTitle: true,
-      ),
-    );
-  }
 }

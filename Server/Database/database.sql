@@ -26,6 +26,8 @@ CREATE TABLE IF NOT EXISTS plant_owner_table(
     plantID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     userID INT NOT NULL,
     plantTypeID VARCHAR(5),
+    -- planted date
+    -- potID
     addedDate DATETIME
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 

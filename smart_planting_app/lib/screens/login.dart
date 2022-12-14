@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/confirm.dart';
+import 'package:smart_planting_app/screens/home.dart';
 
 import 'user_profile.dart';
 
@@ -75,19 +76,20 @@ class _FormScreenState extends State<loginScreen> {
                 const SizedBox(height: 50),
                 ElevatedButton(
                   style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(150.0, 40.0),
+                    primary: Colors.white,
+                    minimumSize: const Size(120.0, 40.0),
                     //side: BorderSide(color: Colors.yellow, width: 5),
                     textStyle: const TextStyle(
-                        color: Colors.white, fontSize: 20, fontStyle: FontStyle.normal),
-                    shape: BeveledRectangleBorder(
-                        borderRadius: BorderRadius.all(Radius.circular(5))),
-                    shadowColor: Colors.lightBlue,
+                        fontSize: 20, fontWeight: FontWeight.bold),
+                    shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
+                    shadowColor: Colors.black,
                   ),
-                  child: const Text(
-                    'Login',
-                  ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => profileScreen()))),
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()))
+                ),
               ],
             ),
           ),

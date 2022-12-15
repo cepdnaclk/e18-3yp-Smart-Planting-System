@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:smart_planting_app/screens/plant_page.dart';
+import 'package:smart_planting_app/screens/home.dart';
 
 class confirmScreen extends StatefulWidget {
   @override
@@ -69,7 +69,7 @@ class _FormScreenState extends State<confirmScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const plantScreen()));
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()));
                         _formKey.currentState!.save();
                       } else {
                         print('not valid form');

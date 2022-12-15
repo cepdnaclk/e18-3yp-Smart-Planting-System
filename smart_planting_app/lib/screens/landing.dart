@@ -24,32 +24,38 @@ class landingScreen extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  child: Text('Sign In'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300.0, 50.0),
-                    //side: BorderSide(color: Colors.yellow, width: 5),
-                    textStyle: const TextStyle(
-                        color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                    shape: StadiumBorder(),
-                    shadowColor: Colors.lightBlue,
-                  ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => registerScreen())),
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      minimumSize: const Size(300.0, 50.0),
+                      //side: BorderSide(color: Colors.yellow, width: 5),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
+                      shadowColor: Colors.black,
+                    ),
+                    child: const Text(
+                      'Sign up',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const registerScreen()))
                 ),
                 const SizedBox(height: 20,),
                 ElevatedButton(
-                  child: Text('Login'),
-                  style: ElevatedButton.styleFrom(
-                    primary: Colors.black,
-                    minimumSize: Size(300.0, 50.0),
-                    //side: BorderSide(color: Colors.yellow, width: 5),
-                    textStyle: const TextStyle(
-                        color: Colors.white, fontSize: 25, fontStyle: FontStyle.normal),
-                    shape: StadiumBorder(),
-                    shadowColor: Colors.lightBlue,
+                    style: ElevatedButton.styleFrom(
+                      primary: Colors.white,
+                      minimumSize: const Size(300.0, 50.0),
+                      //side: BorderSide(color: Colors.yellow, width: 5),
+                      textStyle: const TextStyle(
+                          fontSize: 20, fontWeight: FontWeight.bold),
+                      shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
+                      shadowColor: Colors.black,
                     ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen())),
-                )
+                    child: const Text(
+                      'Login',
+                      style: TextStyle(color: Colors.black),
+                    ),
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => loginScreen()))
+                ),
               ],
             )
           ],

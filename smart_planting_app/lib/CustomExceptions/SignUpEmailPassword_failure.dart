@@ -22,12 +22,19 @@ class SignUpWithEmailAndPasswordFailure {
 class LogInWithEmailAndPasswordFailure {
   final String message;
 
-  const LogInWithEmailAndPasswordFailure([this.message = "LogIn failed."]);
+  const LogInWithEmailAndPasswordFailure([this.message = "Log In failed."]);
 
   factory LogInWithEmailAndPasswordFailure.fromCode(String code) {
+    print(code);
     switch(code) {
-      case 'weak-password':
+      case 'wrong-password':
         return const LogInWithEmailAndPasswordFailure('Invalid password');
+      case 'too-many-requests':
+        return const LogInWithEmailAndPasswordFailure('Try again Later.');
+      case 'user-not-found':
+        return const LogInWithEmailAndPasswordFailure('User not found.');
+      case 'user-disabled':
+        return const LogInWithEmailAndPasswordFailure('This user has been disabled. Please contact support for help');
       default:
         return const LogInWithEmailAndPasswordFailure();
     }

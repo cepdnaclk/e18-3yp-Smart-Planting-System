@@ -4,9 +4,10 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_planting_app/screens/configs/register_config.dart';
 import 'package:smart_planting_app/screens/confirm.dart';
-
 import 'profile_widget.dart';
+import 'package:get/get.dart';
 
 class registerScreen extends StatefulWidget {
   const registerScreen({super.key});
@@ -17,6 +18,8 @@ class registerScreen extends StatefulWidget {
 
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final controller = Get.put(SignUpController());
+
   File? image;
 
   Future pickImage(ImageSource source) async {
@@ -80,6 +83,7 @@ class _FormScreenState extends State<registerScreen> {
 
   Widget _buildNameField() {
     return TextFormField(
+      controller: controller.fullName,
       validator: (text) {
         return HelperValidator.nameValidate(text!);
       },
@@ -95,6 +99,7 @@ class _FormScreenState extends State<registerScreen> {
 
   Widget _buildEmailField() {
     return TextFormField(
+      controller: controller.email,
       maxLength: 50,
       validator: (text) {
         if (text!.isEmpty) {
@@ -112,6 +117,7 @@ class _FormScreenState extends State<registerScreen> {
 
   Widget _buildPasswordField() {
     return TextFormField(
+      controller: controller.password,
       obscureText: true,
       maxLength: 10,
       validator: (text) {
@@ -154,6 +160,7 @@ class _FormScreenState extends State<registerScreen> {
 
   Widget _buildMobileNumberField() {
     return TextFormField(
+      controller: controller.mobileNo,
       maxLength: 10,
       keyboardType: TextInputType.number,
       validator: (text) {
@@ -238,8 +245,9 @@ class _FormScreenState extends State<registerScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()));
+                        SignUpController.instance.registerUser(controller.fullName.text, controller.email.text.trim(), controller.password.text.trim(), controller.mobileNo.text);
                         _formKey.currentState!.save();
+                        // Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()));
                       } else {
                         print('not valid form');
                         return;
@@ -296,7 +304,6 @@ class _FormScreenState extends State<registerScreen> {
           child: child,
         ),
       );
-
 }
 
 class HelperValidator {

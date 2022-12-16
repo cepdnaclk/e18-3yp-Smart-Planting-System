@@ -5,7 +5,7 @@
 5    android:versionName="1.0.0" >
 6
 7    <uses-sdk
-8        android:minSdkVersion="16"
+8        android:minSdkVersion="21"
 9        android:targetSdkVersion="31" />
 10    <!--
 11         The INTERNET permission is required for development. Specifically,
@@ -13,79 +13,203 @@
 13         to allow setting breakpoints, to provide hot reload, etc.
 14    -->
 15    <uses-permission android:name="android.permission.INTERNET" />
-15-->C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\android\app\src\debug\AndroidManifest.xml:7:5-66
-15-->C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\android\app\src\debug\AndroidManifest.xml:7:22-64
-16
-17    <application
-18        android:name="android.app.Application"
-19        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
-19-->[androidx.core:core:1.8.0] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\d363e3b5616f580c766e3e2b3c05f27d\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
-20        android:debuggable="true"
-21        android:icon="@mipmap/ic_launcher"
-22        android:label="smart_planting_app" >
-23        <activity
-24            android:name="com.example.smart_planting_app.MainActivity"
-25            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
-26            android:exported="true"
-27            android:hardwareAccelerated="true"
-28            android:launchMode="singleTop"
-29            android:theme="@style/LaunchTheme"
-30            android:windowSoftInputMode="adjustResize" >
-31
-32            <!--
-33                 Specifies an Android theme to apply to this Activity as soon as
-34                 the Android process has started. This theme is visible to the user
-35                 while the Flutter UI initializes. After that, this theme continues
-36                 to determine the Window background behind the Flutter UI.
-37            -->
-38            <meta-data
-39                android:name="io.flutter.embedding.android.NormalTheme"
-40                android:resource="@style/NormalTheme" />
-41
-42            <intent-filter>
-43                <action android:name="android.intent.action.MAIN" />
-44
-45                <category android:name="android.intent.category.LAUNCHER" />
-46            </intent-filter>
-47        </activity>
-48        <!--
-49             Don't delete the meta-data below.
-50             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
-51        -->
-52        <meta-data
-53            android:name="flutterEmbedding"
-54            android:value="2" />
-55
-56        <provider
-56-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
-57            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
-57-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
-58            android:authorities="com.example.smart_planting_app.flutter.image_provider"
-58-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
-59            android:exported="false"
-59-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
-60            android:grantUriPermissions="true" >
-60-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
-61            <meta-data
-61-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
-62                android:name="android.support.FILE_PROVIDER_PATHS"
-62-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
-63                android:resource="@xml/flutter_image_picker_file_paths" />
-63-->[:image_picker_android] C:\Users\Chanet Lanka\Desktop\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
-64        </provider>
-65
-66        <uses-library
-66-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
-67            android:name="androidx.window.extensions"
-67-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
-68            android:required="false" />
-68-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
-69        <uses-library
-69-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
-70            android:name="androidx.window.sidecar"
-70-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
-71            android:required="false" />
-71-->[androidx.window:window:1.0.0-beta04] C:\Users\Chanet Lanka\.gradle\caches\transforms-3\49bc944d29f70d45aa5add8e43e3247e\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
-72    </application>
-73
-74</manifest>
+15-->E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\android\app\src\debug\AndroidManifest.xml:7:5-66
+15-->E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\android\app\src\debug\AndroidManifest.xml:7:22-64
+16    <!-- Although the *SdkVersion is captured in gradle build files, this is required for non gradle builds -->
+17    <!-- <uses-sdk android:minSdkVersion="14" /> -->
+18    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+18-->[com.google.firebase:firebase-firestore:24.4.1] C:\Users\META\.gradle\caches\transforms-3\c2814ab600cd7ad8abb3930813a7dae1\transformed\jetified-firebase-firestore-24.4.1\AndroidManifest.xml:12:5-79
+18-->[com.google.firebase:firebase-firestore:24.4.1] C:\Users\META\.gradle\caches\transforms-3\c2814ab600cd7ad8abb3930813a7dae1\transformed\jetified-firebase-firestore-24.4.1\AndroidManifest.xml:12:22-76
+19    <uses-permission android:name="android.permission.WAKE_LOCK" />
+19-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:24:5-68
+19-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:24:22-65
+20    <uses-permission android:name="com.google.android.gms.permission.AD_ID" />
+20-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:25:5-79
+20-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:25:22-76
+21    <uses-permission android:name="com.google.android.finsky.permission.BIND_GET_INSTALL_REFERRER_SERVICE" />
+21-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:26:5-110
+21-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:26:22-107
+22
+23    <application
+24        android:name="android.app.Application"
+25        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+25-->[androidx.core:core:1.8.0] C:\Users\META\.gradle\caches\transforms-3\0ce731f8c62e88af9af421907435d7da\transformed\core-1.8.0\AndroidManifest.xml:24:18-86
+26        android:debuggable="true"
+27        android:icon="@mipmap/ic_launcher"
+28        android:label="smart_planting_app" >
+29        <activity
+30            android:name="com.example.smart_planting_app.MainActivity"
+31            android:configChanges="orientation|keyboardHidden|keyboard|screenSize|smallestScreenSize|locale|layoutDirection|fontScale|screenLayout|density|uiMode"
+32            android:exported="true"
+33            android:hardwareAccelerated="true"
+34            android:launchMode="singleTop"
+35            android:theme="@style/LaunchTheme"
+36            android:windowSoftInputMode="adjustResize" >
+37
+38            <!--
+39                 Specifies an Android theme to apply to this Activity as soon as
+40                 the Android process has started. This theme is visible to the user
+41                 while the Flutter UI initializes. After that, this theme continues
+42                 to determine the Window background behind the Flutter UI.
+43            -->
+44            <meta-data
+45                android:name="io.flutter.embedding.android.NormalTheme"
+46                android:resource="@style/NormalTheme" />
+47
+48            <intent-filter>
+49                <action android:name="android.intent.action.MAIN" />
+50
+51                <category android:name="android.intent.category.LAUNCHER" />
+52            </intent-filter>
+53        </activity>
+54        <!--
+55             Don't delete the meta-data below.
+56             This is used by the Flutter tool to generate GeneratedPluginRegistrant.java
+57        -->
+58        <meta-data
+59            android:name="flutterEmbedding"
+60            android:value="2" />
+61
+62        <service
+62-->[:cloud_firestore] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-14:19
+63            android:name="com.google.firebase.components.ComponentDiscoveryService"
+63-->[:cloud_firestore] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:10:18-89
+64            android:directBootAware="true"
+64-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:34:13-43
+65            android:exported="false" >
+65-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\META\.gradle\caches\transforms-3\77fcfc1a5ffca8d94a6c1536b3786a34\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:10:13-37
+66            <meta-data
+66-->[:cloud_firestore] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+67                android:name="com.google.firebase.components:io.flutter.plugins.firebase.firestore.FlutterFirebaseFirestoreRegistrar"
+67-->[:cloud_firestore] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-134
+68                android:value="com.google.firebase.components.ComponentRegistrar" />
+68-->[:cloud_firestore] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\cloud_firestore\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+69            <meta-data
+69-->[:firebase_core] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-13:85
+70                android:name="com.google.firebase.components:io.flutter.plugins.firebase.core.FlutterFirebaseCoreRegistrar"
+70-->[:firebase_core] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:12:17-124
+71                android:value="com.google.firebase.components.ComponentRegistrar" />
+71-->[:firebase_core] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\firebase_core\intermediates\merged_manifest\debug\AndroidManifest.xml:13:17-82
+72            <meta-data
+72-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\META\.gradle\caches\transforms-3\77fcfc1a5ffca8d94a6c1536b3786a34\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:11:13-13:85
+73                android:name="com.google.firebase.components:com.google.firebase.analytics.ktx.FirebaseAnalyticsKtxRegistrar"
+73-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\META\.gradle\caches\transforms-3\77fcfc1a5ffca8d94a6c1536b3786a34\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:12:17-126
+74                android:value="com.google.firebase.components.ComponentRegistrar" />
+74-->[com.google.firebase:firebase-analytics-ktx:21.2.0] C:\Users\META\.gradle\caches\transforms-3\77fcfc1a5ffca8d94a6c1536b3786a34\transformed\jetified-firebase-analytics-ktx-21.2.0\AndroidManifest.xml:13:17-82
+75            <meta-data
+75-->[com.google.firebase:firebase-common-ktx:20.2.0] C:\Users\META\.gradle\caches\transforms-3\309717f48df73e3617a5b148ffb548ad\transformed\jetified-firebase-common-ktx-20.2.0\AndroidManifest.xml:14:13-16:85
+76                android:name="com.google.firebase.components:com.google.firebase.ktx.FirebaseCommonKtxRegistrar"
+76-->[com.google.firebase:firebase-common-ktx:20.2.0] C:\Users\META\.gradle\caches\transforms-3\309717f48df73e3617a5b148ffb548ad\transformed\jetified-firebase-common-ktx-20.2.0\AndroidManifest.xml:15:17-113
+77                android:value="com.google.firebase.components.ComponentRegistrar" />
+77-->[com.google.firebase:firebase-common-ktx:20.2.0] C:\Users\META\.gradle\caches\transforms-3\309717f48df73e3617a5b148ffb548ad\transformed\jetified-firebase-common-ktx-20.2.0\AndroidManifest.xml:16:17-82
+78            <meta-data
+78-->[com.google.firebase:firebase-firestore:24.4.1] C:\Users\META\.gradle\caches\transforms-3\c2814ab600cd7ad8abb3930813a7dae1\transformed\jetified-firebase-firestore-24.4.1\AndroidManifest.xml:19:13-21:85
+79                android:name="com.google.firebase.components:com.google.firebase.firestore.FirestoreRegistrar"
+79-->[com.google.firebase:firebase-firestore:24.4.1] C:\Users\META\.gradle\caches\transforms-3\c2814ab600cd7ad8abb3930813a7dae1\transformed\jetified-firebase-firestore-24.4.1\AndroidManifest.xml:20:17-111
+80                android:value="com.google.firebase.components.ComponentRegistrar" />
+80-->[com.google.firebase:firebase-firestore:24.4.1] C:\Users\META\.gradle\caches\transforms-3\c2814ab600cd7ad8abb3930813a7dae1\transformed\jetified-firebase-firestore-24.4.1\AndroidManifest.xml:21:17-82
+81            <meta-data
+81-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:31:13-33:85
+82                android:name="com.google.firebase.components:com.google.firebase.analytics.connector.internal.AnalyticsConnectorRegistrar"
+82-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:32:17-139
+83                android:value="com.google.firebase.components.ComponentRegistrar" />
+83-->[com.google.android.gms:play-services-measurement-api:21.2.0] C:\Users\META\.gradle\caches\transforms-3\bfd20290ff5d39e38453adc1ae5698f7\transformed\jetified-play-services-measurement-api-21.2.0\AndroidManifest.xml:33:17-82
+84            <meta-data
+84-->[com.google.firebase:firebase-installations:17.1.0] C:\Users\META\.gradle\caches\transforms-3\3fe9d54d7b663dbec51ad86b1763f50a\transformed\jetified-firebase-installations-17.1.0\AndroidManifest.xml:17:13-19:85
+85                android:name="com.google.firebase.components:com.google.firebase.installations.FirebaseInstallationsRegistrar"
+85-->[com.google.firebase:firebase-installations:17.1.0] C:\Users\META\.gradle\caches\transforms-3\3fe9d54d7b663dbec51ad86b1763f50a\transformed\jetified-firebase-installations-17.1.0\AndroidManifest.xml:18:17-127
+86                android:value="com.google.firebase.components.ComponentRegistrar" />
+86-->[com.google.firebase:firebase-installations:17.1.0] C:\Users\META\.gradle\caches\transforms-3\3fe9d54d7b663dbec51ad86b1763f50a\transformed\jetified-firebase-installations-17.1.0\AndroidManifest.xml:19:17-82
+87        </service>
+88
+89        <provider
+89-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:10:9-18:20
+90            android:name="io.flutter.plugins.imagepicker.ImagePickerFileProvider"
+90-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:11:13-82
+91            android:authorities="com.example.smart_planting_app.flutter.image_provider"
+91-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:12:13-74
+92            android:exported="false"
+92-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:13:13-37
+93            android:grantUriPermissions="true" >
+93-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:14:13-47
+94            <meta-data
+94-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:15:13-17:75
+95                android:name="android.support.FILE_PROVIDER_PATHS"
+95-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:16:17-67
+96                android:resource="@xml/flutter_image_picker_file_paths" />
+96-->[:image_picker_android] E:\Semester 5\CO300 - Third_Year_Project\e18-3yp-Smart-Planting-System\smart_planting_app\build\image_picker_android\intermediates\merged_manifest\debug\AndroidManifest.xml:17:17-72
+97        </provider>
+98
+99        <uses-library
+99-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:25:9-27:40
+100            android:name="androidx.window.extensions"
+100-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:26:13-54
+101            android:required="false" />
+101-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:27:13-37
+102        <uses-library
+102-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:28:9-30:40
+103            android:name="androidx.window.sidecar"
+103-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:29:13-51
+104            android:required="false" />
+104-->[androidx.window:window:1.0.0-beta04] C:\Users\META\.gradle\caches\transforms-3\542a859793ec57d6a4d40865c7efc6d9\transformed\jetified-window-1.0.0-beta04\AndroidManifest.xml:30:13-37
+105
+106        <provider
+106-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:25:9-30:39
+107            android:name="com.google.firebase.provider.FirebaseInitProvider"
+107-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:26:13-77
+108            android:authorities="com.example.smart_planting_app.firebaseinitprovider"
+108-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:27:13-72
+109            android:directBootAware="true"
+109-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:28:13-43
+110            android:exported="false"
+110-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:29:13-37
+111            android:initOrder="100" />
+111-->[com.google.firebase:firebase-common:20.2.0] C:\Users\META\.gradle\caches\transforms-3\c1f7cd0e68ddf89c76a753ac7fd1a66c\transformed\jetified-firebase-common-20.2.0\AndroidManifest.xml:30:13-36
+112
+113        <activity
+113-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\META\.gradle\caches\transforms-3\19fea4fb28dedd992824e13cc158e7a1\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:9-22:45
+114            android:name="com.google.android.gms.common.api.GoogleApiActivity"
+114-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\META\.gradle\caches\transforms-3\19fea4fb28dedd992824e13cc158e7a1\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:20:19-85
+115            android:exported="false"
+115-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\META\.gradle\caches\transforms-3\19fea4fb28dedd992824e13cc158e7a1\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:22:19-43
+116            android:theme="@android:style/Theme.Translucent.NoTitleBar" />
+116-->[com.google.android.gms:play-services-base:18.0.1] C:\Users\META\.gradle\caches\transforms-3\19fea4fb28dedd992824e13cc158e7a1\transformed\jetified-play-services-base-18.0.1\AndroidManifest.xml:21:19-78
+117
+118        <receiver
+118-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:29:9-33:20
+119            android:name="com.google.android.gms.measurement.AppMeasurementReceiver"
+119-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:30:13-85
+120            android:enabled="true"
+120-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:31:13-35
+121            android:exported="false" >
+121-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:32:13-37
+122        </receiver>
+123
+124        <service
+124-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:35:9-38:40
+125            android:name="com.google.android.gms.measurement.AppMeasurementService"
+125-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:36:13-84
+126            android:enabled="true"
+126-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:37:13-35
+127            android:exported="false" />
+127-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:38:13-37
+128        <service
+128-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:39:9-43:72
+129            android:name="com.google.android.gms.measurement.AppMeasurementJobService"
+129-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:40:13-87
+130            android:enabled="true"
+130-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:41:13-35
+131            android:exported="false"
+131-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:42:13-37
+132            android:permission="android.permission.BIND_JOB_SERVICE" />
+132-->[com.google.android.gms:play-services-measurement:21.2.0] C:\Users\META\.gradle\caches\transforms-3\5ec3faad4c67c5d02d41a8d7d7f45ea7\transformed\jetified-play-services-measurement-21.2.0\AndroidManifest.xml:43:13-69
+133
+134        <meta-data
+134-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\META\.gradle\caches\transforms-3\3ee0f8915dc9bf42c60f3eef0b7bd28a\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:21:9-23:69
+135            android:name="com.google.android.gms.version"
+135-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\META\.gradle\caches\transforms-3\3ee0f8915dc9bf42c60f3eef0b7bd28a\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:22:13-58
+136            android:value="@integer/google_play_services_version" />
+136-->[com.google.android.gms:play-services-basement:18.1.0] C:\Users\META\.gradle\caches\transforms-3\3ee0f8915dc9bf42c60f3eef0b7bd28a\transformed\jetified-play-services-basement-18.1.0\AndroidManifest.xml:23:13-66
+137    </application>
+138
+139</manifest>

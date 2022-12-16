@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "271608665456",
+    "project_id": "smart-planting-system-732fa",
+    "storage_bucket": "smart-planting-system-732fa.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:271608665456:android:936bf8f26a289f25596bb5",
+        "android_client_info": {
+          "package_name": "com.example.smart_planting_app"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "271608665456-mgsc2itlnhok6n4kru2vgv3g40bdgn14.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA5fIGHmyy6V1Ujd-kr9mo5s9P6WqmFu5c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "271608665456-mgsc2itlnhok6n4kru2vgv3g40bdgn14.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

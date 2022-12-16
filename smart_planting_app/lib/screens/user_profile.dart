@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
@@ -15,7 +16,7 @@ class profileScreen extends StatefulWidget {
 }
 
 class _profileScreenState extends State<profileScreen> {
-  late File image = File('asset/profile.png');
+  File? image;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -29,9 +30,51 @@ class _profileScreenState extends State<profileScreen> {
     }
   }
 
+  Future<ImageSource?> showImageSource(BuildContext context) async {
+    if(Platform.isIOS) {
+      return showCupertinoModalPopup<ImageSource>(
+          context: context,
+          builder: (context) => CupertinoActionSheet(
+            actions: [
+              CupertinoActionSheetAction(
+                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
+                  child: const Text('Camera')
+              ),
+              CupertinoActionSheetAction(
+                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
+                child: const Text('Gallery'),
+              )
+            ],
+          )
+      );
+    }
+    else {
+      return showModalBottomSheet(
+          context: context,
+          builder: (context) => Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              ListTile(
+                leading: const Icon(Icons.camera_alt),
+                title: const Text('Camera'),
+                onTap: () => Navigator.of(context).pop(ImageSource.camera),
+              ),
+              ListTile(
+                leading: const Icon(Icons.image),
+                title: const Text('Gallery'),
+                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
+              )
+            ],
+          )
+      );
+    }
+  }
+
+
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
+    final color = Theme.of(context).colorScheme.primary;
 
     return Scaffold(
       appBar: AppBar(
@@ -48,11 +91,23 @@ class _profileScreenState extends State<profileScreen> {
       body: ListView(
         physics: const BouncingScrollPhysics(),
         children: [
-          ProfileWidget(
-            image: image,
-            onClicked: (source) => pickImage(source),
-            //imagePath: user.imagePath,
+          if (image != null)
+            ProfileWidget(
+              image: image,
+              onClicked: (source) => pickImage(source),
+            )
+            else Center(
+              child: Stack(
+              children: [
+                buildImage(),
+                Positioned(
+                    bottom: 0,
+                    right: 4,
+                    child: buildEditIcon(color)
+                )
+              ],
           ),
+            ),
           const SizedBox(height: 20,),
           buildName(user),
           const SizedBox(height: 20,),
@@ -97,6 +152,50 @@ class _profileScreenState extends State<profileScreen> {
         ],
       ),
   );
+
+  Widget buildImage() {
+    return ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 140, width: 140,),
+            onTap: () async {
+              final source = await showImageSource(context);
+              if (source == null) return;
+
+              pickImage(source);
+            }
+        ),
+      ),
+    );
+  }
+
+  Widget buildEditIcon(Color color) => buildCircle(
+    color: Colors.white,
+    all: 3,
+    child: buildCircle(
+      color: color,
+      all: 8,
+      child: const Icon(
+        Icons.edit,
+        size: 20,
+      ),
+    ),
+  );
+
+  Widget buildCircle({
+    required Color color,
+    required double all,
+    required Widget child}) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
+
+
 }
 
 class StatWidget extends StatelessWidget {

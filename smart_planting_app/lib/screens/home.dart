@@ -13,70 +13,86 @@ class _homeScreenState extends State<homeScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Home'),
-        centerTitle: true,
-        leading: Icon(Icons.chat_outlined),
-        actions: [
-          IconButton(
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen())),
-              icon: Icon(Icons.person_pin))
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 90,
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 10),
-              width: double.infinity,
-              child: Scrollbar(
-                thickness: 4,
-                radius: Radius.circular(15),
-                child: SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  padding: EdgeInsets.symmetric(horizontal: 5),
-                  child: Row(
-                    children: adds,
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          title: Text('Home', style: TextStyle(color: Colors.black)),
+          centerTitle: true,
+          leading: Icon(Icons.chat_outlined, color: Colors.black,),
+          actions: [
+            IconButton(
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen())),
+                icon: Icon(Icons.person_pin, color: Colors.black,))
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 90,
+              child: Container(
+                padding: EdgeInsets.symmetric(horizontal: 10),
+                width: double.infinity,
+                child: Scrollbar(
+                  thickness: 4,
+                  radius: Radius.circular(15),
+                  child: SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    child: Row(
+                      children: adds,
+                    ),
                   ),
                 ),
-              ),
-            )
-          ),
-          Expanded(
-            flex: 10,
-            child: Container(
-              alignment: Alignment.center,
-              padding: EdgeInsets.symmetric(horizontal: 15),
-              height: double.infinity,
-              width: double.infinity,
-              // decoration: BoxDecoration(
-              //   border: Border.all(
-              //     color: Colors.indigo.shade300,
-              //   )
-              // ),
-              child: FloatingActionButton(
-                // style: ElevatedButton.styleFrom(
-                //   primary: Colors.white,
-                //   minimumSize: const Size(120.0, 40.0),
-                //   //side: BorderSide(color: Colors.yellow, width: 5),
-                //   textStyle: const TextStyle(
-                //       fontSize: 20, fontWeight: FontWeight.bold),
-                //   //shape: const StadiumBorder(side: BorderSide(color: Colors.green)),
-                //   shadowColor: Colors.black,
+              )
+            ),
+            Expanded(
+              flex: 10,
+              child: Container(
+                alignment: Alignment.center,
+                padding: EdgeInsets.symmetric(horizontal: 15),
+                height: double.infinity,
+                width: double.infinity,
+                // decoration: BoxDecoration(
+                //   border: Border.all(
+                //     color: Colors.indigo.shade300,
+                //   )
                 // ),
-                child: Text(
-                    'Add',
-                style: TextStyle(color: Colors.black)),
-                onPressed: () {
-                  adds.add(buildPlant());
-                  setState(() {});
-                },
-              ),
-            )
-          ),
-        ],
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.center,
+                  children: [
+                    FloatingActionButton(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      splashColor: Colors.green,
+                      child: Text(
+                          'Add',
+                      style: TextStyle(color: Colors.black)),
+                      onPressed: () {
+                        adds.add(buildPlant());
+                        setState(() {});
+                      },
+                    ),
+                    SizedBox(width: 70,),
+                    FloatingActionButton(
+                      backgroundColor: Colors.transparent,
+                      elevation: 0,
+                      splashColor: Colors.green,
+                      child: Text(
+                          'Delete',
+                          style: TextStyle(color: Colors.black)),
+                      onPressed: () {
+                        adds.removeLast();
+                        setState(() {});
+                      },
+                    ),
+                  ],
+                ),
+              )
+            ),
+          ],
+        ),
       ),
     );
   }
@@ -96,19 +112,21 @@ class _homeScreenState extends State<homeScreen> {
             const SizedBox(height: 40,),
             Image.asset('asset/plant.png', scale: 4,),
             SizedBox(height: 4,),
-            const SizedBox(height: 150,),
+            const SizedBox(height: 100,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton(
+                FloatingActionButton.large(
+                  elevation: 2,
                   onPressed: () {},
-                  backgroundColor: Colors.lightGreen,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 8),
+                  backgroundColor: Colors.green.shade200,
+                  child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 7),
                 ),
                 const SizedBox(width: 50,),
-                FloatingActionButton(
+                FloatingActionButton.large(
+                  elevation: 2,
                   onPressed: () {},
-                  backgroundColor: Colors.lightGreen,
+                  backgroundColor: Colors.green.shade200,
                   child: Image.network('https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png', scale: 8),
                 ),
               ],
@@ -117,16 +135,18 @@ class _homeScreenState extends State<homeScreen> {
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                FloatingActionButton(
+                FloatingActionButton.large(
+                  elevation: 2,
                   onPressed: () {},
-                  backgroundColor: Colors.lightGreen,
+                  backgroundColor: Colors.green.shade200,
                   child: Image.network('https://www.iconsdb.com/icons/preview/green/water-9-xxl.png', scale: 8),
                 ),
                 const SizedBox(width: 50,),
-                FloatingActionButton(
+                FloatingActionButton.large(
+                  elevation: 2,
                   onPressed: () {},
-                  backgroundColor: Colors.lightGreen,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 8),
+                  backgroundColor: Colors.green.shade200,
+                  child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 6),
                 ),
               ],
             ),

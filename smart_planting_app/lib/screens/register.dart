@@ -17,7 +17,7 @@ class registerScreen extends StatefulWidget {
 
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  File image = File('asset/profile.png');
+  File? image;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -172,11 +172,12 @@ class _FormScreenState extends State<registerScreen> {
 
   @override
   Widget build(BuildContext context) {
+    final color = Theme.of(context).colorScheme.primary;
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
         child: Container(
-          //color: Colors.white,
           margin: const EdgeInsets.all(24.0),
           child: Form(
             key: _formKey,
@@ -188,23 +189,15 @@ class _FormScreenState extends State<registerScreen> {
                         image: image,
                         onClicked: (source) => pickImage(source),
                     )
-                else ClipOval(
-                  child: Material(
-                    color: Colors.transparent,
-                    child: Ink.image(
-                        image: const NetworkImage(
-                          'https://as2.ftcdn.net/v2/jpg/02/39/27/77/1000_F_239277786_ECErblLv6fA7Rx7SUvzso9MQyhWOg8ik.jpg'
-                        ),
-                      fit: BoxFit.cover,
-                      height: 130,
-                      width: 130,
-                      child: InkWell(
-                        onTap: () {
-                          ProfileWidget(image: image, onClicked: (source) => pickImage(source),);
-                        }
-                      ),
-                    ),
-                  ),
+                else Stack(
+                  children: [
+                    buildImage(),
+                    Positioned(
+                        bottom: 0,
+                        right: 4,
+                        child: buildEditIcon(color)
+                    )
+                  ],
                 ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
@@ -262,6 +255,49 @@ class _FormScreenState extends State<registerScreen> {
       ),
     );
   }
+
+  Widget buildImage() {
+    return ClipOval(
+      child: Material(
+        color: Colors.transparent,
+        child: InkWell(
+            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 140, width: 140,),
+            onTap: () async {
+              final source = await showImageSource(context);
+              if (source == null) return;
+
+              pickImage(source);
+            }
+        ),
+      ),
+    );
+  }
+
+  Widget buildEditIcon(Color color) => buildCircle(
+    color: Colors.white,
+    all: 3,
+    child: buildCircle(
+      color: color,
+      all: 8,
+      child: const Icon(
+        Icons.edit,
+        size: 20,
+      ),
+    ),
+  );
+
+  Widget buildCircle({
+    required Color color,
+    required double all,
+    required Widget child}) =>
+      ClipOval(
+        child: Container(
+          padding: EdgeInsets.all(all),
+          color: color,
+          child: child,
+        ),
+      );
+
 }
 
 class HelperValidator {

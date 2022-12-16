@@ -88,7 +88,15 @@ class _FormScreenState extends State<loginScreen> {
                       'Login',
                       style: TextStyle(color: Colors.black),
                     ),
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()))
+                  onPressed: () {
+                    if(_formKey.currentState!.validate()) {
+                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()));
+                      _formKey.currentState!.save();
+                    } else {
+                      print('Not a valid form');
+                    }
+                    return;
+                  }
                 ),
               ],
             ),

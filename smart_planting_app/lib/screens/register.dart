@@ -242,7 +242,6 @@ class _FormScreenState extends State<registerScreen> {
                         _formKey.currentState!.save();
                       } else {
                         print('not valid form');
-
                         return;
                       }
                     },

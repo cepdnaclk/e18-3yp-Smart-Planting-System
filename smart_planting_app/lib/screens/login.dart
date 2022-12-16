@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/confirm.dart';
 import 'package:smart_planting_app/screens/home.dart';
-
+import 'package:get/get.dart';
+import 'configs/login_config.dart';
 import 'user_profile.dart';
 
 class loginScreen extends StatefulWidget {
@@ -11,12 +12,14 @@ class loginScreen extends StatefulWidget {
 
 class _FormScreenState extends State<loginScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+  final controller = Get.put(LogInController());
 
   late String _email;
   late String _password;
 
   Widget _buildEmailField() {
     return TextFormField(
+      controller: controller.email,
       maxLength: 50,
       validator: (text) {
         if (text!.isEmpty) {
@@ -34,6 +37,7 @@ class _FormScreenState extends State<loginScreen> {
 
   Widget _buildPasswordField() {
     return TextFormField(
+      controller: controller.password,
       obscureText: true,
       maxLength: 10,
       validator: (text) {
@@ -90,7 +94,8 @@ class _FormScreenState extends State<loginScreen> {
                     ),
                   onPressed: () {
                     if(_formKey.currentState!.validate()) {
-                      Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()));
+                      // Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()));
+                      LogInController.instance.logInUser(controller.email.text.trim(), controller.password.text.trim());
                       _formKey.currentState!.save();
                     } else {
                       print('Not a valid form');

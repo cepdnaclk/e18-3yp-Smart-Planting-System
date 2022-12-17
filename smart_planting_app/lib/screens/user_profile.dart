@@ -6,7 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
 import 'package:smart_planting_app/screens/settings.dart';
-import 'package:smart_planting_app/screens/user.dart';
+import 'package:smart_planting_app/Models/user.dart';
 import 'package:smart_planting_app/screens/user_detail.dart';
 
 class profileScreen extends StatefulWidget {

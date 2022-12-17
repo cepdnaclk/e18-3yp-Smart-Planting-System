@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
+import 'package:smart_planting_app/screens/settings.dart';
 import 'package:smart_planting_app/screens/user.dart';
 import 'package:smart_planting_app/screens/user_detail.dart';
 
@@ -74,7 +75,7 @@ class _profileScreenState extends State<profileScreen> {
   @override
   Widget build(BuildContext context) {
     final user = UserPreferences.myUser;
-    final color = Theme.of(context).colorScheme.primary;
+    final color = Colors.lightGreen;
 
     return Scaffold(
       appBar: AppBar(
@@ -83,7 +84,7 @@ class _profileScreenState extends State<profileScreen> {
         elevation: 0,
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const settingScreen())),
               icon: const Icon(Icons.more_vert_rounded, color: Colors.black),
           )
         ],

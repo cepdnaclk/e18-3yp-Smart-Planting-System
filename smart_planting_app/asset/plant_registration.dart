@@ -1,76 +1,15 @@
-import 'dart:io';
-
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/confirm.dart';
 
-import 'profile_widget.dart';
-
-class registerScreen extends StatefulWidget {
-  const registerScreen({super.key});
+class plantRegScreen extends StatefulWidget {
+  const plantRegScreen({super.key});
 
   @override
   _FormScreenState createState() => _FormScreenState();
 }
 
-class _FormScreenState extends State<registerScreen> {
+class _FormScreenState extends State<plantRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
-  File? image;
-
-  Future pickImage(ImageSource source) async {
-    try {
-      final image = await ImagePicker().pickImage(source: source);
-      if (image == null) return;
-
-      final imageTemp = File(image.path);
-      setState(() => this.image = imageTemp);
-    } on PlatformException catch (e) {
-        print('Failed to pick image: $e');
-      }
-    }
-
-  Future<ImageSource?> showImageSource(BuildContext context) async {
-    if(Platform.isIOS) {
-      return showCupertinoModalPopup<ImageSource>(
-          context: context,
-          builder: (context) => CupertinoActionSheet(
-            actions: [
-              CupertinoActionSheetAction(
-                  onPressed: () => Navigator.of(context).pop(ImageSource.camera),
-                  child: const Text('Camera')
-              ),
-              CupertinoActionSheetAction(
-                onPressed: () => Navigator.of(context).pop(ImageSource.gallery),
-                child: const Text('Gallery'),
-              )
-            ],
-          )
-      );
-    }
-    else {
-      return showModalBottomSheet(
-          context: context,
-          builder: (context) => Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              ListTile(
-                leading: const Icon(Icons.camera_alt),
-                title: const Text('Camera'),
-                onTap: () => Navigator.of(context).pop(ImageSource.camera),
-              ),
-              ListTile(
-                leading: const Icon(Icons.image),
-                title: const Text('Gallery'),
-                onTap: () => Navigator.of(context).pop(ImageSource.gallery),
-              )
-            ],
-          )
-      );
-    }
-  }
-
 
   late String _name;
   late String _email;
@@ -184,21 +123,6 @@ class _FormScreenState extends State<registerScreen> {
             child: Column(
               children: <Widget>[
                 const SizedBox(height: 50,),
-                if (image != null)
-                  ProfileWidget(
-                        image: image,
-                        onClicked: (source) => pickImage(source),
-                    )
-                else Stack(
-                  children: [
-                    buildImage(),
-                    Positioned(
-                        bottom: 0,
-                        right: 4,
-                        child: buildEditIcon(color)
-                    )
-                  ],
-                ),
                 Padding(
                   padding: const EdgeInsets.all(5.0),
                   child: _buildNameField(),
@@ -255,48 +179,6 @@ class _FormScreenState extends State<registerScreen> {
       ),
     );
   }
-
-  Widget buildImage() {
-    return ClipOval(
-      child: Material(
-        color: Colors.transparent,
-        child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 140, width: 140,),
-            onTap: () async {
-              final source = await showImageSource(context);
-              if (source == null) return;
-
-              pickImage(source);
-            }
-        ),
-      ),
-    );
-  }
-
-  Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
-    child: buildCircle(
-      color: color,
-      all: 8,
-      child: const Icon(
-        Icons.edit,
-        size: 20,
-      ),
-    ),
-  );
-
-  Widget buildCircle({
-    required Color color,
-    required double all,
-    required Widget child}) =>
-      ClipOval(
-        child: Container(
-          padding: EdgeInsets.all(all),
-          color: color,
-          child: child,
-        ),
-      );
 
 }
 

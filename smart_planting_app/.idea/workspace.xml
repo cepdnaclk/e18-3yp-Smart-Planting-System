@@ -10,8 +10,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="b5f288ef-ce1b-4e70-999f-c570fe6af66b" name="Default Changelist" comment="Added SignIn authentication">
+<<<<<<< Updated upstream
       <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+=======
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/user.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/screens/user_detail.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/screens/user_detail.dart" afterDir="false" />
+>>>>>>> Stashed changes
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

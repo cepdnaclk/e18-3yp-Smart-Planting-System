@@ -120,7 +120,7 @@ class _profileScreenState extends State<profileScreen> {
     );
   }
 
-  Widget buildName(User user) => Column(
+  Widget buildName(AppUser user) => Column(
     children: [
       Text(
         user.name,
@@ -134,7 +134,7 @@ class _profileScreenState extends State<profileScreen> {
     ],
   );
 
-  Widget buildAbout(User user) => Container(
+  Widget buildAbout(AppUser user) => Container(
     padding: const EdgeInsets.all(30),
     child:
       Column(

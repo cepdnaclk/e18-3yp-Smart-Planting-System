@@ -1,23 +1,29 @@
-// ignore_for_file: prefer_const_constructors
-
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:smart_planting_app/AuthRepository/authRepo.dart';
 import 'screens/splashScreen.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'package:get/get.dart';
+
+// Import the firebase_app_check plugin
+import 'package:firebase_app_check/firebase_app_check.dart';
 
 Future main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  await Firebase.initializeApp();
+  Firebase.initializeApp().then((value) => Get.put(AuthenticationRepository()));
+
   SystemChrome.setSystemUIOverlayStyle(
-    SystemUiOverlayStyle(statusBarColor: Colors.transparent),
+    const SystemUiOverlayStyle(statusBarColor: Colors.transparent),
   );
-  runApp(MyApp());
+  runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       useInheritedMediaQuery: true,
       theme: ThemeData.light(),

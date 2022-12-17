@@ -39,6 +39,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   transparent_image: ^2.0.0
   image_picker: ^0.8.6
+  firebase_auth: ^4.2.1
+  get: ^4.6.5
+  firebase_app_check: ^0.1.1+6
 
 dev_dependencies:
   flutter_test:
@@ -64,12 +67,12 @@ flutter:
 
   # To add assets to your application, add an assets section, like this:
   assets:
-     - asset/
-#     - asset/login.jpg
-#     - asset/icon1.png
-#     - asset/icon2.png
-#     - asset/profile.png
-#     - asset/plant.png
+    - asset/appbar.jpg
+    - asset/login.jpg
+    - asset/icon1.png
+    - asset/icon2.png
+    - asset/profile.png
+    - asset/plant.png
 
   #   - images/a_dot_ham.jpeg
 

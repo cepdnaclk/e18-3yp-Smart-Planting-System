@@ -1,34 +1,41 @@
 {
   "project_info": {
-    "project_number": "271608665456",
-    "project_id": "smart-planting-system-732fa",
-    "storage_bucket": "smart-planting-system-732fa.appspot.com"
+    "project_number": "859341155565",
+    "project_id": "smart-planting-system-b7c5e",
+    "storage_bucket": "smart-planting-system-b7c5e.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:271608665456:android:936bf8f26a289f25596bb5",
+        "mobilesdk_app_id": "1:859341155565:android:300afd6a7a06a31eec70e4",
         "android_client_info": {
           "package_name": "com.example.smart_planting_app"
         }
       },
       "oauth_client": [
         {
-          "client_id": "271608665456-mgsc2itlnhok6n4kru2vgv3g40bdgn14.apps.googleusercontent.com",
+          "client_id": "859341155565-4gombjtv5nq9dg8sm6jq2vo3u0pg91sc.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyA5fIGHmyy6V1Ujd-kr9mo5s9P6WqmFu5c"
+          "current_key": "AIzaSyCmKVfo4ldCAI7-xsBj9VGN5ucKRzobnHo"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "271608665456-mgsc2itlnhok6n4kru2vgv3g40bdgn14.apps.googleusercontent.com",
+              "client_id": "859341155565-4gombjtv5nq9dg8sm6jq2vo3u0pg91sc.apps.googleusercontent.com",
               "client_type": 3
+            },
+            {
+              "client_id": "859341155565-cl9nvg4lbubvkl03k8g36d1vcar0v7m7.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.smartPlantingApp"
+              }
             }
           ]
         }

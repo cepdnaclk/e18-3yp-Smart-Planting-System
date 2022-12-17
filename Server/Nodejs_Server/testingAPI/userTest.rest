@@ -1,0 +1,9 @@
+POST http://localhost:8000/user
+Content-Type: application/json
+
+{
+    "userName" : "Chamara Dilshanandman",
+    "email": "chamaasdadra@gmail.com",
+    "mobileNo": "078566566",
+    "joinDate": "2022-12-17 00:22:13"
+}

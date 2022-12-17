@@ -63,7 +63,7 @@ unlinked_spec.ds
 
 # Android related
 **/android/**/gradle-wrapper.jar
-.gradle/
+android/.gradle/
 **/android/captures/
 **/android/gradlew
 **/android/gradlew.bat
@@ -181,7 +181,7 @@ doc/api/
 #*.xccheckout
 
 ## compatibility with Xcode 3 and earlier (ignoring not required starting Xcode 4)
-#build/
+/build/
 #DerivedData/
 #*.moved-aside
 #*.pbxuser
@@ -830,3 +830,6 @@ Temporary Items
 # Used by previous versions of JEnv
 .jenv-version
 
+### ------------------------- Project Specific ------------------------- ###
+
+.flutter-plugins-dependencies

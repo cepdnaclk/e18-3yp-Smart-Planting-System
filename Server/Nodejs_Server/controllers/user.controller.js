@@ -5,6 +5,7 @@ exports.register = async (req, res) => {
     const userName = req.body.userName;
     const email = req.body.email;
     const mobileNo = req.body.mobileNo;
+    const userPassword = req.body.userPassword;
     const joinDate = req.body.joinDate;
     const profileIMG = req.body.img;
 
@@ -12,6 +13,7 @@ exports.register = async (req, res) => {
         userName: userName,
         email: email,
         mobileNo: mobileNo,
+        userPassword: userPassword,
         joinDate: joinDate,
         profileIMG: profileIMG
     });

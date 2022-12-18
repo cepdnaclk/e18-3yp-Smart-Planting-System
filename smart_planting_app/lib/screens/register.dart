@@ -5,7 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/configs/register_config.dart';
-import 'package:smart_planting_app/screens/confirm.dart';
 import 'profile_widget.dart';
 import 'package:get/get.dart';
 

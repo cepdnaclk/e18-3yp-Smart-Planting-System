@@ -11,12 +11,9 @@ const User = function (user) {
   this.profileImg = null;
 }
 
-// User.create = async (newUser) => {
-//   let sqlQuery = "CALL AddUser(?,?,?,?,?)"
-// }
-
-User.create = async(newUser) => {
-  await sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.password, newUser.joinDate]);
+User.create = async (newUser) => {
+  // console.log(newUser.userName);
+  sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.password, newUser.joinDate]);
   return true;
 }
 

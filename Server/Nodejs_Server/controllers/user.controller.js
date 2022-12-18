@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
         profileIMG: profileIMG
     });
 
-    console.log(userName);
+    // console.log(userName, "User controller");
 
     // Create a new user
     const response = await User.create(user);

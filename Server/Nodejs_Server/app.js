@@ -2,15 +2,15 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
 
-const userRoutes = require('./routes/users');
-const plantRoutes = require('./routes/plants')
-const plantDataRoutes = require('./routes/plantsData');
+userRoutes = require('./routes/users.js');
+plantRoutes = require('./routes/plants.js');
+plantDataRoutes = require('./routes/plantsData.js');
 
 app.use(bodyParser.json());
 
-app.use("/user", userRoutes);
-app.use("/plant",plantRoutes);
-app.use("/plantData",plantDataRoutes);
-
+// Route middleware
+app.use("/api/user", userRoutes);
+app.use("/api/plant", plantRoutes);
+app.use("/api/plantData",plantDataRoutes);
 
 module.exports = app

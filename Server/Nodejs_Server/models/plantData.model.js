@@ -1,32 +1,45 @@
 const sql = require("./db.js");
 
 // user constructor
-const Data = function (data) {
-  this.plantTypeID = data.plantTypeID;
-  this.commonName = data.scientificName;
-  this.height = data.height;
-  this.habit = data.habit;
-  this.growth = data.growth;
-  this.shade = data.shade;
-  this.soil = data.soil;
-  this.soilMoisture = data.soilMoisture;
-  this.minTemp = data.minTemp;
-  this.maxTemp = data.maxTemp;
-  this.minPH = data.minPH;
-  this.maxPH= data.maxPH;
-  this.edible = data.edible;
+const HousePlant = function (plant) {
+  this.plantTypeID = plant.plantTypeID;
+  this.commonName = plant.commonName;
+  this.scientificName = plant.scientificName,
+  this.height = plant.height;
+  this.habit = plant.habit;
+  this.growth = plant.growth;
+  this.shade = plant.shade;
+  this.soil = plant.soil;
+  this.soilMoisture = plant.soilMoisture;
+  this.minTemp = plant.minTemp;
+  this.maxTemp = plant.maxTemp;
+  this.minPH = plant.minPH;
+  this.maxPH= plant.maxPH;
+  this.edible = plant.edible;
 }
 
-Data.show = function( ){
-    var sqlmachines = "SELECT plantTypeID,commonName FROM plants_database_table;"
+HousePlant.checkPlant = async (plantTypeID) => {
+	const row = await sql.query("SELECT * FROM plants_database_table WHERE plantTypeID = ?", [plantTypeID]);
+	if(row.length > 0) {
+		return true;
+	}
+	return false;
+}
 
-    sql.query(sqlmachines,function(err,result){
-        if(err){
-            throw err;
-        }
+HousePlant.show = async (data, callback) => {
+	var sqlPlant = "CALL GetDesiredPlantConditions(?);";
+	
+	console.log(data.plantTypeID, "in plant data model");
 
-        return(result);
+	// Check whether plant exists
+    const status = sql.query(sqlPlant, [data.plantTypeID], callback, function(err, result) {
+		console.log(status);
+		if (result) {
+			callback(null, result);
+		} else {
+			this.callback(err, null);
+		}
 	})
 }
 
-module.exports = Data;
+module.exports = HousePlant;

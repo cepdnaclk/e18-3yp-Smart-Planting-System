@@ -1,14 +1,4 @@
 //POST http://3.110.142.169:8000/plant
-POST http://localhost:8000/plant
 
-Content-Type: application/json
-
-{
-    "plantID" : "002",
-    "readTime": "2022-12-18 11:05:13",
-    "temperature": "21.0",
-    "soilMoisture": "45.23",
-    "waterLevel" : "20.5",
-    "lightIntensity": "10.23"
-
-}
+###
+GET http://localhost:8000/api/plantData/P0001

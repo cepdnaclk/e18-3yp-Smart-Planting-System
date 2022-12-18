@@ -1,7 +1,7 @@
 // import packages
 const mysql = require("mysql");
 const util = require('util')
-const config = require('../config/config');
+const config = require('../config/config.js');
 
 // create a connection to the database
 const db = mysql.createConnection(config);

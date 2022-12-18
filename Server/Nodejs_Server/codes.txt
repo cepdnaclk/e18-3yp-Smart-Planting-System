@@ -3,3 +3,4 @@ npm install --save express
 npm install --save mysql2
 npm install --save body-parser
 npm install -g nodemon
+npm install --save dotenv

@@ -1,15 +1,17 @@
--- Create the database
+-- source D:/NPM/database.sql
+
 DROP DATABASE smart_planting_system;
 
+-- Create the database
 CREATE DATABASE smart_planting_system;
 
 USE smart_planting_system;
 
 CREATE TABLE IF NOT EXISTS user_table(
     userID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    userName VARCHAR(100) NOT NULL,
-    email VARCHAR(100) UNIQUE,
-    mobileNo VARCHAR(15),
+    userName VARCHAR(50) NOT NULL,
+    email VARCHAR(50) UNIQUE,
+    mobileNo VARCHAR(20),
     joinDate DATETIME,
     profileImg LONGBLOB
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
@@ -26,8 +28,6 @@ CREATE TABLE IF NOT EXISTS plant_owner_table(
     plantID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     userID INT NOT NULL,
     plantTypeID VARCHAR(5),
-    -- planted date
-    -- potID
     addedDate DATETIME
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 
@@ -86,7 +86,7 @@ ALTER TABLE plants_status_table AUTO_INCREMENT = 1;
 -- If user exists, return -1, if a new user: return new userID
 DELIMITER //
 
-CREATE PROCEDURE AddUser(IN uName VARCHAR(100), IN uEmail VARCHAR(100), IN uMobile VARCHAR(15), IN uPassword VARCHAR(100), IN jDate DATETIME)
+CREATE PROCEDURE AddUser(IN uName VARCHAR(50), IN uEmail VARCHAR(50), IN uMobile VARCHAR(20), IN uPassword VARCHAR(100), IN jDate DATETIME)
 
 BEGIN
     DECLARE newUserID INT;
@@ -115,10 +115,11 @@ END//
 
 DELIMITER ;
 
+
 -- Update Password. Return userID
 DELIMITER //
 
-CREATE PROCEDURE UpdatePassword(IN uEmail VARCHAR(100), IN uPassword VARCHAR(100), IN newDate DATETIME)
+CREATE PROCEDURE UpdatePassword(IN uEmail VARCHAR(50), IN uPassword VARCHAR(100), IN newDate DATETIME)
 
 BEGIN
     DECLARE newUserID INT;
@@ -140,10 +141,10 @@ END//
 
 DELIMITER ;
 
--- Add Plant to a user
+-- Add Plant to a user with email
 DELIMITER //
 
-CREATE PROCEDURE AddPlantUser(IN uEmail VARCHAR(100), IN pTypeID VARCHAR(5), IN addDate DATETIME)
+CREATE PROCEDURE AddPlantUser(IN uEmail VARCHAR(50), IN pTypeID VARCHAR(5), IN addDate DATETIME)
 
 BEGIN
     DECLARE newUserID INT;
@@ -171,6 +172,35 @@ END//
 
 DELIMITER ;
 
+-- Add plant to user with userID
+DELIMITER //
+
+CREATE PROCEDURE AddPlantUserFromID(IN userIDIn INT, IN pTypeID VARCHAR(5), IN addDate DATETIME)
+
+BEGIN
+    DECLARE entryCount INT;
+
+    SELECT COUNT(*) INTO entryCount FROM user_table WHERE user_table.userID = userIDIn;
+
+    IF entryCount = 0 THEN
+        SELECT -1 AS plantID;
+    ELSE 
+        BEGIN
+
+            INSERT INTO plant_owner_table(userID, plantTypeID, addedDate)
+            VALUES (userIDIn, pTypeID, addDate);
+
+            SELECT plantID FROM plant_owner_table ORDER BY userID DESC LIMIT 1;
+
+        END;
+
+    END IF;
+
+END//
+
+DELIMITER ;
+
+
 -- Get next plant ID from plant database table
 DELIMITER //
 
@@ -193,7 +223,7 @@ BEGIN
             SELECT SUBSTR(lastID, 2) INTO lastID;
             SELECT CAST(lastID AS SIGNED) INTO lastIDInt;
             SET lastIDInt = lastIDInt + 1;
-            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR)), 4) INTO nextID;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR(4))), 4) INTO nextID;
             SELECT CONCAT('P', nextID) INTO nextID;
             SELECT nextID;
         END;
@@ -228,7 +258,7 @@ BEGIN
             SELECT SUBSTR(lastID, 2) INTO lastID;
             SELECT CAST(lastID AS SIGNED) INTO lastIDInt;
             SET lastIDInt = lastIDInt + 1;
-            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR)), 4) INTO nextID;
+            SELECT RIGHT(CONCAT('0000', CAST(lastIDInt AS CHAR(4))), 4) INTO nextID;
             SELECT CONCAT('P', nextID) INTO nextID;
         END;
 
@@ -243,9 +273,52 @@ END//
 
 DELIMITER ;
 
+-- Get all plant status
+DELIMITER //
+CREATE PROCEDURE GetPlantStatusAll(IN uPlantID INT)
+BEGIN
+    SELECT * FROM plant_status_table WHERE plant_status_table.plantID = uPlantID ORDER BY dataID;
+END//
+DELIMITER ;
+
+-- Get last added plant status
+DELIMITER //
+CREATE PROCEDURE GetPlantStatusLast(IN uPlantID INT)
+BEGIN
+    SELECT * FROM plant_status_table WHERE plant_status_table.plantID = uPlantID ORDER BY dataID DESC LIMIT 1;
+END//
+DELIMITER ;
+
+-- Get all available plants with plant type ID
+DELIMITER //
+CREATE PROCEDURE GetHousePlants()
+BEGIN
+    SELECT plantTypeID, commonName FROM plants_database_table ORDER BY commonName DESC;
+END//
+DELIMITER ;
+
+-- Get desired plant conditions according to plant type ID
+DELIMITER //
+CREATE PROCEDURE GetDesiredPlantConditions(IN uPlantTypeID INT)
+BEGIN
+    SELECT * FROM plants_database_table WHERE plants_database_table.plantTypeID = uPlantTypeID;
+END//
+DELIMITER ;
+
+
+
+/*
+ Growth: S = slow M = medium F = fast
+ Soil: L = light (sandy) M = medium H = heavy (clay)
+ Shade: F = full shade S = semi-shade N = no shade
+ Moisture: D = dry M = Moist We = wet Wa = water
+*/
+
+
+
 -- Populate tables
-CALL AddUser('Osmond Platt','osm.plat@acusage.net', '+942946008', 'abc123', '2022-12-01 08:22:13');
-CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', '+6774368358', 'abcd1234', '2022-11-20 13:00:13');
-CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', '+5549549421', 'tavish999', '2022-12-05 00:55:10');
-CALL AddUser('Girija Aron','giriaro@acusage.net', '+66963116836', '9876', '2022-11-30 05:20:45');
-CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', '+914749490', '123456abcdef', '2022-12-02 15:35:10');
+CALL AddUser('Osmond Platt','osm.plat@acusage.net', '942946008', 'abc123', '2022-12-01 08:22:13');
+CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', '6774368358', 'abcd1234', '2022-11-20 13:00:13');
+CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', '5549549421', 'tavish999', '2022-12-05 00:55:10');
+CALL AddUser('Girija Aron','giriaro@acusage.net', '6963116836', '9876', '2022-11-30 05:20:45');
+CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', '914749490', '123456abcdef', '2022-12-02 15:35:10');

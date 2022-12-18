@@ -1,5 +1,5 @@
 .DS_Store
 .vscode
-# .env
+.env
 node_modules/
 build/

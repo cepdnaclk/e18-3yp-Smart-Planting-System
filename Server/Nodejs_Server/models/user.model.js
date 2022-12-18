@@ -5,6 +5,7 @@ const User = function (user) {
   this.userName = user.userName;
   this.email = user.email;
   this.mobileNo = user.mobileNo;
+  this.password = user.password;
   this.joinDate = user.joinDate;
   // this.profileImg = user.img;
   this.profileImg = null;
@@ -15,7 +16,7 @@ const User = function (user) {
 // }
 
 User.create = async(newUser) => {
-  await sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.joinDate, newUser.profileImg]);
+  await sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.password, newUser.joinDate]);
   return true;
 }
 

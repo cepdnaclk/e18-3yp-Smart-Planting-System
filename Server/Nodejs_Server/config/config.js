@@ -1,9 +1,9 @@
-// const dotenv = require('dotenv');
+const dotenv = require('dotenv')
 
 module.exports = {
-    host: 'smart-plant-db-v1.cwancojjikuy.ap-south-1.rds.amazonaws.com',
-    user: 'admin',
-    // password: dotenv.config().parsed.DB_PASSWORD,
-    password: 'Anu123ga',
-    database: 'smart_planting_system'
+    host: dotenv.config().parsed.DB_HOST,
+    user: dotenv.config().parsed.DB_USER,
+    password: dotenv.config().parsed.DB_PASSWORD,
+    database: dotenv.config().parsed.DB_NAME
+
 };

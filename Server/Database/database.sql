@@ -299,7 +299,7 @@ DELIMITER ;
 
 -- Get desired plant conditions according to plant type ID
 DELIMITER //
-CREATE PROCEDURE GetDesiredPlantConditions(IN uPlantTypeID INT)
+CREATE PROCEDURE GetDesiredPlantConditions(IN uPlantTypeID VARCHAR(5))
 BEGIN
     SELECT * FROM plants_database_table WHERE plants_database_table.plantTypeID = uPlantTypeID;
 END//
@@ -322,3 +322,27 @@ CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', '6774368358', 'abcd1
 CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', '5549549421', 'tavish999', '2022-12-05 00:55:10');
 CALL AddUser('Girija Aron','giriaro@acusage.net', '6963116836', '9876', '2022-11-30 05:20:45');
 CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', '914749490', '123456abcdef', '2022-12-02 15:35:10');
+
+
+-- plants database
+CALL AddPlantToDB("Jade Plant", "Crassula argentea", 24, "Shrub", "S", "N", "S", "DM", 10, 50, 5.5, 6.5, 0);
+CALL AddPlantToDB("Spider Plant", "Chlorophytum comosum", 15, "Shrub", "F", "S", "SM", "M", 20, 32, 6, 6.5, 0);
+CALL AddPlantToDB("Aeonium Lily Pad", "Aeonium lindleyi", 5, "Shrub", "S", "N", "S", "D", 20, 30, 5.6, 6.5, 0);
+CALL AddPlantToDB("Gerbera Daisy", "Gerbera jamesonii", 15, "Perennial", "M", "N", "SM", "M", 22, 36, 5.5, 6.5, 0);
+CALL AddPlantToDB("African Violet - pink", "Streptocarpus ionanthus", 12, "Perennial", "M", "S", "M", "We", 18, 34, 6, 6.5, 0);
+CALL AddPlantToDB("African Violet - blue", "Streptocarpus ionanthus", 13, "Perennial", "M", "S", "M", "We", 18, 34, 6, 6.6, 0);
+CALL AddPlantToDB("African Violet - purple", "Streptocarpus ionanthus", 14, "Perennial", "M", "S", "M", "We", 18, 34, 6, 6.7, 0);
+CALL AddPlantToDB("African Violet - red", "Streptocarpus ionanthus", 15, "Perennial", "M", "S", "M", "We", 18, 34, 6, 6.8, 0);
+CALL AddPlantToDB("African Violet - white", "Streptocarpus ionanthus", 16, "Perennial", "M", "S", "M", "We", 18, 34, 6, 6.9, 0);
+CALL AddPlantToDB("Aloe Plant", "Aloe vera", 12, "Perennial", "S", "N", "SM", "D", 13, 29, 6.5, 7, 1);
+CALL AddPlantToDB("Lace Aloe", "Aristaloe aristata", 14, "Shrub", "S", "S", "S", "D", 13, 29, 6.5, 7, 0);
+CALL AddPlantToDB("Asparagus Fern", "Asparagus setaceus", 45, "Climber", "M", "N", "SMH", "M", 14, 21, 6.5, 6.8, 0);
+CALL AddPlantToDB("Baby Toes", "Fenestraria rhopalophylla", 3, "Succulent", "S", "N", "S", "D", 18, 36, 5, 6, 0);
+CALL AddPlantToDB("Echeveria", "Echeveria", 4, "Succulent", "S", "N", "M", "DM", 12, 50, 5, 6, 0);
+CALL AddPlantToDB("Snake Plant", "Sansevieria trifasciata", 32, "Perennial", "M", "S", "MH", "M", 15, 23, 5.5, 7, 0);
+CALL AddPlantToDB("Basil", "Ocimum basilicum", 10, "Perennial", "F", "S", "SM", "M", 10, 27, 6, 7.5, 1);
+CALL AddPlantToDB("Mint", "Mentha spicata", 20, "Perennial", "M", "S", "MH", "M", 10, 27, 6, 7.5, 1);
+CALL AddPlantToDB("Coriander", "Coriandrum sativum", 18, "Annual", "F", "N", "M", "M", 10, 29, 6, 7, 1);
+CALL AddPlantToDB("Rosemary", "Salvia rosmarinus", 40, "Shrub", "M", "N", "M", "D", 10, 18, 6, 7, 1);
+CALL AddPlantToDB("Oregano", "Origanum vulgare", 23, "Perennial", "M", "S", "H", "M", 15, 27, 6.5, 7, 1);
+CALL AddPlantToDB("Dill", "Anethum graveolens", 31, "Annual", "M", "N", "M", "M", 10, 27, 6.5, 8, 1);

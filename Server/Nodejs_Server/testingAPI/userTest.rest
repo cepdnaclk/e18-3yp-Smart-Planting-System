@@ -1,6 +1,6 @@
 //POST http://3.110.142.169:8000/user
 
-POST http://localhost:8000/user
+POST http://localhost:8000/api/user/register
 Content-Type: application/json
 
 {
@@ -8,5 +8,17 @@ Content-Type: application/json
     "email": "chamudi@gmail.com",
     "mobileNo": "07856000006566",
     "userPassword": "sdado",
+    "joinDate": "2022-11-18"
+}
+
+###
+POST http://localhost:8000/api/user/register
+Content-Type: application/json
+
+{
+    "userName" : "Anushanga Pavith",
+    "email": "chamudi23@gmail.com",
+    "mobileNo": "07856000006566",
+    "userPassword": "sdsdado",
     "joinDate": "2022-11-18"
 }

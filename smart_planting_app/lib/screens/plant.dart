@@ -1,14 +1,14 @@
-// class Plant{
-//   final String imagePath;
-//   final String name;
-//   final String scientificName;
-//   final String about;
-//
-//   User({
-//     required this.imagePath,
-//     required this.name,
-//     required this.email,
-//     required this.about,
-//   });
-//
-// }
+class Plant{
+  late String? plantType;
+  late String plantID;
+  late String scientificName;
+  late String about;
+
+  Plant({
+    required this.plantType,
+    required this.plantID,
+    required this.scientificName,
+    required this.about,
+  });
+
+}

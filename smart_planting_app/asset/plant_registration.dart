@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:smart_planting_app/screens/confirm.dart';
+
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({super.key});
 
   @override
-  _FormScreenState createState() => _FormScreenState();
+  _plantRegScreenState createState() => _plantRegScreenState();
 }
 
-class _FormScreenState extends State<plantRegScreen> {
+class _plantRegScreenState extends State<plantRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   late String _name;
@@ -113,6 +113,11 @@ class _FormScreenState extends State<plantRegScreen> {
   Widget build(BuildContext context) {
     final color = Colors.lightGreen;
 
+    String dropDownValue = 'plant 1';
+    List<String> listItem = [
+      'plant 1', 'plant 2', 'plant 3', 'plant 4', 'plant 5'
+    ];
+
     return Scaffold(
       backgroundColor: Colors.white,
       body: SingleChildScrollView(
@@ -156,13 +161,12 @@ class _FormScreenState extends State<plantRegScreen> {
                       shadowColor: Colors.black,
                     ),
                     child: const Text(
-                      'Sign up',
+                      'Add Plant',
                       style: TextStyle(color: Colors.black),
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()));
                         _formKey.currentState!.save();
                       } else {
                         print('not valid form');

@@ -1,5 +1,6 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/AuthRepository/authRepo.dart';
 
 class settingScreen extends StatefulWidget {
   const settingScreen({Key? key}) : super(key: key);
@@ -94,7 +95,9 @@ class _settingScreenState extends State<settingScreen> {
                     padding: EdgeInsets.symmetric(horizontal: 40),
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
                   ),
-                  onPressed: () {},
+                  onPressed: () {
+                    AuthenticationRepository.instance.logout();
+                  },
                   child: Text(
                     'Log Out',
                     style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold, color: Colors.black, letterSpacing: 2.2),

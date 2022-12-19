@@ -5,6 +5,7 @@ const app = express();
 userRoutes = require('./routes/users.js');
 plantRoutes = require('./routes/plants.js');
 plantDataRoutes = require('./routes/plantsData.js');
+plantOwnership = require("./routes/plantOwner.js");
 
 app.use(bodyParser.json());
 
@@ -12,5 +13,6 @@ app.use(bodyParser.json());
 app.use("/api/user", userRoutes);
 app.use("/api/plant", plantRoutes);
 app.use("/api/plantData",plantDataRoutes);
+app.use("/api/plantOwner", plantOwnership);
 
 module.exports = app

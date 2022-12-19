@@ -29,17 +29,17 @@ exports.register = async (req, res) => {
     } 
 }
 
-//Show the last data of the plnat_status table given the plantTypeID
+//Show the last data of the plnat_status table given the plantID
 exports.show = async(req,res) => {
     var data = req.params;
 
-    const PlantExists = await (Plant.checkPlant)(req.params.plantTypeID);
+    const PlantExists = await (Plant.checkPlant)(req.params.plantID);
 
     // if plant exists
     if(PlantExists) {
-        console.log(req.params.plantTypeID);
+        console.log(req.params.plantID);
         
-        const resp = Plant.show(data, function(err, result) {
+        const resp = Plant.showData(data, function(err, result) {
             if(resp === 2) {
                 res.status(400).send('Query error!');
             }

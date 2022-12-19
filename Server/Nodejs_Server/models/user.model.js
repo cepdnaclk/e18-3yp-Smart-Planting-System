@@ -13,7 +13,7 @@ const User = function (user) {
 
 User.create = async (newUser) => {
   // console.log(newUser.userName);
-  sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.password, newUser.joinDate]);
+  sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.userPassword, newUser.joinDate]);
   return true;
 }
 

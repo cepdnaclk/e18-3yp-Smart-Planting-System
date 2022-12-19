@@ -1,5 +1,6 @@
 const Plant = require('../models/plant.model');
 
+//Create a new user
 exports.register = async (req, res) => {
 
     const plantID = req.body.plantID;
@@ -26,5 +27,37 @@ exports.register = async (req, res) => {
     if (response) {
         res.status(201).send('Plant data added');
     } 
+}
+
+//Show the last data of the plnat_status table given the plantTypeID
+exports.show = async(req,res) => {
+    var data = req.params;
+
+    const PlantExists = await (Plant.checkPlant)(req.params.plantTypeID);
+
+    // if plant exists
+    if(PlantExists) {
+        console.log(req.params.plantTypeID);
+        
+        const resp = Plant.show(data, function(err, result) {
+            if(resp === 2) {
+                res.status(400).send('Query error!');
+            }
+            else {
+                res.send(result);
+            }
+        });
+        return;
+    }
+    else {
+        // create a json response
+        res.status(404).json({
+            success: false,
+            status: 404,
+            message: "Plant does not exists"
+        });
+        return;
+    }
+
 }
 

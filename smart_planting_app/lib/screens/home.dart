@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
+import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/plant.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 
@@ -26,7 +27,7 @@ class _homeScreenState extends State<homeScreen> {
           leading: IconButton(
             icon: Icon(Icons.chat_outlined),
             color: Colors.black,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => plantRegScreen())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => communityScreen())),
           ),
           actions: [
             IconButton(

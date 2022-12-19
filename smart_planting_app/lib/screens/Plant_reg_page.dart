@@ -40,6 +40,33 @@ class _plantRegScreenState extends State<plantRegScreen> {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               const SizedBox(height: 50,),
+              Container(
+                height: 40,
+                width: 300,
+                child: TextField(
+                  decoration: InputDecoration(
+                    border: OutlineInputBorder(
+                      borderSide: BorderSide(color: Colors.black54, ),
+                        borderRadius: const BorderRadius.all(
+                        const Radius.circular(10.0),)
+                    ),
+                    alignLabelWithHint: false,
+                    contentPadding: EdgeInsets.only(top: 5, left: 8, right: 5),
+                    filled: true,
+                    fillColor: Colors.green.shade100,
+                    label: Text('Plant ID', style: TextStyle(fontSize: 15, color: Colors.black87),),
+                    hintText: 'Type the pot ID',
+                    hintStyle: TextStyle(fontSize: 15, color: Colors.black54),
+                  ),
+                  cursorColor: Colors.green,
+                  keyboardType: TextInputType.number,
+                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  onChanged: (plantID) {
+                    plant1.plantID = plantID;
+                  },
+                ),
+              ),
+              SizedBox(height: 10,),
               Padding(
                 padding: EdgeInsets.all(5),
                 child: Container(
@@ -74,7 +101,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 20,),
+              SizedBox(height: 10,),
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(

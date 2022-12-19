@@ -18,6 +18,7 @@ const HousePlant = function (plant) {
   this.edible = plant.edible;
 }
 
+//Check the availability of the plant
 HousePlant.checkPlant = async (plantTypeID) => {
 	const row = await sql.query("SELECT * FROM plants_database_table WHERE plantTypeID = ?", [plantTypeID]);
 	if(row.length > 0) {
@@ -26,6 +27,7 @@ HousePlant.checkPlant = async (plantTypeID) => {
 	return false;
 }
 
+//Get desired plant conditions given the plantTypeID
 HousePlant.show = async (data, callback) => {
 	var sqlPlant = "CALL GetDesiredPlantConditions(?);";
 	
@@ -42,4 +44,17 @@ HousePlant.show = async (data, callback) => {
 	})
 }
 
+//Get all the plantTypeIDs and commonNames
+HousePlant.showAll = function(data,callback){
+  var sqlData = "CALL GetHousePlants;"
+
+  const status = sql.query(sqlData,callback,function(err,result){
+      console.log(status);
+      if(result){
+          callback(null,result);
+      }else{
+          this.callback(err,null);
+      }    
+})
+}
 module.exports = HousePlant;

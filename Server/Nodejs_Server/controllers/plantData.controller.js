@@ -1,5 +1,6 @@
 const HousePlant = require('../models/plantData.model');
 
+//Get desired plant conditions given the plantTypeID
 exports.show = async(req,res) => {
     var data = req.params;
 
@@ -28,4 +29,21 @@ exports.show = async(req,res) => {
         });
         return;
     }
+}
+
+//Get all the plantTypeIDs and commonNames
+exports.all = async (req, res) => {
+    var data = req.body;
+    
+    const resp = HousePlant.showAll(data, function(err,result){
+        // console.log(result);
+        //console.log(err);
+
+        if(resp === 2){
+            res.status(400).send('Query error!');
+        }else{
+            res.send(result);
+        }
+
+    });
 }

@@ -15,7 +15,7 @@ exports.show = async(req,res) => {
                 res.status(400).send('Query error!');
             }
             else {
-                res.send(result);
+                res.send(result[0][0]);
             }
         });
         return;
@@ -34,7 +34,6 @@ exports.show = async(req,res) => {
 //Get all the plantTypeIDs and commonNames
 exports.all = async (req, res) => {
     var data = req.body;
-    
     const resp = HousePlant.showAll(data, function(err,result){
         // console.log(result);
         //console.log(err);
@@ -42,7 +41,7 @@ exports.all = async (req, res) => {
         if(resp === 2){
             res.status(400).send('Query error!');
         }else{
-            res.send(result);
+            res.send(result[0]);
         }
 
     });

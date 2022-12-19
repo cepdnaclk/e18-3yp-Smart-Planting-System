@@ -16,22 +16,21 @@ Plant.create = async(newPlant) => {
 }
 
 //Check the availabitity of the plant
-Plant.checkPlant = async (plantTypeID) => {
-	const row = await sql.query("SELECT * FROM plants_database_table WHERE plantTypeID = ?", [plantTypeID]);
+Plant.checkPlant = async (plantID) => {
+	const row = await sql.query("SELECT * FROM plants_status_table WHERE plantID = ?", [plantID]);
 	if(row.length > 0) {
 		return true;
 	}
 	return false;
 }
 
-//Show the last data of the plnat_status table given the plantTypeID
+//Show the last data of the plnat_status table given the plantID
 Plant.showData = async(data,callback) => {
   var sqlData = "CALL GetPlantStatusLast(?);";
 	
-	console.log(data.plantTypeID, "in plant data model");
+	console.log(data.plantID, "in plant data model");
 
-	// Check whether plant exists
-    const status = sql.query(sqlData, [data.plantTypeID], callback, function(err, result) {
+    const status = sql.query(sqlData, [data.plantID], callback, function(err, result) {
 		console.log(status);
 		if (result) {
 			callback(null, result);

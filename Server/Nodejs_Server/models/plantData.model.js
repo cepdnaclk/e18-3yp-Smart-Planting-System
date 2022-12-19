@@ -46,7 +46,7 @@ HousePlant.show = async (data, callback) => {
 
 //Get all the plantTypeIDs and commonNames
 HousePlant.showAll = function(data,callback){
-  var sqlData = "CALL GetHousePlants;"
+  var sqlData = "CALL GetHousePlants();"
 
   const status = sql.query(sqlData,callback,function(err,result){
       console.log(status);

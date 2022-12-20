@@ -18,7 +18,7 @@ exports.register = async (req, res) => {
         profileIMG: profileIMG
     });
 
-    // console.log(userName, "User controller");
+    console.log(userName, "User controller");
 
     // Create a new user
     const resp = User.create(user, function(err, result) {
@@ -26,8 +26,7 @@ exports.register = async (req, res) => {
             res.status(400).send('Query error!');
         }
         else {
-            console.log(user.userName);
-            res.send(result[0][0]);
+            res.send(result[0]);
         }
     });
 

@@ -26,7 +26,7 @@ exports.register = async (req, res) => {
             res.status(400).send('Query error!');
         }
         else {
-            res.send(result[0]);
+            res.send(result[0][0]);
         }
     });
 

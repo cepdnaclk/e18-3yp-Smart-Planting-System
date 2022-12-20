@@ -21,10 +21,13 @@ exports.register = async (req, res) => {
     // console.log(userName, "User controller");
 
     // Create a new user
-    const response = await User.create(user);
+    const resp = User.create(user, function(err, result) {
+        if(resp === 2) {
+            res.status(400).send('Query error!');
+        }
+        else {
+            res.send(result[0]);
+        }
+    });
 
-    if (response) {
-        res.status(201).send('User added');
-    } 
 }
-

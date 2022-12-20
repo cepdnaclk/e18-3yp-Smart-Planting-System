@@ -24,7 +24,7 @@ Plant.checkPlant = async (plantID) => {
 	return false;
 }
 
-//Show the last data of the plnat_status table given the plantID
+//Show the last data of the plant_status table given the plantID
 Plant.showData = async(data,callback) => {
   var sqlData = "CALL GetPlantStatusLast(?);";
 	

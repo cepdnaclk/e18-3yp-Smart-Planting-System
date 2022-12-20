@@ -11,10 +11,17 @@ const User = function (user) {
   this.profileImg = null;
 }
 
-User.create = async (newUser) => {
-  // console.log(newUser.userName);
-  sql.query("CALL AddUser(?,?,?,?,?)", [newUser.userName, newUser.email, newUser.mobileNo, newUser.userPassword, newUser.joinDate]);
-  return true;
+User.create = async (newUser, callback) => {
+
+  var sqlQuery = "CALL AddUser(?,?,?,?,?);";
+  
+  const status = sql.query(sqlQuery, [newUser.userName, newUser.email, newUser.mobileNo, newUser.userPassword, newUser.joinDate], callback, function(err,result){
+    if(result){
+        callback(null,result);
+    }else{
+        this.callback(err,null);
+    }    
+  });
 }
 
 module.exports = User;

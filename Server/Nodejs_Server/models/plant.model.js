@@ -11,7 +11,7 @@ const Plant = function (plant) {
 }
 
 Plant.create = async(newPlant) => {
-  await sql.query("INSERT INTO plants_status_table SET ?",newPlant);
+  await sql.query("INSERT INTO plant_status_table SET ?",newPlant);
   return true;
 }
 

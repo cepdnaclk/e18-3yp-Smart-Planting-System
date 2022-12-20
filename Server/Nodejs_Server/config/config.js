@@ -5,7 +5,7 @@ module.exports = {
     user: dotenv.config().parsed.DB_USER,
     password: dotenv.config().parsed.DB_PASSWORD,
     database: dotenv.config().parsed.DB_NAME
-
+    
 };
 
 /*module.exports = {

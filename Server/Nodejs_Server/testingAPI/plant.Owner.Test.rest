@@ -1,0 +1,9 @@
+POST http://localhost:8000/api/plantOwner/register
+Content-Type: application/json
+
+{
+    "plantID" : "190",
+    "userID": "100",
+    "plantTypeID": "P0005",
+    "addedDate": "2022-12-18"
+}

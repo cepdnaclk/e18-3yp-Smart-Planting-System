@@ -1,0 +1,7 @@
+POST http://localhost:8000/api/images/uploads
+# Body type: multiplart
+# Select the image
+# Not working in rest files
+
+###
+GET http://localhost:8000/uploads/1671534654371.png

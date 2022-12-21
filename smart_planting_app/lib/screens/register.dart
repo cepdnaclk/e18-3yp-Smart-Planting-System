@@ -7,6 +7,8 @@ import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/configs/register_config.dart';
 import 'profile_widget.dart';
 import 'package:get/get.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as cnv;
 
 class registerScreen extends StatefulWidget {
   const registerScreen({super.key});
@@ -74,11 +76,11 @@ class _FormScreenState extends State<registerScreen> {
   }
 
 
-  late String _name;
-  late String _email;
-  late String _password;
-  late String _confirmPwd;
-  late int _mobile;
+  late String name = "";
+  late String email = "";
+  late String password ='';
+  late String confirmPwd ='';
+  late int mobile = 0;
 
   Widget _buildNameField() {
     return TextFormField(
@@ -91,7 +93,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration:
       const InputDecoration(labelText: 'Name', hintText: 'Enter your full name', ),
       onSaved: (value) {
-        _name = value!;
+        name = value!;
       },
     );
   }
@@ -109,7 +111,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration:
       const InputDecoration(labelText: 'Email', hintText: 'example@gmail.com'),
       onSaved: (value) {
-        _email = value!;
+        email = value!;
       },
     );
   }
@@ -128,7 +130,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration: const InputDecoration(
           labelText: 'Password', hintText: 'Enter your password'),
       onChanged: (value) {
-        _confirmPwd = value;
+        confirmPwd = value;
       },
       // onSaved: (value) {
       //   _password = value!;
@@ -144,7 +146,7 @@ class _FormScreenState extends State<registerScreen> {
         if (text!.isEmpty) {
           return "Please enter a password";
         }
-        else if (text != _confirmPwd) {
+        else if (text != confirmPwd) {
           return "Password is incorrect";
         }
         return null;
@@ -152,7 +154,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration: const InputDecoration(
           labelText: 'Confirm Password', hintText: 'Re-type your password'),
       onSaved: (value) {
-        _password = value!;
+        password = value!;
       },
     );
   }
@@ -171,7 +173,7 @@ class _FormScreenState extends State<registerScreen> {
       decoration: const InputDecoration(
           labelText: 'Mobile Number', hintText: 'Enter a mobile number'),
       onSaved: (value) {
-        _mobile = int.parse(value!);
+        mobile = int.parse(value!);
       },
     );
   }
@@ -244,7 +246,7 @@ class _FormScreenState extends State<registerScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         print('valid form');
-                        SignUpController.instance.registerUser(controller.fullName.text, controller.email.text.trim(), controller.password.text.trim(), controller.mobileNo.text);
+                        SignUpController.instance.registerUser(controller.fullName.text.trim(), controller.email.text.trim(), controller.password.text.trim(), controller.mobileNo.text.trim());
                         _formKey.currentState!.save();
                         // Navigator.of(context).push(MaterialPageRoute(builder: (context) => confirmScreen()));
                       } else {
@@ -260,6 +262,7 @@ class _FormScreenState extends State<registerScreen> {
         ),
       ),
     );
+
   }
 
   Widget buildImage() {
@@ -303,6 +306,7 @@ class _FormScreenState extends State<registerScreen> {
           child: child,
         ),
       );
+
 }
 
 class HelperValidator {

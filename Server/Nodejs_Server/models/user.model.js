@@ -11,6 +11,15 @@ const User = function (user) {
   this.profileImg = null;
 }
 
+User.checkUser = async (newUserID) => {
+	const row = await sql.query("SELECT * FROM user_table WHERE user_table.userID = ?;", [newUserID]);
+	if(row.length > 0) {
+		return true;
+	} else {
+		return false;
+	}
+}
+
 User.create = async (newUser, callback) => {
 
   var sqlQuery = "CALL AddUser(?,?,?,?,?);";

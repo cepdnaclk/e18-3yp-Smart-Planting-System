@@ -35,7 +35,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
       body: Container(
         margin: const EdgeInsets.all(24.0),
         child: Form(
-          key: _formKey,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
@@ -45,30 +44,30 @@ class _plantRegScreenState extends State<plantRegScreen> {
                 width: 300,
                 child: TextField(
                   decoration: InputDecoration(
-                    border: OutlineInputBorder(
+                    border: const OutlineInputBorder(
                       borderSide: BorderSide(color: Colors.black54, ),
-                        borderRadius: const BorderRadius.all(
-                        const Radius.circular(10.0),)
+                        borderRadius: BorderRadius.all(
+                        Radius.circular(10.0),)
                     ),
                     alignLabelWithHint: false,
-                    contentPadding: EdgeInsets.only(top: 5, left: 8, right: 5),
+                    contentPadding: const EdgeInsets.only(top: 5, left: 8, right: 5),
                     filled: true,
                     fillColor: Colors.green.shade100,
-                    label: Text('Plant ID', style: TextStyle(fontSize: 15, color: Colors.black87),),
+                    label: const Text('Plant ID', style: TextStyle(fontSize: 15, color: Colors.black87),),
                     hintText: 'Type the pot ID',
-                    hintStyle: TextStyle(fontSize: 15, color: Colors.black54),
+                    hintStyle: const TextStyle(fontSize: 15, color: Colors.black54),
                   ),
                   cursorColor: Colors.green,
                   keyboardType: TextInputType.number,
-                  style: TextStyle(fontSize: 15, color: Colors.black),
+                  style: const TextStyle(fontSize: 15, color: Colors.black),
                   onChanged: (plantID) {
                     plant1.plantID = plantID;
                   },
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Padding(
-                padding: EdgeInsets.all(5),
+                padding: const EdgeInsets.all(5),
                 child: Container(
                   decoration: BoxDecoration(
                     border: Border.all(color: Colors.black45,),
@@ -78,15 +77,15 @@ class _plantRegScreenState extends State<plantRegScreen> {
                   ),
                   height: 40,
                   width: 300,
-                  padding: EdgeInsets.only(left: 5, right: 5),
+                  padding: const EdgeInsets.only(left: 5, right: 5),
                   child: DropdownButton<String> (
-                    icon: Icon(Icons.arrow_drop_down_outlined,  color: Colors.green, size: 40,),
+                    icon: const Icon(Icons.arrow_drop_down_outlined,  color: Colors.green, size: 40,),
                     alignment: Alignment.centerLeft,
                     borderRadius: BorderRadius.circular(10),
                     menuMaxHeight: 300,
                     underline: Container(color: Colors.transparent,),
                     dropdownColor: Colors.grey.shade300,
-                    hint: Text('Select Plant Type                        ', style: TextStyle(fontSize: 18),),
+                    hint: const Text('Select Plant Type                        ', style: TextStyle(fontSize: 18),),
                     value: dropDownVal,
                     items: items.map((item) => DropdownMenuItem(
                         value: item,
@@ -101,7 +100,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                   ),
                 ),
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               Center(
                 child: ElevatedButton(
                   style: ElevatedButton.styleFrom(
@@ -110,10 +109,10 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     elevation: 0,
                     alignment: Alignment.centerLeft,
                     shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
-                    side: BorderSide(color: Colors.black45)
+                    side: const BorderSide(color: Colors.black45)
                   ),
-                  child: _dateTime == null? Text('Date', style: TextStyle(color: Colors.black45, fontSize: 20),)
-                      : Text(_dateTime.toString().substring(0, 10), style: TextStyle(color: Colors.black45, fontSize: 20),),
+                  child: _dateTime == null? const Text('Date', style: TextStyle(color: Colors.black45, fontSize: 20),)
+                      : Text(_dateTime.toString().substring(0, 10), style: const TextStyle(color: Colors.black45, fontSize: 20),),
                   onPressed: () {
                       showDatePicker(
                         context: context,
@@ -158,7 +157,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
   }
 
   Widget buildPlant() => Padding(
-    padding: EdgeInsets.symmetric(horizontal: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 5),
     child: Container(
       decoration: const BoxDecoration(
           color: Colors.black26,
@@ -170,7 +169,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
         children: [
           const SizedBox(height: 40,),
           Image.asset('asset/plant.png', scale: 4,),
-          SizedBox(height: 4,),
+          const SizedBox(height: 4,),
           const SizedBox(height: 100,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,

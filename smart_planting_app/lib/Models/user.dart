@@ -1,9 +1,9 @@
 class AppUser{
   final String imagePath;
-  final String name;
+  late final String name;
   final String email;
   final String mobileNo;
-  final String about;
+  late final String about;
 
   AppUser({
     required this.imagePath,

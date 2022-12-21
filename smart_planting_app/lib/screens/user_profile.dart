@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/Storage/SecureStorageData.dart';
 import 'package:smart_planting_app/screens/editProfile.dart';
+import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
 import 'package:smart_planting_app/screens/settings.dart';
 import 'package:smart_planting_app/Models/user.dart';
@@ -111,7 +112,10 @@ class _profileScreenState extends State<profileScreen> {
 
     return Scaffold(
       appBar: AppBar(
-        leading: const BackButton(color: Colors.black),
+        leading: BackButton(
+          color: Colors.black,
+          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen())),
+        ),
         backgroundColor: Colors.transparent,
         elevation: 0,
         actions: [
@@ -241,11 +245,11 @@ class StatWidget extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      BuildButton(context, '9.9', 'Ranking'),
+      BuildButton(context, '1', 'Ranking'),
       buildDivider(),
-      BuildButton(context, '45', 'Following'),
+      BuildButton(context, '0', 'Following'),
       buildDivider(),
-      BuildButton(context, '5', 'Followers'),
+      BuildButton(context, '0', 'Followers'),
     ],
   );
 

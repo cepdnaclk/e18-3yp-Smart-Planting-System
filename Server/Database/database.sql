@@ -306,14 +306,15 @@ END//
 DELIMITER ;
 
 -- Get user's plants from database
+DROP PROCEDURE GetPlantsOfUser;
 DELIMITER //
 CREATE PROCEDURE GetPlantsOfUser(IN inUserID INT)
 BEGIN
-    SELECT * FROM plant_owner_table WHERE plant_owner_table.userID = inUserID;
+    SELECT plant_owner_table.plantID, plant_owner_table.plantTypeID, plants_database_table.commonName
+    FROM plant_owner_table, plants_database_table
+    WHERE plant_owner_table.userID = inUserID AND plants_database_table.plantTypeID = plant_owner_table.plantTypeID;
 END//
 DELIMITER ;
-
-
 
 /*
  Growth: S = slow M = medium F = fast

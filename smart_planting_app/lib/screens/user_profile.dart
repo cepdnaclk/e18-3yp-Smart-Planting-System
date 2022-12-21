@@ -4,20 +4,36 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_planting_app/screens/editProfile.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
 import 'package:smart_planting_app/screens/settings.dart';
 import 'package:smart_planting_app/Models/user.dart';
 import 'package:smart_planting_app/screens/user_detail.dart';
 
+
 class profileScreen extends StatefulWidget {
-  const profileScreen({Key? key}) : super(key: key);
+  final String name;
+  final String about;
+
+  const profileScreen(
+      {Key? key,
+      required this.name,
+      required this.about,
+      }) : super(key: key);
 
   @override
-  State<profileScreen> createState() => _profileScreenState();
+  State<profileScreen> createState() => _profileScreenState(name, about);
 }
 
 class _profileScreenState extends State<profileScreen> {
   File? image;
+
+  AppUser user = UserPreferences.myUser;
+
+  var name;
+  var about;
+
+  _profileScreenState(this.name, this.about);
 
   Future pickImage(ImageSource source) async {
     try {
@@ -74,8 +90,7 @@ class _profileScreenState extends State<profileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final user = UserPreferences.myUser;
-    final color = Colors.lightGreen;
+    const color = Colors.lightGreen;
 
     return Scaffold(
       appBar: AppBar(
@@ -84,9 +99,13 @@ class _profileScreenState extends State<profileScreen> {
         elevation: 0,
         actions: [
           IconButton(
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => editProfile())),
+            icon: const Icon(Icons.edit, color: Colors.black),
+          ),
+          IconButton(
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const settingScreen())),
               icon: const Icon(Icons.more_vert_rounded, color: Colors.black),
-          )
+          ),
         ],
       ),
       body: ListView(
@@ -123,7 +142,8 @@ class _profileScreenState extends State<profileScreen> {
   Widget buildName(AppUser user) => Column(
     children: [
       Text(
-        user.name,
+        name == ''? user.name : name
+        ,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       ),
       const SizedBox(height: 4,),
@@ -146,7 +166,7 @@ class _profileScreenState extends State<profileScreen> {
           ),
           const SizedBox(height: 2,),
           Text(
-            user.about,
+              about == ''? user.about : about,
             style: const TextStyle(),
           )
 
@@ -195,8 +215,6 @@ class _profileScreenState extends State<profileScreen> {
           child: child,
         ),
       );
-
-
 }
 
 class StatWidget extends StatelessWidget {

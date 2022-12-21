@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
-import 'package:smart_planting_app/screens/plant.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 
 List<Widget> adds = [];
@@ -31,7 +30,7 @@ class _homeScreenState extends State<homeScreen> {
           ),
           actions: [
             IconButton(
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen())),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: '',))),
                 icon: Icon(Icons.person_pin, color: Colors.black,))
           ],
         ),

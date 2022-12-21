@@ -3,6 +3,9 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_planting_app/screens/posts.dart';
+
+late File file;
 
 class upload extends StatefulWidget {
   const upload({Key? key}) : super(key: key);
@@ -12,8 +15,6 @@ class upload extends StatefulWidget {
 }
 
 class _uploadState extends State<upload> {
-  File? file;
-
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -24,7 +25,9 @@ class _uploadState extends State<upload> {
           Image.asset('asset/upload.png', height: 260,),
           const Padding(padding: EdgeInsets.only(top: 20)),
           ElevatedButton(
-              onPressed: () => selectImage(context),
+              onPressed: () {
+                selectImage(context);
+              },
               child: const Text('Upload Image', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),))
         ],
       ),
@@ -38,15 +41,15 @@ class _uploadState extends State<upload> {
           return SimpleDialog(
             title: const Text('Create a Post'),
             children: [
-              SizedBox(height: 20,),
+              const SizedBox(height: 20,),
               SimpleDialogOption(
-                padding: EdgeInsets.only(left: 30),
+                padding: const EdgeInsets.only(left: 30),
                 child: const Text('Camera'),
                 onPressed: () {
                   pickImage(ImageSource.camera);
                 },
               ),
-              Padding(
+              const Padding(
                 padding: EdgeInsets.only(left: 20, top: 15, right: 50, bottom: 15),
                 child: Divider(
                   height: 1,
@@ -55,22 +58,26 @@ class _uploadState extends State<upload> {
                 ),
               ),
               SimpleDialogOption(
-                padding: EdgeInsets.only(left: 30, bottom: 20),
+                padding: const EdgeInsets.only(left: 30, bottom: 20),
                 child: const Text('Gallery'),
                 onPressed: () {
                   pickImage(ImageSource.gallery);
                 },
               ),
-              SizedBox(height: 10,),
+              const SizedBox(height: 10,),
               SimpleDialogOption(
-                child: Align(
+                child: const Align(
                     alignment: Alignment.centerRight,
-                    child: const Text('Cancel')),
-                onPressed: () => Navigator.pop(context),
+                    child: Text('Create')),
+                onPressed: () {
+                  //file != null?
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => postWidget()));
+                  //: Navigator.pop(context);
+                }
               )
-            ],
-          );
-        }
+          ]
+        );
+      }
     );
   }
 

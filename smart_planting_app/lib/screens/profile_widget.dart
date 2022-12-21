@@ -30,7 +30,7 @@ class ProfileWidget extends StatelessWidget {
       ),
     );
   }
-  
+
   Widget buildImage(BuildContext context) {
     final String imagePath;
     final Object image;
@@ -42,10 +42,10 @@ class ProfileWidget extends StatelessWidget {
     } else {
       image = FileImage(File(imagePath));
     }
-    
+
     return ClipOval(
       child: Material(
-        shape: CircleBorder(side: BorderSide(color: Colors.black)),
+        shape: const CircleBorder(side: BorderSide(color: Colors.black)),
         color: Colors.transparent,
         child: Ink.image(
           image: image as ImageProvider,

@@ -21,11 +21,10 @@
       <sourceFolder url="file://$MODULE_DIR$/app/src/main/kotlin" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/gen" isTestSource="false" generated="true" />
     </content>
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="Android API 33, extension level 3 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
     <orderEntry type="library" exported="" name="Flutter for Android" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" exported="" name="Dart SDK" level="project" />
-    <orderEntry type="library" exported="" name="Dart Packages" level="project" />
   </component>
 </module>

@@ -21,17 +21,17 @@ class _homeScreenState extends State<homeScreen> {
         appBar: AppBar(
           backgroundColor: Colors.transparent,
           elevation: 0,
-          title: Text('Home', style: TextStyle(color: Colors.black)),
+          title: const Text('Home', style: TextStyle(color: Colors.black)),
           centerTitle: true,
           leading: IconButton(
-            icon: Icon(Icons.chat_outlined),
+            icon: const Icon(Icons.chat_outlined),
             color: Colors.black,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => communityScreen())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const communityScreen())),
           ),
           actions: [
             IconButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: '',))),
-                icon: Icon(Icons.person_pin, color: Colors.black,))
+                icon: const Icon(Icons.person_pin, color: Colors.black,))
           ],
         ),
         body: Column(
@@ -39,14 +39,14 @@ class _homeScreenState extends State<homeScreen> {
             Expanded(
               flex: 90,
               child: Container(
-                padding: EdgeInsets.symmetric(horizontal: 10),
+                padding: const EdgeInsets.symmetric(horizontal: 10),
                 width: double.infinity,
                 child: Scrollbar(
                   thickness: 4,
-                  radius: Radius.circular(15),
+                  radius: const Radius.circular(15),
                   child: SingleChildScrollView(
                     scrollDirection: Axis.horizontal,
-                    padding: EdgeInsets.symmetric(horizontal: 5),
+                    padding: const EdgeInsets.symmetric(horizontal: 5),
                     child: Row(
                       children: adds,
                     ),
@@ -58,7 +58,7 @@ class _homeScreenState extends State<homeScreen> {
               flex: 10,
               child: Container(
                 alignment: Alignment.center,
-                padding: EdgeInsets.symmetric(horizontal: 15),
+                padding: const EdgeInsets.symmetric(horizontal: 15),
                 height: double.infinity,
                 width: double.infinity,
                 // decoration: BoxDecoration(
@@ -73,7 +73,7 @@ class _homeScreenState extends State<homeScreen> {
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       splashColor: Colors.green,
-                      child: Text(
+                      child: const Text(
                           'Add',
                       style: TextStyle(color: Colors.black)),
                       onPressed: () {
@@ -82,12 +82,12 @@ class _homeScreenState extends State<homeScreen> {
                         setState(() {});
                       },
                     ),
-                    SizedBox(width: 70,),
+                    const SizedBox(width: 70,),
                     FloatingActionButton(
                       backgroundColor: Colors.transparent,
                       elevation: 0,
                       splashColor: Colors.green,
-                      child: Text(
+                      child: const Text(
                           'Delete',
                           style: TextStyle(color: Colors.black)),
                       onPressed: () {
@@ -107,7 +107,7 @@ class _homeScreenState extends State<homeScreen> {
 
 
   Widget buildPlant() => Padding(
-    padding: EdgeInsets.symmetric(horizontal: 5),
+    padding: const EdgeInsets.symmetric(horizontal: 5),
     child: Container(
       decoration: const BoxDecoration(
           color: Colors.black26,
@@ -119,7 +119,7 @@ class _homeScreenState extends State<homeScreen> {
           children: [
             const SizedBox(height: 40,),
             Image.asset('asset/plant.png', scale: 4,),
-            SizedBox(height: 4,),
+            const SizedBox(height: 4,),
             const SizedBox(height: 100,),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
@@ -168,12 +168,64 @@ class _homeScreenState extends State<homeScreen> {
 class addPlant {
   //Plant p1 = new Plant(plantType: plantType, plantID: plantID, scientificName: scientificName, about: about);
 
-  addPlant(String plantName) {
-    adds.add(buildPlant(plantName));
+  addPlant(BuildContext context,String plantName) {
+    adds.add(buildPlant(context, plantName));
   }
 
-  Widget buildPlant(String plantType) => Padding(
-    padding: EdgeInsets.symmetric(horizontal: 5),
+  Future popUpWindow(BuildContext context, String title, double currentData, double requiredData) => showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          elevation: 2,
+          backgroundColor: Colors.transparent,
+          shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(10),
+              side: const BorderSide(
+                color: Colors.green,
+              )
+          ),
+          child: Padding(
+            padding: EdgeInsets.all(8),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                const SizedBox(height: 12,),
+                Text(
+                  title,
+                  style: TextStyle(fontWeight: FontWeight.bold, fontSize: 20, color: Colors.white),
+                ),
+                const SizedBox(height: 12,),
+                Text(
+                  'Current Level   : $currentData',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  textAlign: TextAlign.start,
+                ),
+                SizedBox(height: 4,),
+                Text(
+                  'Required Level : $requiredData',
+                  style: TextStyle(fontSize: 18, color: Colors.white),
+                  textAlign: TextAlign.start,
+                ),
+                const SizedBox(height: 12,),
+                ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    backgroundColor: Colors.green.shade600
+                  ),
+                  child: const Text('Balance'),
+                  onPressed: () {
+                    Navigator.of(context).pop();
+                  },
+                )
+
+              ],
+            ),
+          ),
+        );
+      }
+  );
+
+  Widget buildPlant(BuildContext context,String plantType) => Padding(
+    padding: const EdgeInsets.symmetric(horizontal: 5),
     child: Container(
       decoration: const BoxDecoration(
           color: Colors.black26,
@@ -185,50 +237,109 @@ class addPlant {
         children: [
           const SizedBox(height: 40,),
           Image.asset('asset/plant.png', scale: 4,),
-          SizedBox(height: 8,),
-          Text(plantType, style: TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), ),
-          SizedBox(height: 4,),
+          const SizedBox(height: 8,),
+          Text(plantType, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), ),
+          const SizedBox(height: 4,),
           const SizedBox(height: 90,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FloatingActionButton.large(
-                elevation: 2,
-                onPressed: () {},
-                backgroundColor: Colors.green.shade200,
-                child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 7),
+              Container(
+                height: 100,
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      backgroundColor: Colors.green.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Colors.black,
+                          )
+                      )
+                  ),
+                  child: Image.asset('asset/light.png', scale: 7),
+                  onPressed: () {
+                    popUpWindow(context, 'Light Intensity', 103.4, 150);
+                  },
+                ),
               ),
               const SizedBox(width: 50,),
-              FloatingActionButton.large(
-                elevation: 2,
-                onPressed: () {},
-                backgroundColor: Colors.green.shade200,
-                child: Image.network('https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png', scale: 8),
+              Container(
+                height: 100,
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      backgroundColor: Colors.green.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Colors.black,
+                          )
+                      )
+                  ),
+                  child: Image.asset('asset/temp.png', scale: 8),
+                  onPressed: () {
+                    popUpWindow(context, 'Temperature', 103.4, 150);
+                  },
+                ),
               ),
             ],
           ),
-          const SizedBox(height: 50,),
+
+          const SizedBox(height: 25,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              FloatingActionButton.large(
-                elevation: 2,
-                onPressed: () {},
-                backgroundColor: Colors.green.shade200,
-                child: Image.network('https://www.iconsdb.com/icons/preview/green/water-9-xxl.png', scale: 8),
+              Container(
+                height: 100,
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                      elevation: 2,
+                      backgroundColor: Colors.green.shade200,
+                      shape: RoundedRectangleBorder(
+                          borderRadius: BorderRadius.circular(10),
+                          side: const BorderSide(
+                            color: Colors.black,
+                          )
+                      )
+                  ),
+                  child: Image.asset('asset/waterlevel.png', scale: 8),
+                  onPressed: () {
+                    popUpWindow(context, 'Water Level', 103.4, 150);
+                  },
+                ),
               ),
+
               const SizedBox(width: 50,),
-              FloatingActionButton.large(
-                elevation: 2,
-                onPressed: () {},
-                backgroundColor: Colors.green.shade200,
-                child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 6),
+              Container(
+                height: 100,
+                width: 100,
+                child: ElevatedButton(
+                  style: ElevatedButton.styleFrom(
+                    elevation: 2,
+                    backgroundColor: Colors.green.shade200,
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(10),
+                      side: const BorderSide(
+                        color: Colors.black,
+                      )
+                    )
+                  ),
+                  child: Image.asset('asset/soil.png', scale: 6),
+                  onPressed: () {
+                    popUpWindow(context, 'Soil Moisture', 103.4, 150);
+
+                  }
+                ),
+              ),
+                ]
               ),
             ],
           ),
-        ],
       ),
-    ),
-  );
+    );
 
 }

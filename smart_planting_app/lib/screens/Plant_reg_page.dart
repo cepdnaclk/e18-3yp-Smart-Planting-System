@@ -144,7 +144,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     style: TextStyle(color: Colors.black),
                   ),
                   onPressed: () {
-                    addPlant(dropDownVal!);
+                    addPlant(context, dropDownVal!);
                     Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen()));
                   },
                 ),

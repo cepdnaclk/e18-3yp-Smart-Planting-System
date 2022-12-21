@@ -81,7 +81,6 @@ exports.delete = async (req, res) => {
         
         const resp = PlantOwnership.delete(data, function(err,result){
             console.log(result);
-            //console.log(err);
 
             if(resp === 2){
                 res.status(400).send('Query error!');
@@ -101,4 +100,40 @@ exports.delete = async (req, res) => {
 
         return;
     }
+}
+
+exports.getPlantsOfUser = async (req, res) => {
+    const getUserID = req.params.userID;
+
+    console.log(getUserID);
+
+    const userExists = await User.checkUser(getUserID);
+    if(!userExists) {
+        // create a json response
+        res.status(404).json({
+            success: false,
+            status: 404,
+            message: "User does not exists"
+        });
+
+        return;
+    }
+    if(userExists) {
+        const plants = PlantOwnership.getPlantsOfUser(getUserID, function(err, result) {
+            if(plants === 2){
+                res.status(400).send('Query error!');
+            }else{
+                res.send(result[0]);
+            }
+    
+        });
+    } else {
+        res.status(200).json({
+            success: false,
+            status: 404,
+            message: "No plants are exist"
+        });
+        return;
+    }
+
 }

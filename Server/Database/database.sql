@@ -305,6 +305,14 @@ BEGIN
 END//
 DELIMITER ;
 
+-- Get user's plants from database
+DELIMITER //
+CREATE PROCEDURE GetPlantsOfUser(IN inUserID INT)
+BEGIN
+    SELECT * FROM plant_owner_table WHERE plant_owner_table.userID = inUserID;
+END//
+DELIMITER ;
+
 
 
 /*

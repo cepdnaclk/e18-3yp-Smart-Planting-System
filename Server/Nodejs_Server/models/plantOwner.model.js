@@ -47,4 +47,16 @@ PlantOwner.delete = function(data,callback){
 	})
 }
 
+PlantOwner.getPlantsOfUser = function(data, callback) {
+	var sqlQuery = "CALL GetPlantsOfUser(?);"
+
+	const status = sql.query(sqlQuery, [data], callback, function(err, result) {
+		if(result) {
+			callback(null, result);
+		} else {
+			this.callback(err, null);
+		}
+	})
+}
+
 module.exports = PlantOwner;

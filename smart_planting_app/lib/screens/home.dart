@@ -2,6 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
+import 'package:http/http.dart' as http;
+import 'dart:convert' as cnv;
+import '../Storage/SecureStorageData.dart';
 
 List<Widget> adds = [];
 
@@ -13,6 +16,31 @@ class homeScreen extends StatefulWidget {
 }
 
 class _homeScreenState extends State<homeScreen> {
+
+  var thisUserID;
+
+  @override
+  void initState() {
+    super.initState();
+
+    init();
+  }
+  Future init() async {
+    final newUser = await SecureStorageData.getUserID();
+
+    setState(() {
+      thisUserID = newUser;
+    });
+
+  }
+  Future<void> getUserPlantList() async {
+    Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
+    http.Response res = await http.get(url);
+    print(res.body);
+    List<dynamic> body = cnv.jsonDecode(res.body);
+    plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
+    setState(() {});
+  }
 
   @override
   Widget build(BuildContext context) {

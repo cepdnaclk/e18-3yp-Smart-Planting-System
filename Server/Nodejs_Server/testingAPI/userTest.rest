@@ -34,3 +34,11 @@ Content-Type: application/json
     "userPassword": "",
     "joinDate": ""
 }
+
+###
+GET  http://localhost:8000/api/user/getUser
+Content-Type: application/json
+
+{
+    "email" : "chamara@gmail.com"
+}

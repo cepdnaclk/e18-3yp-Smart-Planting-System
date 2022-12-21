@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/Models/userPlants.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
@@ -7,6 +8,7 @@ import 'dart:convert' as cnv;
 import '../Storage/SecureStorageData.dart';
 
 List<Widget> adds = [];
+List<UserPlants> plantList = [];
 
 class homeScreen extends StatefulWidget {
   const homeScreen({Key? key}) : super(key: key);
@@ -28,17 +30,23 @@ class _homeScreenState extends State<homeScreen> {
   Future init() async {
     final newUser = await SecureStorageData.getUserID();
 
+    // Set user ID
     setState(() {
       thisUserID = newUser;
     });
 
+    //Get user owned plants
+    getUserPlantList();
+
   }
   Future<void> getUserPlantList() async {
-    Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
+    String createdString = '/api/plantOwner/$thisUserID';
+    Uri url = Uri.http('3.111.170.113:8000', createdString);
     http.Response res = await http.get(url);
     print(res.body);
     List<dynamic> body = cnv.jsonDecode(res.body);
-    plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
+    plantList = body.map((dynamic item) => UserPlants.fromJson(item)).toList();
+    print(plantList);
     setState(() {});
   }
 

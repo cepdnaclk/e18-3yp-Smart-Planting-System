@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:core';
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -222,7 +223,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
-                          addPlant(dropDownVal!);
+                          addPlant(context, dropDownVal!);
                           // Get ID from List
                           setPlantTypeID();
                           registerPlant();

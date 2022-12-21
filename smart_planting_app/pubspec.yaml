@@ -42,6 +42,7 @@ dependencies:
   firebase_auth: ^4.2.1
   get: ^4.6.5
   firebase_app_check: ^0.1.1+6
+  like_button: ^2.0.5
 
 dev_dependencies:
   flutter_test:

@@ -218,6 +218,12 @@
       "languageVersion": "2.16"
     },
     {
+      "name": "like_button",
+      "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/like_button-2.0.5",
+      "packageUri": "lib/",
+      "languageVersion": "2.12"
+    },
+    {
       "name": "lints",
       "rootUri": "file:///C:/flutter/.pub-cache/hosted/pub.dartlang.org/lints-2.0.1",
       "packageUri": "lib/",
@@ -320,7 +326,7 @@
       "languageVersion": "2.18"
     }
   ],
-  "generated": "2022-12-19T10:28:50.974543Z",
+  "generated": "2022-12-21T08:04:41.255356Z",
   "generator": "pub",
   "generatorVersion": "2.18.5"
 }

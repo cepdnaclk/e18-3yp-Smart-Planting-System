@@ -74,7 +74,7 @@ class AuthenticationRepository extends GetxController {
       print(body['userID']);
 
       //to do : return the user ID extracted from response body
-      return 'ok';
+      return 'Login successful';
     } catch (e) {
       return 'Unknown error has occurred';
     }

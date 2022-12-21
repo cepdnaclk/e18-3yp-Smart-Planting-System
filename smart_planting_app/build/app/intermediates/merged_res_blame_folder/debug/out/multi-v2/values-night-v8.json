@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Chanet Lanka\\Desktop\\e18-3yp-Smart-Planting-System\\smart_planting_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
+            "outputFile": "E:\\Semester 5\\CO300 - Third_Year_Project\\e18-3yp-Smart-Planting-System\\smart_planting_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-night-v8\\values-night-v8.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Chanet Lanka\\Desktop\\e18-3yp-Smart-Planting-System\\smart_planting_app\\android\\app\\src\\main\\res\\values-night\\styles.xml",
+                    "source": "E:\\Semester 5\\CO300 - Third_Year_Project\\e18-3yp-Smart-Planting-System\\smart_planting_app\\android\\app\\src\\main\\res\\values-night\\styles.xml",
                     "from": {
                         "startLines": "3,14",
                         "startColumns": "4,4",

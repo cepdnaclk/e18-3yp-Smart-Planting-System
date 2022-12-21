@@ -1,10 +1,10 @@
 {
     "logs": [
         {
-            "outputFile": "C:\\Users\\Chanet Lanka\\Desktop\\e18-3yp-Smart-Planting-System\\smart_planting_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
+            "outputFile": "E:\\Semester 5\\CO300 - Third_Year_Project\\e18-3yp-Smart-Planting-System\\smart_planting_app\\build\\app\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-v16\\values-v16.xml",
             "map": [
                 {
-                    "source": "C:\\Users\\Chanet Lanka\\.gradle\\caches\\transforms-3\\0ce731f8c62e88af9af421907435d7da\\transformed\\core-1.8.0\\res\\values-v16\\values-v16.xml",
+                    "source": "C:\\Users\\META\\.gradle\\caches\\transforms-3\\0ce731f8c62e88af9af421907435d7da\\transformed\\core-1.8.0\\res\\values-v16\\values-v16.xml",
                     "from": {
                         "startLines": "2",
                         "startColumns": "4",

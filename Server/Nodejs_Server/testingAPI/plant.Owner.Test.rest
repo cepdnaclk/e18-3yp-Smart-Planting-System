@@ -20,4 +20,4 @@ Content-Type: application/json
 }
 
 ###
-GET http://localhost:8000/api/plantOwner/1002
+GET http://3.111.170.113:8000/api/plantOwner/1002

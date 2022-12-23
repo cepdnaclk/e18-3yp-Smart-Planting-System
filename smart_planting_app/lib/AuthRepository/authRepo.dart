@@ -85,6 +85,34 @@ class AuthenticationRepository extends GetxController {
     }
 
   }
+
+  Future<String?> loginUserAPI(String email, String password) async {
+    print("register called");
+
+    UserModel newUser = UserModel(email: email, userPassword: password);
+    http.Response res;
+    // print(name);
+    try {
+      res = await http.post(Uri.parse("http://3.111.170.113:8000/api/user/register"),headers: {
+        'Content-Type': "application/json"
+      }, body: json.encode(newUser.toJson()));
+
+      dynamic body = cnv.jsonDecode(res.body);
+
+      print('Done registration');
+      print(body[0]['userID']);
+
+      await SecureStorageData.setUserID(body[0]['userID'].toString());
+      return 'Login successful';
+      //to do : return the user ID extracted from response body
+
+
+    } catch (e) {
+      // return 'Unknown error has occurred';
+      return e.toString();
+    }
+
+  }
 }
 
 

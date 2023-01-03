@@ -32,7 +32,7 @@ class _MyHomePageState extends State<splash> with TickerProviderStateMixin{
           Container(
               height: 500,
               alignment: Alignment.center,
-              child: Image.asset('asset/icon1.png' , cacheHeight: 200,),
+              child: Image.asset('asset/logo.png' , cacheHeight: 200,),
           ),
           SizedBox(height: 40,),
           Container(

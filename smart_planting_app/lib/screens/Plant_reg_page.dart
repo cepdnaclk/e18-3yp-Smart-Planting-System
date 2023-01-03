@@ -205,7 +205,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
-                          addPlant(dropDownVal!);
+                          addPlant(context, dropDownVal!);
                           // Get ID from List
                           setPlantTypeID();
                           Navigator.of(context).push(MaterialPageRoute(

@@ -142,62 +142,62 @@ class _homeScreenState extends State<homeScreen> {
   }
 
 
-  Widget buildPlant() => Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 5),
-    child: Container(
-      decoration: const BoxDecoration(
-          color: Colors.black26,
-          borderRadius: BorderRadius.all(Radius.circular(20))
-      ),
-      height: 550,
-      width: 320,
-        child: Column(
-          children: [
-            const SizedBox(height: 40,),
-            Image.asset('asset/plant.png', scale: 4,),
-            const SizedBox(height: 4,),
-            const SizedBox(height: 100,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FloatingActionButton.large(
-                  elevation: 2,
-                  onPressed: () {},
-                  backgroundColor: Colors.green.shade200,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 7),
-                ),
-                const SizedBox(width: 50,),
-                FloatingActionButton.large(
-                  elevation: 2,
-                  onPressed: () {},
-                  backgroundColor: Colors.green.shade200,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png', scale: 8),
-                ),
-              ],
-            ),
-            const SizedBox(height: 50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                FloatingActionButton.large(
-                  elevation: 2,
-                  onPressed: () {},
-                  backgroundColor: Colors.green.shade200,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/water-9-xxl.png', scale: 8),
-                ),
-                const SizedBox(width: 50,),
-                FloatingActionButton.large(
-                  elevation: 2,
-                  onPressed: () {},
-                  backgroundColor: Colors.green.shade200,
-                  child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 6),
-                ),
-              ],
-            ),
-          ],
-        ),
-    ),
-  );
+  // Widget buildPlant() => Padding(
+  //   padding: const EdgeInsets.symmetric(horizontal: 5),
+  //   child: Container(
+  //     decoration: const BoxDecoration(
+  //         color: Colors.black26,
+  //         borderRadius: BorderRadius.all(Radius.circular(20))
+  //     ),
+  //     height: 550,
+  //     width: 320,
+  //       child: Column(
+  //         children: [
+  //           const SizedBox(height: 40,),
+  //           Image.asset('asset/plant.png', scale: 4,),
+  //           const SizedBox(height: 4,),
+  //           const SizedBox(height: 100,),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               FloatingActionButton.large(
+  //                 elevation: 2,
+  //                 onPressed: () {},
+  //                 backgroundColor: Colors.green.shade200,
+  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 7),
+  //               ),
+  //               const SizedBox(width: 50,),
+  //               FloatingActionButton.large(
+  //                 elevation: 2,
+  //                 onPressed: () {},
+  //                 backgroundColor: Colors.green.shade200,
+  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png', scale: 8),
+  //               ),
+  //             ],
+  //           ),
+  //           const SizedBox(height: 50,),
+  //           Row(
+  //             mainAxisAlignment: MainAxisAlignment.center,
+  //             children: [
+  //               FloatingActionButton.large(
+  //                 elevation: 2,
+  //                 onPressed: () {},
+  //                 backgroundColor: Colors.green.shade200,
+  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/water-9-xxl.png', scale: 8),
+  //               ),
+  //               const SizedBox(width: 50,),
+  //               FloatingActionButton.large(
+  //                 elevation: 2,
+  //                 onPressed: () {},
+  //                 backgroundColor: Colors.green.shade200,
+  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 6),
+  //               ),
+  //             ],
+  //           ),
+  //         ],
+  //       ),
+  //   ),
+  // );
 
 }
 
@@ -271,12 +271,12 @@ class addPlant {
       width: 320,
       child: Column(
         children: [
-          const SizedBox(height: 40,),
-          Image.asset('asset/plant.png', scale: 4,),
+          const SizedBox(height: 20,),
+          Image.asset('asset/plan2.png', scale: 7,),
           const SizedBox(height: 8,),
           Text(plantType, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), ),
           const SizedBox(height: 4,),
-          const SizedBox(height: 90,),
+          const SizedBox(height: 50,),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
@@ -317,7 +317,7 @@ class addPlant {
                   ),
                   child: Image.asset('asset/temp.png', scale: 8),
                   onPressed: () {
-                    popUpWindow(context, 'Temperature', 103.4, 150);
+                    popUpWindow(context, 'Temperature', 25.8, 27);
                   },
                 ),
               ),
@@ -344,7 +344,7 @@ class addPlant {
                   ),
                   child: Image.asset('asset/waterlevel.png', scale: 8),
                   onPressed: () {
-                    popUpWindow(context, 'Water Level', 103.4, 150);
+                    popUpWindow(context, 'Water Level', 3, 8);
                   },
                 ),
               ),

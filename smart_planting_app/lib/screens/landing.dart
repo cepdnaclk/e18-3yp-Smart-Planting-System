@@ -17,7 +17,7 @@ class landingScreen extends StatelessWidget {
             Container(
               height: 450,
               color: Colors.white,
-              child: Image.asset("asset/icon2.png", cacheHeight: 300,height: 300,),
+              child: Image.asset("asset/profile.png",),
             ),
             const SizedBox(height: 50,),
             Column(

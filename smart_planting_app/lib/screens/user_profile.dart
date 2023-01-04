@@ -200,7 +200,7 @@ class _profileScreenState extends State<profileScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 140, width: 140,),
+            child: Image.asset('asset/chamudi.jpg', fit: BoxFit.cover, height: 140, width: 140,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;

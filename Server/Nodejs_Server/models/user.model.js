@@ -33,4 +33,21 @@ User.create = async (newUser, callback) => {
   });
 }
 
+User.getUserID = async (userEmail, callback) => {
+
+  var sqlQuery = "SELECT userID FROM user_table WHERE user_table.email = ?;";
+
+  console.log(userEmail);
+
+  const row = await sql.query(sqlQuery, [userEmail], callback, function(err,result){
+    if(result){
+        callback(null,result);
+    }else{
+        this.callback(err,null);
+    }
+  });
+
+
+}
+
 module.exports = User;

@@ -3,7 +3,7 @@ Content-Type: application/json
 
 {
     "plantID" : "190",
-    "userID": "100",
+    "userID": "1002",
     "plantTypeID": "P0005",
     "addedDate": "2022-12-18"
 }
@@ -13,8 +13,11 @@ POST http://localhost:8000/api/plantOwner/register
 Content-Type: application/json
 
 {
-    "plantID" : "190",
-    "userID": "1001",
-    "plantTypeID": "P0005",
-    "addedDate": "2022-12-18"
+    "plantID" : "20",
+    "userID": "1002",
+    "plantTypeID": "P0010",
+    "addedDate": "2022-12-20"
 }
+
+###
+GET http://3.111.170.113:8000/api/plantOwner/1002

@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:get/get.dart';
-import 'package:smart_planting_app/Models/userRegResponse.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/landing.dart';
 import 'package:smart_planting_app/CustomExceptions/SignUpEmailPassword_failure.dart';
@@ -8,6 +7,7 @@ import 'package:smart_planting_app/Models/userModel.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
 import 'dart:convert' as cnv;
+import 'package:smart_planting_app/Storage/SecureStorageData.dart';
 
 class AuthenticationRepository extends GetxController {
   static AuthenticationRepository get instance => Get.find();
@@ -71,20 +71,46 @@ class AuthenticationRepository extends GetxController {
       dynamic body = cnv.jsonDecode(res.body);
 
       print('Done registration');
-      print(body['userID']);
+      print(body[0]['userID']);
 
-      //to do : return the user ID extracted from response body
+      await SecureStorageData.setUserID(body[0]['userID'].toString());
+      await SecureStorageData.setUserName(name);
       return 'Login successful';
+      //to do : return the user ID extracted from response body
+
+
     } catch (e) {
-      return 'Unknown error has occurred';
+      // return 'Unknown error has occurred';
+      return e.toString();
     }
 
-    /*if(res.statusCode == 200) {
-      return 'OK';
-    } else {
-      Get.showSnackbar(const GetSnackBar(message: 'An error has occurred', duration: Duration(seconds: 6),));
-      return '';
-    }*/
+  }
+
+  Future<String?> loginUserAPI(String email, String password) async {
+    print("register called");
+
+    UserModel newUser = UserModel(email: email, userPassword: password);
+    http.Response res;
+    // print(name);
+    try {
+      res = await http.post(Uri.parse("http://3.111.170.113:8000/api/user/register"),headers: {
+        'Content-Type': "application/json"
+      }, body: json.encode(newUser.toJson()));
+
+      dynamic body = cnv.jsonDecode(res.body);
+
+      print('Done registration');
+      print(body[0]['userID']);
+
+      await SecureStorageData.setUserID(body[0]['userID'].toString());
+      return 'Login successful';
+      //to do : return the user ID extracted from response body
+
+
+    } catch (e) {
+      // return 'Unknown error has occurred';
+      return e.toString();
+    }
 
   }
 }

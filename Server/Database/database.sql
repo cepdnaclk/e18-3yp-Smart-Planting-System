@@ -13,7 +13,7 @@ CREATE TABLE IF NOT EXISTS user_table(
     email VARCHAR(50) UNIQUE,
     mobileNo VARCHAR(20),
     joinDate DATETIME,
-    profileImg LONGBLOB
+    profileImg VARCHAR(300)
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 
 
@@ -25,7 +25,7 @@ CREATE TABLE IF NOT EXISTS password_table(
 
 
 CREATE TABLE IF NOT EXISTS plant_owner_table(
-    plantID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
+    plantID INT NOT NULL PRIMARY KEY,
     userID INT NOT NULL,
     plantTypeID VARCHAR(5),
     addedDate DATETIME
@@ -45,17 +45,18 @@ CREATE TABLE IF NOT EXISTS plants_database_table(
     maxTemp INT,
     minPH DECIMAL(2,1),
     maxPH DECIMAL(2,1),
-    edible BOOLEAN
+    edible BOOLEAN,
+    plantImg VARCHAR(300)
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 
 CREATE TABLE IF NOT EXISTS plants_status_table(
     dataID INT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     plantID INT,
     readTime DATETIME,
-    temperature DECIMAL(3, 2),
-    soilMoisture DECIMAL(3, 2),
-    waterLevel DECIMAL(3, 2),
-    lightIntensity DECIMAL(3, 2)
+    temperature DECIMAL(5, 2),
+    soilMoisture DECIMAL(5, 2),
+    waterLevel DECIMAL(5, 2),
+    lightIntensity DECIMAL(6, 2)
 ) ENGINE = InnoDB DEFAULT CHARSET=UTF8MB4;
 
 /* Add foreign keys */
@@ -76,7 +77,6 @@ ADD FOREIGN KEY (userID) REFERENCES user_table(userID);
 
 -- Auto increment values
 ALTER TABLE user_table AUTO_INCREMENT = 1001;
-ALTER TABLE plant_owner_table AUTO_INCREMENT = 10001;
 ALTER TABLE plants_status_table AUTO_INCREMENT = 1;
 
 
@@ -144,7 +144,7 @@ DELIMITER ;
 -- Add Plant to a user with email
 DELIMITER //
 
-CREATE PROCEDURE AddPlantUser(IN uEmail VARCHAR(50), IN pTypeID VARCHAR(5), IN addDate DATETIME)
+CREATE PROCEDURE AddPlantUser(IN newPlantID INT, IN uEmail VARCHAR(50), IN pTypeID VARCHAR(5), IN addDate DATETIME)
 
 BEGIN
     DECLARE newUserID INT;
@@ -153,16 +153,16 @@ BEGIN
     SELECT COUNT(*) INTO entryCount FROM user_table WHERE user_table.email = uEmail;
 
     IF entryCount = 0 THEN
-        SELECT -1 AS plantID;
+        SELECT 0 AS added;
     ELSE 
         BEGIN
 
             SELECT userID INTO newUserID FROM user_table WHERE user_table.email = uEmail;
 
-            INSERT INTO plant_owner_table(userID, plantTypeID, addedDate)
-            VALUES (newUserID, pTypeID, addDate);
+            INSERT INTO plant_owner_table(plantID, userID, plantTypeID, addedDate)
+            VALUES (newPlantID, newUserID, pTypeID, addDate);
 
-            SELECT plantID FROM plant_owner_table ORDER BY userID DESC LIMIT 1;
+            SELECT 1 AS added;
 
         END;
 
@@ -175,7 +175,7 @@ DELIMITER ;
 -- Add plant to user with userID
 DELIMITER //
 
-CREATE PROCEDURE AddPlantUserFromID(IN userIDIn INT, IN pTypeID VARCHAR(5), IN addDate DATETIME)
+CREATE PROCEDURE AddPlantUserFromID(IN newPlantID INT, IN userIDIn INT, IN pTypeID VARCHAR(5), IN addDate DATETIME)
 
 BEGIN
     DECLARE entryCount INT;
@@ -183,14 +183,14 @@ BEGIN
     SELECT COUNT(*) INTO entryCount FROM user_table WHERE user_table.userID = userIDIn;
 
     IF entryCount = 0 THEN
-        SELECT -1 AS plantID;
+        SELECT 0 AS added;
     ELSE 
         BEGIN
 
-            INSERT INTO plant_owner_table(userID, plantTypeID, addedDate)
-            VALUES (userIDIn, pTypeID, addDate);
+            INSERT INTO plant_owner_table(plantID, userID, plantTypeID, addedDate)
+            VALUES (newPlantID, userIDIn, pTypeID, addDate);
 
-            SELECT plantID FROM plant_owner_table ORDER BY userID DESC LIMIT 1;
+            SELECT 1 AS added;
 
         END;
 
@@ -293,7 +293,7 @@ DELIMITER ;
 DELIMITER //
 CREATE PROCEDURE GetHousePlants()
 BEGIN
-    SELECT plantTypeID, commonName FROM plants_database_table ORDER BY commonName DESC;
+    SELECT plantTypeID, commonName FROM plants_database_table ORDER BY commonName;
 END//
 DELIMITER ;
 
@@ -322,6 +322,7 @@ CALL AddUser('Walmer Hageman','walme-ha@arvinmeritor.info', '6774368358', 'abcd1
 CALL AddUser('Tavish Cruce','tavish.cru@egl-inc.info', '5549549421', 'tavish999', '2022-12-05 00:55:10');
 CALL AddUser('Girija Aron','giriaro@acusage.net', '6963116836', '9876', '2022-11-30 05:20:45');
 CALL AddUser('Ismena Boehme','ismen-bo@arketm(ay.com', '914749490', '123456abcdef', '2022-12-02 15:35:10');
+CALL AddUser('Chamara Dilshan', 'chamara@gmail.com', '654645654', 'abc123', '2022-12-05 00:55:10');
 
 
 -- plants database
@@ -346,3 +347,16 @@ CALL AddPlantToDB("Coriander", "Coriandrum sativum", 18, "Annual", "F", "N", "M"
 CALL AddPlantToDB("Rosemary", "Salvia rosmarinus", 40, "Shrub", "M", "N", "M", "D", 10, 18, 6, 7, 1);
 CALL AddPlantToDB("Oregano", "Origanum vulgare", 23, "Perennial", "M", "S", "H", "M", 15, 27, 6.5, 7, 1);
 CALL AddPlantToDB("Dill", "Anethum graveolens", 31, "Annual", "M", "N", "M", "M", 10, 27, 6.5, 8, 1);
+
+
+CALL AddPlantUserFromID(5, 1001, 'P0006', '2022-12-05 00:55:10');
+CALL AddPlantUserFromID(6, 1002, 'P0008', '2022-12-18 08:55:20');
+CALL AddPlantUserFromID(20, 1002, 'P0018', '2022-12-18 08:55:20');
+CALL AddPlantUserFromID(60, 1006, 'P0001', '2022-12-05 00:55:10');
+
+
+INSERT INTO plants_status_table(plantID, readTime, temperature, soilMoisture, waterLevel, lightIntensity)
+values(60, '2022-12-02 15:35:10', 20.5, 2.60, 5.60, 50.9),
+(60, '2022-12-02 15:35:10', 27.8, 2.6, 5.8, 60.7);
+
+

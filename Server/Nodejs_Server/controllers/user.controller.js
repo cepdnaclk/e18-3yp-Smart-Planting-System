@@ -31,3 +31,17 @@ exports.register = async (req, res) => {
     });
 
 }
+
+exports.getUserID = async(req, res) => {
+    const userEmail = req.body.email;
+    console.log(userEmail);
+
+    const resp = User.getUserID(userEmail, function(err, result) {
+        if(resp === 2) {
+            res.status(400).send('Query error!');
+        }
+        else {
+            res.send(result[0]);
+        }
+    });
+}

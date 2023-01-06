@@ -17,12 +17,14 @@ const int SENSOR_PIN = A0; // All the analog read is connected to A0 pin of ESP8
 OneWire oneWire(SENSOR_PIN);			// setup a oneWire instance
 DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library
 
-extern int soilMoistCalibration(int);
-extern int waterLevelCalibration(int);
+extern int soilMoistureRead(int);
+extern int waterLevelRead(int);
 extern void temperatureRead(DallasTemperature tempSensor);
+extern int LDRRead(int);
 
 int soilMoistVal = 0;
 int waterLevelVal = 0;
+int lightIntensityVal = 0;
 
 // Provide the token generation process info.
 #include <addons/TokenHelper.h>
@@ -61,8 +63,8 @@ void setup()
 		delay(300);
 	}
 	Serial.println();
-	Serial.print("Connected with IP: ");
-	Serial.println(WiFi.localIP());
+	// Serial.print("Connected with IP: ");
+	// Serial.println(WiFi.localIP());
 	Serial.println();
 
 	Serial.printf("Firebase Client v%s\n\n", FIREBASE_CLIENT_VERSION);
@@ -71,11 +73,6 @@ void setup()
 	config.api_key = API_KEY;
 
 	config.database_url = DATABASE_URL;
-
-	//////////////////////////////////////////////////////////////////////////////////////////////
-	// Please make sure the device free Heap is not lower than 80 k for ESP32 and 10 k for ESP8266,
-	// otherwise the SSL connection will fail.
-	//////////////////////////////////////////////////////////////////////////////////////////////
 
 	Firebase.begin(DATABASE_URL, API_KEY);
 
@@ -87,12 +84,14 @@ void setup()
 
 void loop()
 {
-	soilMoistVal = soilMoistCalibration(SENSOR_PIN);
-	// waterLevelCalibration(SENSOR_PIN);
+	// soilMoistVal = soilMoistureRead(SENSOR_PIN);
+	lightIntensityVal = LDRRead(SENSOR_PIN);
+
+	// waterLevelRead(SENSOR_PIN);
 	// temperatureRead(tempSensor);
-	if (Firebase.ready())
+	/*if (Firebase.ready())
 	{
-		// Firebase.setInt(fbdo, main, 5);
+		// Firebase.setInt(fbdo, string, 5);
 		Firebase.setInt(fbdo, "/" + DEVICE_ID + "/soilMoisture", soilMoistVal);
 		Firebase.setInt(fbdo, "/" + DEVICE_ID + "/waterLevel", 10);
 		delay(200);
@@ -104,5 +103,6 @@ void loop()
 		Serial.println("------------------");
 		Serial.println();
 	}
-	delay(10000);
+	delay(10000);*/
+	delay(500);
 }

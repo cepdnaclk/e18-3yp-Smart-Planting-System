@@ -13,13 +13,14 @@
 
 const String DEVICE_ID = "01";
 const int SENSOR_PIN = A0; // All the analog read is connected to A0 pin of ESP8266 board
+const int TEMP_SENSOR = 12;
 
-OneWire oneWire(SENSOR_PIN);			// setup a oneWire instance
+OneWire oneWire(TEMP_SENSOR);			// setup a oneWire instance
 DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library
 
 extern int soilMoistCalibration(int);
 extern int waterLevelCalibration(int);
-extern void temperatureRead(DallasTemperature tempSensor);
+extern void temperatureRead(DallasTemperature tempSensor, int TEMP_SENSOR);
 extern int LDRRead(int);
 
 int soilMoistVal = 0;
@@ -53,6 +54,12 @@ void setup()
 {
 	Serial.begin(9600); // open serial port, set the baud rate as 9600 bps
 	tempSensor.begin(); // initialize the temperature sensor
+
+	// Pins for select the device from demux
+	pinMode(D0, OUTPUT);
+	pinMode(D1, OUTPUT);
+	pinMode(D2, OUTPUT);
+
 	delay(2000);
 	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 	Serial.print("Connecting to Wi-Fi");
@@ -90,8 +97,8 @@ void loop()
 {
 	// soilMoistVal = soilMoistCalibration(SENSOR_PIN);
 	// waterLevelCalibration(SENSOR_PIN);
-	// temperatureRead(tempSensor);
-	Serial.println(LDRRead(SENSOR_PIN));
+	temperatureRead(tempSensor, TEMP_SENSOR);
+	// Serial.println(LDRRead(SENSOR_PIN));
 
 	/*if (Firebase.ready())
 	{

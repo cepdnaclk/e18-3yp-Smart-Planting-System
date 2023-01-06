@@ -1,9 +1,9 @@
 #include "Arduino.h"
 
-void waterLevelCalibration()
+void waterLevelCalibration(int sensor_pin)
 {
 	int val;
-	val = analogRead(0); // connect sensor to Analog 0
+	val = analogRead(sensor_pin); // connect sensor to Analog 0
 
 	int result = 1000;
 	if(val > 650) result = 0;

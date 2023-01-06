@@ -90,7 +90,6 @@ void setup()
 
 void loop()
 {
-
 	// Take reading from LDR
 	lightIntensityVal = LDRRead(SENSOR_PIN);
 	Serial.println(lightIntensityVal);
@@ -99,6 +98,11 @@ void loop()
 	// Take reading from soil moisture sensor
 	soilMoistVal = soilMoistureRead(SENSOR_PIN);
 	Serial.println(soilMoistVal);
+	delay(10);
+
+	// Take readings from water level depth sensor
+	waterLevelVal = waterLevelRead(SENSOR_PIN);
+	Serial.println(waterLevelVal);
 	delay(10);
 
 	// waterLevelRead(SENSOR_PIN);
@@ -118,5 +122,5 @@ void loop()
 		Serial.println();
 	}
 	delay(10000);*/
-	delay(500);
+	delay(2000);
 }

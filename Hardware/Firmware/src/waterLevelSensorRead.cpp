@@ -5,23 +5,31 @@ void waterLevelInit() {
     digitalWrite(D2, LOW);
     digitalWrite(D1, HIGH);
     digitalWrite(D0, LOW);
-    delay(50);
+    delay(20000);			// Wait 20 seconds
 }
 
 int waterLevelRead(int sensor_pin)
-{
-	int val;
-	val = analogRead(sensor_pin); // connect sensor to Analog 0
-	
-	delay(100);
+{	
+	// Select water level sensor from demux
+	waterLevelInit();
 
+	int val = 0;
 	int result = 1000;
-	if(val > 650) result = 0;
+
+	for (int i = 0; i < 10; i++) {
+        val += analogRead(sensor_pin);
+        delay(50);
+    }
+	val /= 10;
+
+	if(val > 600) result = 0;
 	else if(val > 500) result = 1;
-	else if(val > 300) result = 2;
+	else if(val > 50) result = 2;
 	else result = 3;
 
-	Serial.println(result); // print the value to serial port
+	Serial.print("Water level: ");
+	// Serial.print(val);
+	// Serial.print("  ");
 	return result;
 }
 

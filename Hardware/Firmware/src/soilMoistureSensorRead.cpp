@@ -5,7 +5,7 @@ void soilMoistInit() {
     digitalWrite(D2, LOW);
     digitalWrite(D1, LOW);
     digitalWrite(D0, HIGH);
-    delay(50);
+    delay(10000);           // Wait 20 seconds
 }
 
 int soilMoistureRead(int sensor)
@@ -19,7 +19,7 @@ int soilMoistureRead(int sensor)
         delay(50);
     }
     
-    Serial.println("Soil moisture read."); // print the value to serial port
+    Serial.print("Soil moisture read: "); // print the value to serial port
     return val/10;
 }
 

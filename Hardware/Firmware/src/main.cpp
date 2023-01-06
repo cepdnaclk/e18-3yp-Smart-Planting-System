@@ -53,6 +53,12 @@ FirebaseConfig config;
 void setup()
 {
 	Serial.begin(9600); // open serial port, set the baud rate as 9600 bps
+	
+	// Pins for select the device from demux
+	pinMode(D0, OUTPUT);
+	pinMode(D1, OUTPUT);
+	pinMode(D2, OUTPUT);
+
 	tempSensor.begin(); // initialize the temperature sensor
 	delay(2000);
 	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
@@ -84,8 +90,16 @@ void setup()
 
 void loop()
 {
-	// soilMoistVal = soilMoistureRead(SENSOR_PIN);
+
+	// Take reading from LDR
 	lightIntensityVal = LDRRead(SENSOR_PIN);
+	Serial.println(lightIntensityVal);
+	delay(10);
+
+	// Take reading from soil moisture sensor
+	soilMoistVal = soilMoistureRead(SENSOR_PIN);
+	Serial.println(soilMoistVal);
+	delay(10);
 
 	// waterLevelRead(SENSOR_PIN);
 	// temperatureRead(tempSensor);

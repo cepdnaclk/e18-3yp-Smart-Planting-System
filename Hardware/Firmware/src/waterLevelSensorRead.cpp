@@ -1,4 +1,12 @@
-#include "Arduino.h"
+#include <Arduino.h>
+
+void waterLevelInit() {
+    // Y2
+    digitalWrite(D2, LOW);
+    digitalWrite(D1, HIGH);
+    digitalWrite(D0, LOW);
+    delay(50);
+}
 
 int waterLevelRead(int sensor_pin)
 {

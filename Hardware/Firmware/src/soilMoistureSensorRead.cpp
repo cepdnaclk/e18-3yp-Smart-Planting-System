@@ -1,13 +1,26 @@
-#include "Arduino.h"
+#include <Arduino.h>
+
+void soilMoistInit() {
+    // Y1
+    digitalWrite(D2, LOW);
+    digitalWrite(D1, LOW);
+    digitalWrite(D0, HIGH);
+    delay(50);
+}
 
 int soilMoistureRead(int sensor)
 {
-    int val;
-    delay(100);
-    val = analogRead(sensor); // connect sensor to Analog 0
+    // Select Soil moisture sensor from demux
+    soilMoistInit();
 
-    Serial.println(val); // print the value to serial port
-    return val;
+    int val = 0;
+    for (int i = 0; i < 10; i++) {
+        val += analogRead(sensor);
+        delay(50);
+    }
+    
+    Serial.println("Soil moisture read."); // print the value to serial port
+    return val/10;
 }
 
 // value_1 = 550

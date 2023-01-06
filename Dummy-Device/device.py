@@ -3,6 +3,10 @@ from datetime import datetime
 import time
 import random
 
+# ------ Important ------
+# This won't run on python 3.10 or above. Run in python 3.9 or below
+# pip install pyrebase
+
 # Change deviceID, and sleep time as your preference
 DEVICE_ID = 1
 SLEEP_TIME = 5      # minutes

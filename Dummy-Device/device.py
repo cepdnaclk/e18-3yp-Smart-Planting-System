@@ -61,7 +61,7 @@ while True:
     db=firebase.database()
 
     #Multi-location update data
-    data = {"plants":{DEVICE_ID:{"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel}}}
+    data = {"plants/" + DEVICE_ID:{"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel}}
     db.update(data)
 
     # Sleep time

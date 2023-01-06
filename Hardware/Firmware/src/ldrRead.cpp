@@ -1,11 +1,9 @@
 #include "Arduino.h"
 
-int soilMoistCalibration(int sensor)
+int LDRRead(int sensor)
 {
     int val;
-    delay(100);
     val = analogRead(sensor); // connect sensor to Analog 0
-
     Serial.println(val); // print the value to serial port
     return val;
 }

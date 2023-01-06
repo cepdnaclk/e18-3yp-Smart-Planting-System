@@ -20,6 +20,7 @@ DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature lib
 extern int soilMoistCalibration(int);
 extern int waterLevelCalibration(int);
 extern void temperatureRead(DallasTemperature tempSensor);
+extern int LDRRead(int);
 
 int soilMoistVal = 0;
 int waterLevelVal = 0;
@@ -87,10 +88,12 @@ void setup()
 
 void loop()
 {
-	soilMoistVal = soilMoistCalibration(SENSOR_PIN);
+	// soilMoistVal = soilMoistCalibration(SENSOR_PIN);
 	// waterLevelCalibration(SENSOR_PIN);
 	// temperatureRead(tempSensor);
-	if (Firebase.ready())
+	Serial.println(LDRRead(SENSOR_PIN));
+
+	/*if (Firebase.ready())
 	{
 		// Firebase.setInt(fbdo, main, 5);
 		Firebase.setInt(fbdo, "/" + DEVICE_ID + "/soilMoisture", soilMoistVal);
@@ -104,5 +107,5 @@ void loop()
 		Serial.println("------------------");
 		Serial.println();
 	}
-	delay(10000);
+	delay(10000);*/
 }

@@ -13,18 +13,20 @@
 
 const String DEVICE_ID = "01";
 const int SENSOR_PIN = A0; // All the analog read is connected to A0 pin of ESP8266 board
+const int TEMP_SENSOR = 12;		// Temperature sensor connected on pin D6(GPIO 12)
 
-OneWire oneWire(SENSOR_PIN);			// setup a oneWire instance
+OneWire oneWire(TEMP_SENSOR);			// setup a oneWire instance
 DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library
 
 extern int soilMoistureRead(int);
 extern int waterLevelRead(int);
-extern void temperatureRead(DallasTemperature tempSensor);
+extern float temperatureRead(DallasTemperature tempSensor);
 extern int LDRRead(int);
 
 int soilMoistVal = 0;
 int waterLevelVal = 0;
 int lightIntensityVal = 0;
+float temperatureVal = 0;
 
 // Provide the token generation process info.
 #include <addons/TokenHelper.h>
@@ -104,6 +106,13 @@ void loop()
 	waterLevelVal = waterLevelRead(SENSOR_PIN);
 	Serial.println(waterLevelVal);
 	delay(10);
+
+	// Take readings from temperature sensor
+	temperatureVal = temperatureRead(tempSensor);
+	Serial.print(temperatureVal);
+	Serial.println("°C");
+	delay(10);
+
 
 	// waterLevelRead(SENSOR_PIN);
 	// temperatureRead(tempSensor);

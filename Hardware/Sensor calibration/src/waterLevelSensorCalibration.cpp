@@ -1,9 +1,11 @@
 #include "Arduino.h"
 
-void waterLevelCalibration(int sensor_pin)
+int waterLevelCalibration(int sensor_pin)
 {
 	int val;
 	val = analogRead(sensor_pin); // connect sensor to Analog 0
+	
+	delay(100);
 
 	int result = 1000;
 	if(val > 650) result = 0;
@@ -12,7 +14,7 @@ void waterLevelCalibration(int sensor_pin)
 	else result = 3;
 
 	Serial.println(result); // print the value to serial port
-	delay(100);
+	return result;
 }
 
 // 0-300 => level 3    -------- OK

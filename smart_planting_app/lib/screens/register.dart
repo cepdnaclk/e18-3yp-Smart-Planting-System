@@ -1,14 +1,26 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/configs/register_config.dart';
+import 'package:smart_planting_app/screens/user.dart';
+import 'package:uuid/uuid.dart';
 import 'profile_widget.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as cnv;
+
+late String name;
+late String email;
+late String password;
+late String confirmPwd ;
+late int mobile;
+
+final usersRef = FirebaseFirestore.instance.collection('users');
+
 
 class registerScreen extends StatefulWidget {
   const registerScreen({super.key});
@@ -22,6 +34,7 @@ class _FormScreenState extends State<registerScreen> {
   final controller = Get.put(SignUpController());
 
   File? image;
+  late AppUser currentUser;
 
   Future pickImage(ImageSource source) async {
     try {
@@ -75,13 +88,6 @@ class _FormScreenState extends State<registerScreen> {
     }
   }
 
-
-  late String name = "";
-  late String email = "";
-  late String password ='';
-  late String confirmPwd ='';
-  late int mobile = 0;
-
   Widget _buildNameField() {
     return TextFormField(
       controller: controller.fullName,
@@ -92,8 +98,8 @@ class _FormScreenState extends State<registerScreen> {
       maxLines: 1,
       decoration:
       const InputDecoration(labelText: 'Name', hintText: 'Enter your full name', ),
-      onSaved: (value) {
-        name = value!;
+      onChanged: (value) {
+        name = value;
       },
     );
   }
@@ -110,8 +116,8 @@ class _FormScreenState extends State<registerScreen> {
       },
       decoration:
       const InputDecoration(labelText: 'Email', hintText: 'example@gmail.com'),
-      onSaved: (value) {
-        email = value!;
+      onChanged: (value) {
+        email = value;
       },
     );
   }
@@ -153,8 +159,8 @@ class _FormScreenState extends State<registerScreen> {
       },
       decoration: const InputDecoration(
           labelText: 'Confirm Password', hintText: 'Re-type your password'),
-      onSaved: (value) {
-        password = value!;
+      onChanged: (value) {
+        password = value;
       },
     );
   }
@@ -172,8 +178,8 @@ class _FormScreenState extends State<registerScreen> {
       },
       decoration: const InputDecoration(
           labelText: 'Mobile Number', hintText: 'Enter a mobile number'),
-      onSaved: (value) {
-        mobile = int.parse(value!);
+      onChanged: (value) {
+        mobile = int.parse(value);
       },
     );
   }
@@ -245,6 +251,7 @@ class _FormScreenState extends State<registerScreen> {
                     ),
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
+                        createUserInFirestore();
                         print('valid form');
                         SignUpController.instance.registerUser(controller.fullName.text.trim(), controller.email.text.trim(), controller.password.text.trim(), controller.mobileNo.text.trim());
                         _formKey.currentState!.save();
@@ -263,6 +270,26 @@ class _FormScreenState extends State<registerScreen> {
       ),
     );
 
+  }
+
+
+  createUserInFirestore() async {
+    const uuid = Uuid();
+
+    String id = uuid.v4();
+
+    await usersRef.doc(id).set({
+    "username": name,
+    "email" : email,
+    "password" : password,
+    "mobileNo" : mobile,
+    "about" : ""
+    });
+    print(name);
+
+    currentUser = new AppUser(id: id, username: name, email: email, password: password, about: '');
+
+    print(currentUser.id);
   }
 
   Widget buildImage() {

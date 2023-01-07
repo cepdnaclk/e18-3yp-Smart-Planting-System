@@ -1,8 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:smart_planting_app/screens/home.dart';
+import 'package:smart_planting_app/screens/progress.dart';
+import 'package:smart_planting_app/screens/search.dart';
 import 'package:smart_planting_app/screens/upload.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+
+final usersRef = FirebaseFirestore.instance.collection('Users_Collection');
 
 class communityScreen extends StatefulWidget {
   const communityScreen({Key? key}) : super(key: key);
@@ -12,6 +17,38 @@ class communityScreen extends StatefulWidget {
 }
 
 class _communityScreenState extends State<communityScreen> {
+  List<dynamic> users = [];
+
+  @override
+  void initState() {
+    // getUsers();
+    createUser();
+    super.initState();
+  }
+
+  createUser() async {
+    await usersRef.add({
+      "userName": "chamudi",
+      "postCount": "4"
+    });
+  }
+
+  // getUsers() async {
+  //   final QuerySnapshot snapShot = await usersRef.get();
+  //
+  //   setState(() {
+  //     users = snapShot.docs;
+  //   });
+  //   // usersRef.get().then((QuerySnapshot snapShot) {
+  //   // for (var doc in snapShot.docs) {
+  //   //     print(doc.data());
+  //   //     print(doc.id);
+  //   //     print(doc.exists);
+  //   // }
+  //   // });
+  // }
+
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -25,14 +62,14 @@ class _communityScreenState extends State<communityScreen> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
-              icon: const Icon(Icons.message_outlined, color: Colors.black,)),
-
+              icon: const Icon(Icons.search, color: Colors.black,),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
+          ),
           IconButton(
               onPressed: () =>
                   Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
                       const profileScreen(name: '', about: '',))),
-              icon: const Icon(Icons.person_pin, color: Colors.black,))
+              icon: const Icon(Icons.message_outlined, color: Colors.black,))
         ],
       ),
       body: Column(
@@ -47,7 +84,30 @@ class _communityScreenState extends State<communityScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 5),
                 child: Column(
                   children: [
-                    buildPost('Anushanga Pavith','asset/anushanga.jpg','asset/pic1.jpg', 2, 'Grow plants for your health'),
+                    // ListView(
+                    //   children: users.map((user) => Text(user['postCount'])).toList(),
+                    // ),
+                    // StreamBuilder<QuerySnapshot>(
+                    //     stream: usersRef.snapshots(),
+                    //     builder: (context, snapShot) {
+                    //       if(!snapShot.hasData){
+                    //         return circularProgress();
+                    //       }
+                    //       Iterable children = snapShot.data!.docs.map(
+                    //               (doc) => doc['userName']);
+                    //       print(children);
+                    //       return ListView(
+                    //         children: [
+                    //           Text(children.iterator.toString())
+                    //         ],
+                    //       );
+                    //     }),
+                    buildPost(
+                        'Anushanga Pavith',
+                        'asset/anushanga.jpg',
+                        'asset/pic1.jpg',
+                        2,
+                        'Grow plants for your health'),
                     buildPost('Anushanga Pavith','asset/anushanga.jpg','asset/pic2.jpg', 2, 'Plants for future'),
 
                   ],
@@ -57,12 +117,20 @@ class _communityScreenState extends State<communityScreen> {
           ),
           Expanded(
             flex: 10,
-            child: Center(
-              child: IconButton(
-                icon: const Icon(Icons.add_box_outlined),
-                iconSize: 30,
-                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
-              ),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                IconButton(
+                  icon: const Icon(Icons.add_box_outlined),
+                  iconSize: 30,
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
+                ),
+                IconButton(
+                  icon: const Icon(Icons.person_pin),
+                  iconSize: 30,
+                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: ''))),
+                ),
+              ],
             ),
           )
         ],

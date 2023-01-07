@@ -1,16 +1,9 @@
-import 'dart:convert';
-import 'dart:core';
-
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as cnv;
 import 'package:smart_planting_app/Models/PlantModel.dart';
-
-import '../Models/plantRegisterModel.dart';
-import '../Storage/SecureStorageData.dart';
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({Key? key}) : super(key: key);
@@ -25,23 +18,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
   String? dropDownVal;
   String? plantTpID;
   DateTime? _dateTime;
-  
-  late int thisUserID;
-
-  @override
-  void initState() {
-    getData();
-    super.initState();
-
-    init();
-  }
-  Future init() async {
-    final newUserID = await SecureStorageData.getUserID();
-
-    setState(() {
-      thisUserID = int.parse(newUserID!);
-    });
-  }
 
   Plant plant1 = Plant(
       plantTypeID: '',
@@ -57,6 +33,12 @@ class _plantRegScreenState extends State<plantRegScreen> {
   late int _mobile;
 
   late List<PlantModel> plantModel = [];
+
+  @override
+  void initState() {
+    getData();
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -226,7 +208,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           addPlant(context, dropDownVal!);
                           // Get ID from List
                           setPlantTypeID();
-                          registerPlant();
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const homeScreen()));
                         },
@@ -328,35 +309,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
     setState(() {});
   }
 
-  registerPlant() async {
-    print(plant1.plantTypeID);
-    print(thisUserID);
-    print(plant1.plantID);
-    print(_dateTime);
-
-    PlantRegisterModel newPlant = PlantRegisterModel(plantID: plant1.plantID.toString(), userID: thisUserID.toString(), plantTypeID: plant1.plantTypeID, addedDate: _dateTime.toString());
-    http.Response res;
-    // print(name);
-    try {
-      res = await http.post(Uri.parse("http://3.111.170.113:8000/api/plantOwner/register"),headers: {
-        'Content-Type': "application/json"
-      }, body: json.encode(newPlant.toJson()));
-
-      dynamic body = cnv.jsonDecode(res.body);
-
-      print('Done registration');
-      print(body['message']);
-      print(body['success']);
-
-      //to do : return the user ID extracted from response body
-      Get.showSnackbar(GetSnackBar(message: body['message'].toString(), duration: const Duration(seconds: 6),));
-    } catch (e) {
-      // return 'Unknown error has occurred';
-      Get.showSnackbar(GetSnackBar(message: e.toString(), duration: const Duration(seconds: 6),));
-    }
-
-  }
-
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {
       if (plantModel[i].commonName == plant1.plantType) {
@@ -364,7 +316,10 @@ class _plantRegScreenState extends State<plantRegScreen> {
         continue;
       }
     }
-
+    print(plant1.plantTypeID);
+    print(plant1.plantID);
+    // print();
+    print(_dateTime);
     setState(() {});
   }
 }

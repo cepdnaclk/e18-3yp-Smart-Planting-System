@@ -26,5 +26,6 @@
     <orderEntry type="library" exported="" name="Flutter for Android" level="project" />
     <orderEntry type="library" name="KotlinJavaRuntime" level="project" />
     <orderEntry type="library" exported="" name="Dart SDK" level="project" />
+    <orderEntry type="library" exported="" name="Dart Packages" level="project" />
   </component>
 </module>

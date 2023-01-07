@@ -4,7 +4,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smart_planting_app/Storage/SecureStorageData.dart';
 import 'package:smart_planting_app/screens/editProfile.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
@@ -34,24 +33,8 @@ class _profileScreenState extends State<profileScreen> {
 
   var name;
   var about;
-  var signedUserName;
 
   _profileScreenState(this.name, this.about);
-
-  @override
-  void initState() {
-    super.initState();
-
-    init();
-  }
-  Future init() async {
-    final newName = await SecureStorageData.getUsername() ?? '';
-
-    setState(() {
-      signedUserName = newName;
-    });
-  }
-
 
   Future pickImage(ImageSource source) async {
     try {
@@ -163,7 +146,7 @@ class _profileScreenState extends State<profileScreen> {
   Widget buildName(AppUser user) => Column(
     children: [
       Text(
-        name == ''? signedUserName : name
+        name == ''? user.name : name
         ,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       ),

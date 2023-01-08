@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:smart_planting_app/screens/chat_pages/group_page.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/upload.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
@@ -25,7 +26,9 @@ class _communityScreen2State extends State<communityScreen2> {
         ),
         actions: [
           IconButton(
-              onPressed: () {},
+              onPressed: () {
+                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GroupPage()));
+              },
               icon: Icon(Icons.message_outlined, color: Colors.black,)),
 
           IconButton(

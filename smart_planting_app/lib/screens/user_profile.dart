@@ -1,16 +1,23 @@
 import 'dart:io';
 
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:smart_planting_app/screens/editProfile.dart';
 import 'package:smart_planting_app/screens/home.dart';
+import 'package:smart_planting_app/screens/post_tile.dart';
+import 'package:smart_planting_app/screens/posts.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
+import 'package:smart_planting_app/screens/progress.dart';
+import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/settings.dart';
 import 'package:smart_planting_app/Models/user.dart';
 import 'package:smart_planting_app/screens/user_detail.dart';
 
+late bool isLoading;
+late int postCount;
 
 class profileScreen extends StatefulWidget {
   final String name;
@@ -28,13 +35,37 @@ class profileScreen extends StatefulWidget {
 
 class _profileScreenState extends State<profileScreen> {
   File? image;
+  var name;
+  var about;
+  String postOrientation = 'grid';
+
+  List<posts> postsList = [];
 
   AppUser user = UserPreferences.myUser;
 
-  var name;
-  var about;
-
   _profileScreenState(this.name, this.about);
+
+
+
+  @override
+  void initState() {
+    super.initState();
+    getProfilePost();
+  }
+
+  getProfilePost() async {
+    setState(() {
+      isLoading = true;
+    });
+    QuerySnapshot snapshot = await postsRef.doc(currentUser.id).collection('userPosts').get();
+
+    setState(() {
+      isLoading = false;
+      postCount = snapshot.docs.length;
+      postsList = snapshot.docs.map((doc) => posts.fromDocument(doc)).toList();
+    });
+  }
+
 
   Future pickImage(ImageSource source) async {
     try {
@@ -91,8 +122,6 @@ class _profileScreenState extends State<profileScreen> {
 
   @override
   Widget build(BuildContext context) {
-    const color = Colors.lightGreen;
-
     return Scaffold(
       appBar: AppBar(
         leading: BackButton(
@@ -126,18 +155,23 @@ class _profileScreenState extends State<profileScreen> {
                 buildImage(),
                 Positioned(
                     bottom: 0,
-                    right: 4,
-                    child: buildEditIcon(color)
+                    right: 0,
+                    child: buildEditIcon()
                 )
               ],
           ),
             ),
           const SizedBox(height: 20,),
           buildName(user),
-          const SizedBox(height: 20,),
-          const StatWidget(),
-          const SizedBox(height: 20,),
           buildAbout(user),
+          const SizedBox(height: 15,),
+          const StatWidget(),
+          const SizedBox(height: 15,),
+          Divider(),
+          buildTogglePostOrientation(),
+          Divider(),
+          buildProfilePost(),
+
         ],
       ),
     );
@@ -150,7 +184,7 @@ class _profileScreenState extends State<profileScreen> {
         ,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       ),
-      const SizedBox(height: 4,),
+      const SizedBox(height: 3,),
       Text(
         user.email,
         style: const TextStyle(color: Colors.grey),
@@ -159,16 +193,11 @@ class _profileScreenState extends State<profileScreen> {
   );
 
   Widget buildAbout(AppUser user) => Container(
-    padding: const EdgeInsets.all(30),
+    padding: const EdgeInsets.all(6),
     child:
       Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
         children: [
-          const Text(
-            'About',
-            style: TextStyle(fontSize: 30, fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 2,),
           Text(
               about == ''? user.about : about,
             style: const TextStyle(),
@@ -183,7 +212,7 @@ class _profileScreenState extends State<profileScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/chamudi.jpg', fit: BoxFit.cover, height: 140, width: 140,),
+            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 95, width: 95,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
@@ -195,30 +224,75 @@ class _profileScreenState extends State<profileScreen> {
     );
   }
 
-  Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
+  Widget buildEditIcon() => buildCircle(
+    all: 2,
     child: buildCircle(
-      color: color,
-      all: 8,
+      all: 0,
       child: const Icon(
-        Icons.edit,
-        size: 20,
+        color: Colors.grey,
+        Icons.camera_alt_outlined,
+        size: 25,
       ),
     ),
   );
 
   Widget buildCircle({
-    required Color color,
     required double all,
     required Widget child}) =>
       ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
-          color: color,
+          color: Colors.transparent,
           child: child,
         ),
       );
+
+  buildProfilePost() {
+    if(isLoading) {
+      return circularProgress();
+    } else if(postOrientation == "grid") {
+      List<GridTile> gridTiles = [];
+      postsList.forEach((post) {
+        gridTiles.add(GridTile(child: postTile(post: post)));
+      });
+      return GridView.count(
+        crossAxisCount: 3,
+        childAspectRatio: 1,
+        mainAxisSpacing: 0,
+        crossAxisSpacing: 0,
+        shrinkWrap: true,
+        physics: NeverScrollableScrollPhysics(),
+        children: gridTiles,
+      );
+    } else if(postOrientation == "list") {
+      return Column(
+        children: postsList,
+      );
+    }
+
+  }
+
+  buildTogglePostOrientation() {
+    return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+      children: [
+        IconButton(
+            color: postOrientation == "grid" ? CupertinoColors.activeBlue : Colors.grey,
+            onPressed: () => setPostOrientation('grid'),
+            icon: Icon(Icons.grid_on,)),
+        IconButton(
+            color: postOrientation == "list" ? CupertinoColors.activeBlue : Colors.grey,
+            onPressed: () => setPostOrientation('list'),
+            icon: Icon(Icons.list,)),
+      ],
+    );
+  }
+
+  setPostOrientation(String postOrientation) {
+    setState(() {
+      this.postOrientation = postOrientation;
+    });
+  }
 }
 
 class StatWidget extends StatelessWidget {
@@ -228,16 +302,16 @@ class StatWidget extends StatelessWidget {
   Widget build(BuildContext context) => Row(
     mainAxisAlignment: MainAxisAlignment.center,
     children: [
-      BuildButton(context, '1', 'Ranking'),
+      BuildButton(context, postCount, 'Posts'),
       buildDivider(),
-      BuildButton(context, '0', 'Following'),
+      BuildButton(context, 0, 'Following'),
       buildDivider(),
-      BuildButton(context, '0', 'Followers'),
+      BuildButton(context, 0, 'Followers'),
     ],
   );
 
 
-  Widget BuildButton(BuildContext context, String value, String text) =>
+  Widget BuildButton(BuildContext context, int value, String text) =>
       MaterialButton(
         padding: const EdgeInsets.all(8),
         onPressed: () {},
@@ -247,7 +321,7 @@ class StatWidget extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
             Text(
-              value,
+              '$value',
               style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
             ),
             const SizedBox(height: 2,),

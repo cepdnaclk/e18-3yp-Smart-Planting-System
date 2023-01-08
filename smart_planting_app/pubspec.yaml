@@ -45,6 +45,12 @@ dependencies:
   like_button: ^2.0.5
   cloud_firestore: ^4.3.1
   uuid: ^3.0.7
+  path_provider: ^2.0.11
+  image: ^4.0.7
+  firebase_storage: ^11.0.10
+  geolocator: ^9.0.2
+  geocoding: ^2.0.5
+  cached_network_image: ^3.2.3
 
 dev_dependencies:
   flutter_test:

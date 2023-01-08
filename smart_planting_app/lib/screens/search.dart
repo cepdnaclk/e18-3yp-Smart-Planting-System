@@ -47,9 +47,12 @@ class _searchScreenState extends State<searchScreen> {
           ),
           suffixIcon: IconButton(
             icon: Icon(Icons.clear_rounded),
-            onPressed: clearSearch(),
+            onPressed: () {
+              clearSearch();
+            },
           )
         ),
+
         onFieldSubmitted: handleSearch,
       ),
     );

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -18,8 +19,10 @@ late String email;
 late String password;
 late String confirmPwd ;
 late int mobile;
-
+final Reference storageRef = FirebaseStorage.instance.ref();
 final usersRef = FirebaseFirestore.instance.collection('users');
+final postsRef = FirebaseFirestore.instance.collection('posts');
+late AppUser currentUser;
 
 
 class registerScreen extends StatefulWidget {
@@ -34,7 +37,6 @@ class _FormScreenState extends State<registerScreen> {
   final controller = Get.put(SignUpController());
 
   File? image;
-  late AppUser currentUser;
 
   Future pickImage(ImageSource source) async {
     try {

@@ -1,6 +1,6 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
-import 'package:smart_planting_app/screens/chat_pages/group_page.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/search.dart';
@@ -54,23 +54,23 @@ class _communityScreenState extends State<communityScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        backgroundColor: Colors.green,
+        backgroundColor: Colors.transparent,
         elevation: 0,
         leading: IconButton(
           icon: const Icon(Icons.arrow_back),
-          color: Colors.white,
+          color: Colors.black,
           onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen())),
         ),
         actions: [
           IconButton(
-            icon: const Icon(Icons.search, color: Colors.white,),
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
+              icon: const Icon(Icons.search, color: Colors.black,),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
           ),
           IconButton(
-              onPressed:(){
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>const GroupPage()));
-                  },
-              icon: const Icon(Icons.message_outlined, color: Colors.white,))
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                      const profileScreen(name: '', about: '',))),
+              icon: const Icon(Icons.message_outlined, color: Colors.black,))
         ],
       ),
       body: Column(
@@ -128,6 +128,7 @@ class _communityScreenState extends State<communityScreen> {
                 ),
                 IconButton(
                   icon: const Icon(Icons.person_pin),
+                  color: CupertinoColors.activeGreen,
                   iconSize: 30,
                   onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: ''))),
                 ),
@@ -139,7 +140,7 @@ class _communityScreenState extends State<communityScreen> {
     );
   }
 
-  Widget buildPost(String name, String userImage, String postImage, int likes, String caption) {
+ Widget buildPost(String name, String userImage, String postImage, int likes, String caption) {
     return Column(
       children: [
         ListTile(
@@ -189,5 +190,5 @@ class _communityScreenState extends State<communityScreen> {
         )
       ],
     );
-  }
+ }
 }

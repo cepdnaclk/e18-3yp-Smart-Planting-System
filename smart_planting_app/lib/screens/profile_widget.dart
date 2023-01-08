@@ -15,7 +15,7 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.lightGreen;
+    final color = Colors.transparent;
 
     return Center(
       child: Stack(
@@ -23,7 +23,7 @@ class ProfileWidget extends StatelessWidget {
           buildImage(context),
           Positioned(
               bottom: 0,
-              right: 4,
+              right: 0,
               child: buildEditIcon(color)
           )
         ],
@@ -50,8 +50,8 @@ class ProfileWidget extends StatelessWidget {
         child: Ink.image(
           image: image as ImageProvider,
           fit: BoxFit.cover,
-          width: 128,
-          height: 128,
+          width: 90,
+          height: 90,
           child: InkWell(
             onTap: () async {
               final source = await showImageSource(context);
@@ -66,14 +66,15 @@ class ProfileWidget extends StatelessWidget {
   }
 
  Widget buildEditIcon(Color color) => buildCircle(
-   color: Colors.white,
-   all: 3,
+   color: Colors.transparent,
+   all: 2,
    child: buildCircle(
      color: color,
-     all: 8,
+     all: 0,
      child: const Icon(
-       Icons.edit,
-       size: 20,
+       color: Colors.grey,
+       Icons.camera_alt_outlined,
+       size: 25,
      ),
    ),
  );

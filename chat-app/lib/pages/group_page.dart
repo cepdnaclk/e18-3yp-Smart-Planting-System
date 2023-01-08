@@ -11,7 +11,6 @@ class GroupPage extends StatefulWidget{
 class _GroupPageState extends State<GroupPage>{
   bool _isLoading = false;
   String groupName = "";
-
   @override
   Widget build(BuildContext context){
     return Scaffold(
@@ -159,22 +158,21 @@ class _GroupPageState extends State<GroupPage>{
             ),
             actions: [
               ElevatedButton(
-                //HAVE TO IMPLEMENT!!!!!
-                onPressed: (){},
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
-                ),
-                child: const Text("CREATE"),
-              ),
-
-              ElevatedButton(
                 onPressed: (){
                   Navigator.of(context).pop();
                 },
                 style: ElevatedButton.styleFrom(
-                  backgroundColor: Colors.green,
+                  primary: Colors.green,
                 ),
                 child: const Text("CANCEL"),
+                ),
+              ElevatedButton(
+                //HAVE TO IMPLEMENT!!!!!
+                onPressed: (){},
+                style: ElevatedButton.styleFrom(
+                  primary: Colors.green,
+                ),
+                child: const Text("CREATE"),
               )
             ],
           );

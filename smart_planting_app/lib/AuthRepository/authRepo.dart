@@ -56,29 +56,6 @@ class AuthenticationRepository extends GetxController {
 
   Future<void> logout() async => await _auth.signOut();
 
-
-  Future<String?> registerUserAPI(String name, String email, String password, String mobileNo) async {
-    print("register called");
-
-    UserModel newUser = UserModel(userName: name, email: email, userPassword: password, mobileNo: mobileNo);
-    http.Response res;
-    // print(name);
-    try {
-      res = await http.post(Uri.parse("http://3.111.170.113:8000/api/user/register"),headers: {
-        'Content-Type': "application/json"
-      }, body: json.encode(newUser.toJson()));
-
-      dynamic body = cnv.jsonDecode(res.body);
-
-      print('Done registration');
-      print(body['userID']);
-
-      //to do : return the user ID extracted from response body
-      return 'Login successful';
-    } catch (e) {
-      return 'Unknown error has occurred';
-    }
-
     /*if(res.statusCode == 200) {
       return 'OK';
     } else {
@@ -87,6 +64,5 @@ class AuthenticationRepository extends GetxController {
     }*/
 
   }
-}
 
 

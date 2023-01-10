@@ -1,12 +1,15 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
+import 'package:smart_planting_app/screens/activityFeed.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/progress.dart';
+import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/search.dart';
 import 'package:smart_planting_app/screens/upload.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 final usersRef = FirebaseFirestore.instance.collection('Users_Collection');
 
@@ -18,124 +21,100 @@ class communityScreen extends StatefulWidget {
 }
 
 class _communityScreenState extends State<communityScreen> {
-  List<dynamic> users = [];
-
-  @override
-  void initState() {
-    // getUsers();
-    createUser();
-    super.initState();
-  }
-
-  createUser() async {
-    await usersRef.add({
-      "userName": "chamudi",
-      "postCount": "4"
-    });
-  }
-
-  // getUsers() async {
-  //   final QuerySnapshot snapShot = await usersRef.get();
-  //
-  //   setState(() {
-  //     users = snapShot.docs;
-  //   });
-  //   // usersRef.get().then((QuerySnapshot snapShot) {
-  //   // for (var doc in snapShot.docs) {
-  //   //     print(doc.data());
-  //   //     print(doc.id);
-  //   //     print(doc.exists);
-  //   // }
-  //   // });
-  // }
-
-
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        elevation: 0,
-        leading: IconButton(
-          icon: const Icon(Icons.arrow_back),
-          color: Colors.black,
-          onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen())),
-        ),
-        actions: [
-          IconButton(
-              icon: const Icon(Icons.search, color: Colors.black,),
-              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
+    return SafeArea(
+      child: Scaffold(
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          elevation: 0,
+          leading: IconButton(
+            icon: const Icon(Icons.arrow_back_ios_new_outlined),
+            color: Colors.black,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const homeScreen())),
           ),
-          IconButton(
-              onPressed: () =>
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                      const profileScreen(name: '', about: '',))),
-              icon: const Icon(Icons.message_outlined, color: Colors.black,))
-        ],
-      ),
-      body: Column(
-        children: [
-          Expanded(
-            flex: 90,
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 5),
-              height: double.infinity,
-              child: SingleChildScrollView(
-                scrollDirection: Axis.vertical,
+          actions: [
+            IconButton(
+                icon: const Icon(Icons.search, color: Colors.black,),
+                onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
+            ),
+            IconButton(
+              icon: const Icon(Icons.notifications_active_outlined, color: Colors.lightGreenAccent,),
+              onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const activityFeed())),
+            ),
+            IconButton(
+                onPressed: () =>
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                        const activityFeed())),
+                icon: const Icon(Icons.message_outlined, color: Colors.black,))
+          ],
+        ),
+        body: Column(
+          children: [
+            Expanded(
+              flex: 90,
+              child: Container(
                 padding: const EdgeInsets.symmetric(horizontal: 5),
-                child: Column(
-                  children: [
-                    // ListView(
-                    //   children: users.map((user) => Text(user['postCount'])).toList(),
-                    // ),
-                    // StreamBuilder<QuerySnapshot>(
-                    //     stream: usersRef.snapshots(),
-                    //     builder: (context, snapShot) {
-                    //       if(!snapShot.hasData){
-                    //         return circularProgress();
-                    //       }
-                    //       Iterable children = snapShot.data!.docs.map(
-                    //               (doc) => doc['userName']);
-                    //       print(children);
-                    //       return ListView(
-                    //         children: [
-                    //           Text(children.iterator.toString())
-                    //         ],
-                    //       );
-                    //     }),
-                    buildPost(
-                        'Anushanga Pavith',
-                        'asset/anushanga.jpg',
-                        'asset/pic1.jpg',
-                        2,
-                        'Grow plants for your health'),
-                    buildPost('Anushanga Pavith','asset/anushanga.jpg','asset/pic2.jpg', 2, 'Plants for future'),
+                height: double.infinity,
+                child: SingleChildScrollView(
+                  scrollDirection: Axis.vertical,
+                  padding: const EdgeInsets.symmetric(horizontal: 5),
+                  child: Column(
+                    children: [
+                      // ListView(
+                      //   children: users.map((user) => Text(user['postCount'])).toList(),
+                      // ),
+                      // StreamBuilder<QuerySnapshot>(
+                      //     stream: usersRef.snapshots(),
+                      //     builder: (context, snapShot) {
+                      //       if(!snapShot.hasData){
+                      //         return circularProgress();
+                      //       }
+                      //       Iterable children = snapShot.data!.docs.map(
+                      //               (doc) => doc['userName']);
+                      //       print(children);
+                      //       return ListView(
+                      //         children: [
+                      //           Text(children.iterator.toString())
+                      //         ],
+                      //       );
+                      //     }),
+                      buildPost(
+                          'Anushanga Pavith',
+                          'asset/anushanga.jpg',
+                          'asset/pic1.jpg',
+                          2,
+                          'Grow plants for your health'),
+                      buildPost('Anushanga Pavith','asset/anushanga.jpg','asset/pic2.jpg', 2, 'Plants for future'),
 
-                  ],
+                    ],
+                  ),
                 ),
               ),
             ),
-          ),
-          Expanded(
-            flex: 10,
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                IconButton(
-                  icon: const Icon(Icons.add_box_outlined),
-                  iconSize: 30,
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
-                ),
-                IconButton(
-                  icon: const Icon(Icons.person_pin),
-                  color: CupertinoColors.activeGreen,
-                  iconSize: 30,
-                  onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: ''))),
-                ),
-              ],
-            ),
-          )
-        ],
+            Expanded(
+              flex: 10,
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  IconButton(
+                    icon: const Icon(Icons.add_box_outlined),
+                    iconSize: 30,
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
+                  ),
+                  IconButton(
+                    icon: CircleAvatar(
+                      backgroundImage: CachedNetworkImageProvider(currentUser.photoUrl),
+                    ),
+                    color: CupertinoColors.activeGreen,
+                    iconSize: 30,
+                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: ''))),
+                  ),
+                ],
+              ),
+            )
+          ],
+        ),
       ),
     );
   }

@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
+import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 List<Widget> adds = [];
 
@@ -24,14 +26,19 @@ class _homeScreenState extends State<homeScreen> {
           title: const Text('Home', style: TextStyle(color: Colors.black)),
           centerTitle: true,
           leading: IconButton(
-            icon: const Icon(Icons.chat_outlined),
+            icon: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Image.asset('asset/community.png', scale: 5,),
+            ),
             color: Colors.black,
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const communityScreen())),
           ),
           actions: [
             IconButton(
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: '',))),
-                icon: const Icon(Icons.person_pin, color: Colors.black,))
+                icon: CircleAvatar(
+                  backgroundImage: CachedNetworkImageProvider(currentUser.photoUrl),
+                ))
           ],
         ),
         body: Column(

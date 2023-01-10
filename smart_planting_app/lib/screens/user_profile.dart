@@ -165,11 +165,11 @@ class _profileScreenState extends State<profileScreen> {
           buildName(user),
           buildAbout(user),
           const SizedBox(height: 15,),
-          const StatWidget(),
+          StatWidget(),
           const SizedBox(height: 15,),
-          Divider(),
+          const Divider(),
           buildTogglePostOrientation(),
-          Divider(),
+          const Divider(),
           buildProfilePost(),
 
         ],
@@ -180,13 +180,13 @@ class _profileScreenState extends State<profileScreen> {
   Widget buildName(AppUser user) => Column(
     children: [
       Text(
-        name == ''? user.name : name
+        currentUser.username
         ,
         style: const TextStyle(fontWeight: FontWeight.bold, fontSize: 30),
       ),
       const SizedBox(height: 3,),
       Text(
-        user.email,
+        currentUser.email,
         style: const TextStyle(color: Colors.grey),
       )
     ],
@@ -212,7 +212,7 @@ class _profileScreenState extends State<profileScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 95, width: 95,),
+            child: Image.network(currentUser.photoUrl, fit: BoxFit.cover, height: 95, width: 95,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
@@ -229,7 +229,7 @@ class _profileScreenState extends State<profileScreen> {
     child: buildCircle(
       all: 0,
       child: const Icon(
-        color: Colors.grey,
+        color: Colors.black38,
         Icons.camera_alt_outlined,
         size: 25,
       ),
@@ -261,7 +261,7 @@ class _profileScreenState extends State<profileScreen> {
         mainAxisSpacing: 0,
         crossAxisSpacing: 0,
         shrinkWrap: true,
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         children: gridTiles,
       );
     } else if(postOrientation == "list") {
@@ -279,11 +279,11 @@ class _profileScreenState extends State<profileScreen> {
         IconButton(
             color: postOrientation == "grid" ? CupertinoColors.activeBlue : Colors.grey,
             onPressed: () => setPostOrientation('grid'),
-            icon: Icon(Icons.grid_on,)),
+            icon: const Icon(Icons.grid_on,)),
         IconButton(
             color: postOrientation == "list" ? CupertinoColors.activeBlue : Colors.grey,
             onPressed: () => setPostOrientation('list'),
-            icon: Icon(Icons.list,)),
+            icon: const Icon(Icons.list,)),
       ],
     );
   }
@@ -293,10 +293,51 @@ class _profileScreenState extends State<profileScreen> {
       this.postOrientation = postOrientation;
     });
   }
+
+  // buildStatWidget() {
+  //   Row(
+  //     mainAxisAlignment: MainAxisAlignment.center,
+  //     children: [
+  //       BuildButton(context, postCount, 'Posts'),
+  //       buildDivider(),
+  //       BuildButton(context, 0, 'Following'),
+  //       buildDivider(),
+  //       BuildButton(context, 0, 'Followers'),
+  //     ],
+  //   );
+  // }
+  //
+  // Widget BuildButton(BuildContext context, int value, String text) =>
+  //     MaterialButton(
+  //       padding: const EdgeInsets.all(8),
+  //       onPressed: () {},
+  //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
+  //       child: Column(
+  //         mainAxisSize: MainAxisSize.min,
+  //         mainAxisAlignment: MainAxisAlignment.start,
+  //         children: [
+  //           Text(
+  //             '$value',
+  //             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
+  //           ),
+  //           const SizedBox(height: 2,),
+  //           Text(
+  //             text,
+  //             style: const TextStyle(fontWeight: FontWeight.bold),
+  //           )
+  //         ],
+  //       ),
+  //     );
+  //
+  // Widget buildDivider() => Container(
+  //   height: 24,
+  //   child: const VerticalDivider(color: Colors.black,),
+  // );
+
 }
 
 class StatWidget extends StatelessWidget {
-  const StatWidget({super.key});
+  StatWidget({super.key,});
 
   @override
   Widget build(BuildContext context) => Row(

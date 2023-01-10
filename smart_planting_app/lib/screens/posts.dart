@@ -1,12 +1,15 @@
+import 'dart:async';
+
+import 'package:animator/animator.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
-import 'package:smart_planting_app/screens/custom_image.dart';
+import 'package:smart_planting_app/screens/comments.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
-import 'package:smart_planting_app/screens/search.dart';
 import 'package:smart_planting_app/screens/user.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class posts extends StatefulWidget {
   final String postId;
@@ -74,6 +77,8 @@ class _postsState extends State<posts> {
   final String mediaUrl;
   int likeCount;
   Map likes;
+  late bool isLiked;
+  bool showHeart = false;
 
   _postsState({Key? key,
     required this.postId,
@@ -87,7 +92,7 @@ class _postsState extends State<posts> {
   });
 
   Future<AppUser?> readUser() async {
-    final snapshot = await docUser.doc(ownerId).get();
+    final snapshot = await usersRef.doc(ownerId).get();
 
     if(snapshot.exists) {
       return AppUser.fromJson(snapshot.data()!);
@@ -96,7 +101,7 @@ class _postsState extends State<posts> {
 
   buildPostHeader() {
     return FutureBuilder<AppUser?> (
-        future: readUser(),//usersRef.doc(ownerId).get(),
+        future: readUser(),
         builder: (context, snapshot) {
           if(snapshot.hasError) {
             return Text('something went wrong! ${snapshot.error}');
@@ -106,14 +111,14 @@ class _postsState extends State<posts> {
 
             return ListTile(
               leading: CircleAvatar(
-                child: Image.asset('asset/profile.png'),
+                backgroundImage: CachedNetworkImageProvider(newUser!.photoUrl),
                 backgroundColor: Colors.grey,
               ),
               title: GestureDetector(
                 onTap: () => print('show profile'),
                 child: Text(
                   newUser!.username,
-                  style: TextStyle(
+                  style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold,
                   ),
                 ),
@@ -121,7 +126,7 @@ class _postsState extends State<posts> {
               subtitle: Text(location),
               trailing: IconButton(
                 onPressed: () => print('deleting post'),
-                icon: Icon(Icons.more_vert),
+                icon: const Icon(Icons.more_vert),
               ),
             );
           }
@@ -132,16 +137,117 @@ class _postsState extends State<posts> {
     );
   }
 
+  handleLikePost() {
+    String currentUserId = currentUser.id;
+    bool _isLiked = likes[currentUser.id] == true;
+
+    if(_isLiked) {
+      postsRef
+        .doc(ownerId)
+        .collection('userPosts')
+        .doc(postId)
+        .update({
+        'likes.$currentUserId': false
+      });
+      removeLikeToActivityFeed();
+      setState(() {
+        likeCount -= 1;
+        isLiked = false;
+        likes[currentUser.id] = false;
+      });
+    } else if(!_isLiked) {
+      postsRef
+          .doc(ownerId)
+          .collection('userPosts')
+          .doc(postId)
+          .update({
+        'likes.$currentUserId': true
+      });
+      addLikeToActivityFeed();
+      setState(() {
+        likeCount += 1;
+        isLiked = true;
+        showHeart = true;
+        likes[currentUser.id] = true;
+      });
+      Timer(const Duration(milliseconds: 500), () {
+        setState(() {
+          showHeart = false;
+        });
+      });
+    }
+
+  }
+
+  addLikeToActivityFeed() {
+    timestamp = DateTime.now();
+    bool isNotPostOwner = currentUser.id != ownerId;
+    if(!isNotPostOwner) {
+      activityFeedRef.doc(ownerId).collection('feedItems').doc(postId).set({
+        "type": "like",
+        "comment": '',
+        "username": currentUser.username,
+        "userId": currentUser.id,
+        "userProfileImg": currentUser.photoUrl,
+        "postId": postId,
+        "mediaUrl": mediaUrl,
+        "timestamp": timestamp
+      });
+    }
+  }
+
+  removeLikeToActivityFeed() {
+    bool isNotPostOwner = currentUser.id != ownerId;
+    if(!isNotPostOwner) {
+      activityFeedRef.doc(ownerId).collection('feedItems').doc(postId).get()
+          .then((doc) => {
+        if(doc.exists) {
+          doc.reference.delete()
+        }
+      });
+    }
+  }
+
   buildPostImage() {
     return GestureDetector(
-      onDoubleTap: () => print('liking post'),
+      onDoubleTap: () => handleLikePost(),
       child: Stack(
         alignment: Alignment.center,
         children: [
           Image.network(mediaUrl),
+          showHeart ? Animator(
+            duration: Duration(milliseconds: 300),
+            tween: Tween(begin: 0.8, end: 1.4),
+            curve: Curves.elasticOut,
+            cycles: 0,
+            builder: (BuildContext context, AnimatorState<dynamic> animatorState, Widget? child) {
+                return Transform.scale(
+                  scale: 2,
+                  child: const Icon(
+                    Icons.favorite,
+                    color: Colors.red,
+                    size: 80,),
+                );
+            },
+          ) : const Text("")
+          // showHeart ? const Icon(
+          //   Icons.favorite,
+          //   color: Colors.red,
+          //   size: 80,)
+          //     : const Text(""),
         ],
       ),
     );
+  }
+
+  showComments(BuildContext context, {required String postId, required String ownerId, required String mediaUrl}) {
+    Navigator.push(context, MaterialPageRoute(builder: (context) {
+      return comments(
+        postId: postId,
+        postOwnerId: ownerId,
+        postMediaUrl: mediaUrl,
+      );
+    }));
   }
 
   buildPostFooter() {
@@ -150,18 +256,23 @@ class _postsState extends State<posts> {
         Row(
           mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            Padding(padding: EdgeInsets.only(top: 40, left: 20)),
+            const Padding(padding: EdgeInsets.only(top: 40, left: 20)),
             GestureDetector(
-              onTap: () => print('liking post'),
+              onTap: () => handleLikePost(),
               child: Icon(
-                Icons.favorite_border,
+                isLiked ? Icons.favorite : Icons.favorite_border,
                 size: 28,
                 color: Colors.red,
               ),
             ),
-            Padding(padding: EdgeInsets.only(right: 20)),
+            const Padding(padding: EdgeInsets.only(right: 20)),
             GestureDetector(
-              onTap: () => print('showing comments'),
+              onTap: () => showComments(
+                context,
+                postId: postId,
+                ownerId: ownerId,
+                mediaUrl: mediaUrl,
+              ),
               child: Icon(
                 Icons.chat,
                 size: 28,
@@ -173,10 +284,10 @@ class _postsState extends State<posts> {
         Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20),
               child: Text(
                 "$likeCount likes",
-                style: TextStyle(
+                style: const TextStyle(
                   color: Colors.black, fontWeight: FontWeight.bold
                 ),
               ),
@@ -186,10 +297,10 @@ class _postsState extends State<posts> {
         Row(
           children: [
             Container(
-              margin: EdgeInsets.only(left: 20),
+              margin: const EdgeInsets.only(left: 20),
               child: Text(
                 "$username ",
-                style: TextStyle(
+                style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold
                 ),
               ),
@@ -203,6 +314,8 @@ class _postsState extends State<posts> {
 
   @override
   Widget build(BuildContext context) {
+    isLiked = (likes[currentUser.id] == true);
+
     return Column(
       mainAxisSize: MainAxisSize.min,
       children: [

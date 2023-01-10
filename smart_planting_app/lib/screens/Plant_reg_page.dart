@@ -34,9 +34,10 @@ class _plantRegScreenState extends State<plantRegScreen> {
 
   late List<PlantModel> plantModel = [];
 
+
   @override
   void initState() {
-    getData();
+    // getData();
     super.initState();
   }
 
@@ -50,6 +51,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     }
 
     const color = Colors.lightGreen;
+
 
     return Scaffold(
       backgroundColor: Colors.white,

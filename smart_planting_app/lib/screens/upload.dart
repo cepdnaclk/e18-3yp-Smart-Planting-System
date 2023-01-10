@@ -6,11 +6,13 @@ import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Im;
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:uuid/uuid.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 
@@ -129,7 +131,10 @@ class _uploadState extends State<upload> {
                   elevation: 0,
                   backgroundColor: Colors.transparent,
                 ),
-                onPressed: isUploading ? null : () => handleSubmit(),
+                onPressed: isUploading ? null : () {
+                  handleSubmit();
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const communityScreen()));
+                },
                 child: Text(
                   'Post',
                   style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black, fontSize: 20),)
@@ -159,7 +164,7 @@ class _uploadState extends State<upload> {
             ),
             ListTile(
               leading: CircleAvatar(
-                child: Image.asset('asset/profile.png'),
+                backgroundImage: CachedNetworkImageProvider(currentUser.photoUrl),
               ),
               title: Container(
                 width: 250,
@@ -222,7 +227,7 @@ class _uploadState extends State<upload> {
     //     desiredAccuracy: LocationAccuracy.high);
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark placemark = placemarks[0];
-    String formattedAddress = "${placemark.thoroughfare}, ${placemark.country}";
+    String formattedAddress = "${placemark.locality}, ${placemark.country}";
     locationController.text = formattedAddress;
   }
 
@@ -284,9 +289,10 @@ class _uploadState extends State<upload> {
     setState(() {
       isUploading = true;
     });
+
     await compressImage();
     String mediaUrl = await uploadImage(file);
-    print(currentUser);
+
     creatPostInFirestore(
       mediaUrl: mediaUrl,
       location: locationController.text,
@@ -294,6 +300,7 @@ class _uploadState extends State<upload> {
     );
     captionController.clear();
     locationController.clear();
+
     setState(() {
       isUploading = false;
       postId = Uuid().v4();
@@ -303,7 +310,6 @@ class _uploadState extends State<upload> {
   }
 
   Future creatPostInFirestore({required String mediaUrl, required String location, required String caption}) async {
-    //await postsRef.doc(currentUser.id).collection("userposts");
     final json = {
       "postId" : postId,
       "ownerId" : currentUser.id,

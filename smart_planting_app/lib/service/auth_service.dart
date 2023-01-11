@@ -21,7 +21,7 @@ class AuthService {
   }
 
   // register
-  Future registerUserWithEmailandPassword(String fullName,String email, String password) async {
+  Future registerUserWithEmailandPassword(String fullName,String email, String password, String photoUrl) async {
     try {
       User user = (await firebaseAuth.createUserWithEmailAndPassword(
           email: email, password: password))
@@ -29,7 +29,7 @@ class AuthService {
 
       if (user != null) {
         // call our database service to update the user data.
-        await DatabaseService(uid: user.uid).savingUserData(fullName, email,password);
+        await DatabaseService(uid: user.uid).savingUserData(fullName,email,password,photoUrl);
         return true;
       }
     } on FirebaseAuthException catch (e) {

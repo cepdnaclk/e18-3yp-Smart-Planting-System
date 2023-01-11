@@ -1,7 +1,14 @@
-import pyrebase
+import firebase_admin
+from firebase_admin import credentials
+from firebase_admin import firestore
 from datetime import datetime
 import time
 import random
+
+
+import firebase_admin
+from firebase_admin import credentials
+
 
 # ------ Important ------
 # This won't run on python 3.10 or above. Run in python 3.9 or below
@@ -11,20 +18,10 @@ import random
 DEVICE_ID = 1
 SLEEP_TIME = 5      # minutes
 
-''' firebaseConfig={"apiKey": "qSErU9t9a7O8Tj2vTJWPdatLBlbFJ58c7twgkIuh",
-    "authDomain": "new-arduino-project-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "databaseURL": "https://smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    "projectId": "new-arduino-project",
-    "storageBucket": "pyrebaserealtimedbdemo.appspot.com",
-    "messagingSenderId": "843349173643",
-    "appId": "1:843349173643:web:90ff345ff844aa89d5fb8e",
-    "measurementId": "G-DT093HRL5R"} '''
-
-firebaseConfig={"apiKey": "qSErU9t9a7O8Tj2vTJWPdatLBlbFJ58c7twgkIuh",
-    "authDomain": "smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "databaseURL": "https://smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    "projectId": "smart-planting-system-b7c5e",
-    "storageBucket": "smart-planting-system-b7c5e.appspot.com"}
+# initializations 
+cred = credentials.Certificate('smart-planting-system-b7c5e-firebase-adminsdk-hvco0-74098b389d.json')
+firebase_admin.initialize_app(cred)
+db = firestore.client()
 
 # Reference
 # LightIntensity: F = full shade S = semi-shade N = no shade
@@ -56,14 +53,11 @@ while True:
 
     print(DateTime)
 
-    firebase=pyrebase.initialize_app(firebaseConfig)
-
-    db=firebase.database()
+    doc_ref = db.collection('Plants_Data').document(DEVICE_ID)
 
     #Multi-location update data
-    data = {"plants/" + DEVICE_ID:{"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel}}
-    db.update(data)
-
+    doc_ref.set({"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel})
+    
     # Sleep time
     time.sleep(SLEEP_TIME * 60)
 

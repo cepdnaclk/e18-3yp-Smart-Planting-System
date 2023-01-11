@@ -17,11 +17,11 @@ class SignUpController extends GetxController {
 
 
   void registerUser(String fullName, String email, String password, String mobileNo) async {
-    String? newError = await AuthenticationRepository.instance.registerUserAPI(fullName, email, password, mobileNo);
+    //String? newError = await AuthenticationRepository.instance.registerUserAPI(fullName, email, password, mobileNo);
     String? error = await AuthenticationRepository.instance.createUserWithEmailAndPassword(email, password);
-    if(newError != null) {
-      Get.showSnackbar(GetSnackBar(message: newError.toString(), duration: const Duration(seconds: 6),));
-    }
+    // if(newError != null) {
+    //   Get.showSnackbar(GetSnackBar(message: newError.toString(), duration: const Duration(seconds: 6),));
+    // }
   }
 
 }

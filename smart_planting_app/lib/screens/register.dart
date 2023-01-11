@@ -6,11 +6,13 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:image_picker/image_picker.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:smart_planting_app/screens/configs/register_config.dart';
 import 'package:smart_planting_app/screens/user.dart';
 import 'package:uuid/uuid.dart';
 import 'profile_widget.dart';
 import 'package:get/get.dart';
+import 'package:image/image.dart' as Im;
 import 'package:http/http.dart' as http;
 import 'dart:convert' as cnv;
 
@@ -22,7 +24,11 @@ late int mobile;
 final Reference storageRef = FirebaseStorage.instance.ref();
 final usersRef = FirebaseFirestore.instance.collection('users');
 final postsRef = FirebaseFirestore.instance.collection('posts');
-late AppUser currentUser;
+final commentRef = FirebaseFirestore.instance.collection('comments');
+final activityFeedRef = FirebaseFirestore.instance.collection('feed');
+AppUser currentUser = AppUser(
+    id: 'id', username: 'username', email: 'email', password: 'password', photoUrl: 'photoUrl', about: 'about');
+DateTime timestamp = DateTime.now();
 
 
 class registerScreen extends StatefulWidget {
@@ -35,6 +41,7 @@ class registerScreen extends StatefulWidget {
 class _FormScreenState extends State<registerScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   final controller = Get.put(SignUpController());
+  String userId = Uuid().v4();
 
   File? image;
 
@@ -188,7 +195,7 @@ class _FormScreenState extends State<registerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.lightGreen;
+    final color = Colors.transparent;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -210,7 +217,7 @@ class _FormScreenState extends State<registerScreen> {
                     buildImage(),
                     Positioned(
                         bottom: 0,
-                        right: 4,
+                        right: 0,
                         child: buildEditIcon(color)
                     )
                   ],
@@ -274,24 +281,45 @@ class _FormScreenState extends State<registerScreen> {
 
   }
 
+  compressImage() async {
+    final tempDir = await getTemporaryDirectory();
+    final path = tempDir.path;
+    Im.Image? imageFile = Im.decodeImage(image!.readAsBytesSync());
+    final compressedImageFile = File('$path/img_$userId.jpg')..writeAsBytesSync(Im.encodeJpg(imageFile!, quality: 85));
+    setState(() {
+      image = compressedImageFile;
+    });
+  }
+
+  Future<String> uploadImage(imageFile) async {
+    final path = "profileImages/$userId.jpg";
+
+    final ref = storageRef.child(path);
+    var uploadTask = ref.putFile(imageFile);
+
+    final snapshot = await uploadTask.whenComplete(() {});
+
+    final downloadUrl = await snapshot.ref.getDownloadURL();
+    return downloadUrl;
+  }
+
 
   createUserInFirestore() async {
-    const uuid = Uuid();
+    await compressImage();
+    String photoUrl = await uploadImage(image);
 
-    String id = uuid.v4();
-
-    await usersRef.doc(id).set({
+    await usersRef.doc(userId).set({
+    "userId": userId,
     "username": name,
     "email" : email,
     "password" : password,
+    "photoUrl" : photoUrl,
     "mobileNo" : mobile,
     "about" : ""
     });
-    print(name);
 
-    currentUser = new AppUser(id: id, username: name, email: email, password: password, about: '');
+    currentUser = AppUser(id: userId, username: name, email: email, password: password, photoUrl: photoUrl, about: '');
 
-    print(currentUser.id);
   }
 
   Widget buildImage() {
@@ -299,7 +327,7 @@ class _FormScreenState extends State<registerScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 140, width: 140,),
+            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 95, width: 95,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
@@ -312,14 +340,15 @@ class _FormScreenState extends State<registerScreen> {
   }
 
   Widget buildEditIcon(Color color) => buildCircle(
-    color: Colors.white,
-    all: 3,
+    color: Colors.transparent,
+    all: 0,
     child: buildCircle(
       color: color,
-      all: 8,
+      all: 0,
       child: const Icon(
-        Icons.edit,
-        size: 20,
+        color: Colors.black38,
+        Icons.camera_alt_outlined,
+        size: 25,
       ),
     ),
   );

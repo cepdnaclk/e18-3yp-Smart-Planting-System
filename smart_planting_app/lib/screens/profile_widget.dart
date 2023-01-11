@@ -67,14 +67,14 @@ class ProfileWidget extends StatelessWidget {
 
  Widget buildEditIcon(Color color) => buildCircle(
    color: Colors.transparent,
-   all: 2,
+   all: 0,
    child: buildCircle(
      color: color,
      all: 0,
      child: const Icon(
-       color: Colors.grey,
+       color: Colors.black38,
        Icons.camera_alt_outlined,
-       size: 25,
+       size: 30,
      ),
    ),
  );

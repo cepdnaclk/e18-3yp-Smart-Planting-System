@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens//user.dart';
 import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/progress.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 final docUser = FirebaseFirestore.instance.collection('users');
 
@@ -154,7 +155,7 @@ class UserResult extends StatelessWidget {
             onTap: () => print('tapped'),
             child: ListTile(
               leading: CircleAvatar(
-                child: Image.asset('asset/profile.png'),
+                backgroundImage: CachedNetworkImageProvider(user.photoUrl),
               ),
               title: Text(user.username, style: TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold,

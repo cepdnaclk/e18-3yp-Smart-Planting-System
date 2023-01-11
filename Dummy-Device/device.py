@@ -51,7 +51,7 @@ while True:
     DateTime = datetime.now().strftime("%d/%m/%Y %H:%M:%S")
     LightIntensity = random.choice(lightList)
     SoilMoisture = random.choice(moistureList)
-    Temperature = str(round(random.uniform(8.5, 40.9), 1)) + "°C"
+    Temperature = round(random.uniform(8.5, 40.9), 1)
     WaterLevel = random.choice(waterList)
 
     print(DateTime)

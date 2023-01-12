@@ -56,6 +56,7 @@ extern int waterLevelRead(int);
 extern float temperatureRead(DallasTemperature tempSensor);
 extern int LDRRead(int);
 String getDateTime();
+String getTime();
 void connectWiFi();
 void connectFirebase();
 void sendData();
@@ -147,6 +148,12 @@ String getDateTime()
 	timeString = timeClient.getFormattedTime();
 	return (dateString + " " + timeString);
 }
+String getTime()
+{
+	timeClient.update();
+	timeString = timeClient.getFormattedTime();
+	return timeString;
+}
 
 void connectWiFi() {
 	drawBitmap(210, 10, wifiGraphic, 20, 18, BLACK);
@@ -198,7 +205,7 @@ void sendData() {
 
 	// waterLevelRead(SENSOR_PIN);
 	// temperatureRead(tempSensor);
-	/*if (Firebase.ready())
+	if (Firebase.ready())
 	{
 		// Firebase.setInt(fbdo, string, 5);
 		Firebase.setInt(fbdo, "/" + DEVICE_ID + "/soilMoisture", soilMoistVal);
@@ -212,7 +219,7 @@ void sendData() {
 		Serial.println("------------------");
 		Serial.println();
 	}
-	delay(10000);*/
+	delay(10000);
 }
 
 void tftInit() {

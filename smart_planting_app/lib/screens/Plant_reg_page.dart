@@ -4,6 +4,9 @@ import 'package:smart_planting_app/screens/plant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as cnv;
 import 'package:smart_planting_app/Models/PlantModel.dart';
+import 'package:smart_planting_app/screens/progress.dart';
+import '../../service/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class plantRegScreen extends StatefulWidget {
 
 class _plantRegScreenState extends State<plantRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  var selectedPlant, selectedType;
 
   String? dropDownVal;
   String? plantTpID;
@@ -37,28 +42,27 @@ class _plantRegScreenState extends State<plantRegScreen> {
 
   @override
   void initState() {
-    // getData();
+    //getData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Here is the data");
+    //print("Here is the data");
     late List<String> items = [];
 
     for (int i = 0; i < plantModel.length; i++) {
       items.add(plantModel[i].commonName ?? "");
     }
 
-    const color = Colors.lightGreen;
-
+    const color = Colors.green;
 
     return Scaffold(
       backgroundColor: Colors.white,
       // body: isLoading ?
-      body: plantModel.isEmpty
+      body: !plantModel.isEmpty
           ? const Center(
-              child: CircularProgressIndicator(),
+              child: CircularProgressIndicator(color: Colors.green)
             )
           : Container(
               margin: const EdgeInsets.all(24.0),
@@ -107,50 +111,102 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     SizedBox(
                       height: 10,
                     ),
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black45,
-                          ),
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.green.shade100,
-                        ),
-                        height: 40,
-                        width: 300,
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                        child: DropdownButton<String>(
-                          icon: const Icon(
-                            Icons.arrow_drop_down_outlined,
-                            color: Colors.green,
-                            size: 40,
-                          ),
-                          alignment: Alignment.centerLeft,
-                          borderRadius: BorderRadius.circular(10),
-                          menuMaxHeight: 300,
-                          underline: Container(
-                            color: Colors.transparent,
-                          ),
-                          dropdownColor: Colors.grey.shade300,
-                          hint: const Text(
-                            'Select Plant Type                        ',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          value: dropDownVal,
-                          items: items
-                              .map((item) => DropdownMenuItem(
-                                  value: item, child: Text(item)))
-                              .toList(),
-                          onChanged: (item) {
-                            dropDownVal = item;
-                            plant1.plantType = item;
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                    ),
+
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance.collection("plants_Database").snapshots(),
+                        builder: (context, snapshot){
+                          if (!snapshot.hasData) {
+                          return circularProgress();
+                          }
+                            List<DropdownMenuItem> plantItems = [];
+                            //final docs = snapshot.data!.docs;
+                            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                              DocumentSnapshot snap = snapshot.data!.docs[i];
+                              print(snap.id);
+                              plantItems.add(
+                                DropdownMenuItem(
+                                  child: Text(
+                                    snap.id,
+                                    style: TextStyle(color: Color(0xff11b719)),
+                                  ),
+                                  value: "${snap.id}",
+                                ),
+                              );
+                            }
+                            return Row(
+                              mainAxisAlignment: MainAxisAlignment.center,
+                              children: <Widget>[
+                                // Icon(FontAwesomeIcons.coins,
+                                //     size: 25.0, color: Color(0xff11b719)),
+                                // SizedBox(width: 50.0),
+                                DropdownButton(
+                                  items: plantItems,
+                                  onChanged: (plantValue) {
+                                    // final snackBar = SnackBar(
+                                    //   content: Text(
+                                    //     'Selected Currency value is $currencyValue',
+                                    //     style: TextStyle(color: Color(0xff11b719)),
+                                    //   ),
+                                    // );
+                                    //Scaffold.of(context).showSnackBar(snackBar);
+                                    setState(() {
+                                      selectedPlant = plantValue;
+                                    });
+                                  },
+                                  value: selectedPlant,
+                                  isExpanded: false,
+                                  hint: new Text(
+                                    "Choose plant Type",
+                                    style: TextStyle(color: Colors.black),
+                                  ),
+                                ),
+                              ],
+                            );
+                        }),
+                    // Padding(
+                    //   padding: const EdgeInsets.all(5),
+                    //   child: Container(
+                    //     decoration: BoxDecoration(
+                    //       border: Border.all(
+                    //         color: Colors.black45,
+                    //       ),
+                    //       shape: BoxShape.rectangle,
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       color: Colors.green.shade100,
+                    //     ),
+                    //     height: 40,
+                    //     width: 300,
+                    //     padding: EdgeInsets.only(left: 5, right: 5),
+                    //     child: DropdownButton<String>(
+                    //       icon: const Icon(
+                    //         Icons.arrow_drop_down_outlined,
+                    //         color: Colors.green,
+                    //         size: 40,
+                    //       ),
+                    //       alignment: Alignment.centerLeft,
+                    //       borderRadius: BorderRadius.circular(10),
+                    //       menuMaxHeight: 300,
+                    //       underline: Container(
+                    //         color: Colors.transparent,
+                    //       ),
+                    //       dropdownColor: Colors.grey.shade300,
+                    //       hint: const Text(
+                    //         'Select Plant Type                        ',
+                    //         style: TextStyle(fontSize: 18),
+                    //       ),
+                    //       value: dropDownVal,
+                    //       items: items
+                    //           .map((item) => DropdownMenuItem(
+                    //               value: item, child: Text(item)))
+                    //           .toList(),
+                    //       onChanged: (item) {
+                    //         dropDownVal = item;
+                    //         plant1.plantType = item;
+                    //         setState(() {});
+                    //       },
+                    //     ),
+                    //   ),
+                    // ),
                     SizedBox(
                       height: 10,
                     ),
@@ -165,7 +221,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             side: BorderSide(color: Colors.black45)),
                         child: _dateTime == null
-                            ? Text(
+                            ? const Text(
                                 'Date',
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 20),
@@ -302,14 +358,18 @@ class _plantRegScreenState extends State<plantRegScreen> {
       );
 
   // API calls
-  Future<void> getData() async {
+  /*Future<void> getData() async {
     Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
     http.Response res = await http.get(url);
     print(res.body);
     List<dynamic> body = cnv.jsonDecode(res.body);
     plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
     setState(() {});
-  }
+  }*/
+
+Future<void> getData() async{
+  CollectionReference plants = FirebaseFirestore.instance.collection('Plants_Database');
+}
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {

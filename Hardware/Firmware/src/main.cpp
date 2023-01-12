@@ -63,6 +63,10 @@ void tftInit();
 void showMsgXY(int, int, int, const GFXfont *, const char *, int);
 void drawBitmap(int16_t, int16_t,const uint8_t *, int16_t, int16_t, uint16_t);
 
+// Graphics
+extern uint8_t wifiGraphic[];
+extern uint8_t noWifiGraphic[];
+
 String soilMoistVal = "";
 int waterLevelVal = 0;
 char lightIntensityVal;
@@ -128,8 +132,7 @@ void setup()
 void loop()
 {
 	// sendData();
-	tft.fillScreen(DARKGREEN);
-	delay(2000);
+	delay(5000);
 }
 
 String getDateTime()
@@ -146,6 +149,8 @@ String getDateTime()
 }
 
 void connectWiFi() {
+	drawBitmap(210, 10, wifiGraphic, 20, 18, BLACK);
+	drawBitmap(210, 10, noWifiGraphic, 20, 18, WHITE);
 	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 	Serial.print("Connecting to Wi-Fi");
 	while (WiFi.status() != WL_CONNECTED)
@@ -155,6 +160,9 @@ void connectWiFi() {
 	}
 	Serial.println();
 	Serial.println("Wifi connected");
+	drawBitmap(210, 10, noWifiGraphic, 20, 18, BLACK);
+	drawBitmap(210, 10, wifiGraphic, 20, 18, WHITE);
+
 	// Serial.print("Connected with IP: ");
 	// Serial.println(WiFi.localIP());
 }
@@ -216,7 +224,7 @@ void tftInit() {
 
   if (ID == 0xD3D3) ID = 0x9486;  // write-only shield
   tft.begin(ID);
-  tft.setRotation(1);  //PORTRAIT
+  tft.setRotation(0);  //Vertical
   // tft.invertDisplay(1);
 
   tft.fillScreen(BLACK);

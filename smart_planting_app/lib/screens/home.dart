@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
+import 'package:smart_planting_app/screens/plant_add.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 import 'package:cached_network_image/cached_network_image.dart';

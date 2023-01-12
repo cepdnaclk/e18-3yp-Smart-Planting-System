@@ -9,6 +9,8 @@ class DatabaseService {
   FirebaseFirestore.instance.collection("users");
   final CollectionReference groupCollection =
   FirebaseFirestore.instance.collection("groups");
+  final CollectionReference plantDataCollection = 
+  FirebaseFirestore.instance.collection("Plants_Database");
 
   // saving the userdata
   Future savingUserData(String fullName, String email, String password ,String photoUrl) async {
@@ -136,4 +138,9 @@ class DatabaseService {
       "recentMessageTime": chatMessageData['time'].toString(),
     });
   }
+
+  getPlantData(){
+    return plantDataCollection.doc().snapshots();
+  }
 }
+

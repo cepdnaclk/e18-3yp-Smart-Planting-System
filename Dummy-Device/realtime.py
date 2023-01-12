@@ -1,31 +1,21 @@
 '''
-Send data to firestore database
+Send data to realtime database
 '''
 
-import firebase_admin
-from firebase_admin import credentials
-from firebase_admin import firestore
+import pyrebase
 from datetime import datetime
 import time
 import random
-
-
-import firebase_admin
-from firebase_admin import credentials
-
-
-# ------ Important ------
-# This won't run on python 3.10 or above. Run in python 3.9 or below
-# pip install pyrebase
 
 # Change deviceID, and sleep time as your preference
 DEVICE_ID = 1
 SLEEP_TIME = 5      # minutes
 
-# initializations 
-cred = credentials.Certificate('smart-planting-system-b7c5e-firebase-adminsdk-hvco0-74098b389d.json')
-firebase_admin.initialize_app(cred)
-db = firestore.client()
+firebaseConfig={"apiKey": "qSErU9t9a7O8Tj2vTJWPdatLBlbFJ58c7twgkIuh",
+    "authDomain": "smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app",
+    "databaseURL": "https://smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app/",
+    "projectId": "smart-planting-system-b7c5e",
+    "storageBucket": "smart-planting-system-b7c5e.appspot.com"}
 
 # Reference
 # LightIntensity: F = full shade S = semi-shade N = no shade
@@ -40,7 +30,8 @@ moistureList = ['D', 'M', 'We', 'Wa']
 waterList = ['level 3', 'level 2', 'level 1', 'level 0']
 
 # Print
-print("Sending data to firestore database")
+print("Sending data to realtime database")
+
 
 # Get user inputs for device ID and sleep time
 DEVICE_ID = input("Enter Device ID: ")
@@ -60,11 +51,14 @@ while True:
 
     print(DateTime)
 
-    doc_ref = db.collection('Plants_Data').document(DEVICE_ID)
+    firebase=pyrebase.initialize_app(firebaseConfig)
+
+    db=firebase.database()
 
     #Multi-location update data
-    doc_ref.set({"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel})
-    
+    data = {"plants/" + DEVICE_ID:{"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel}}
+    db.update(data)
+
     # Sleep time
     time.sleep(SLEEP_TIME * 60)
 

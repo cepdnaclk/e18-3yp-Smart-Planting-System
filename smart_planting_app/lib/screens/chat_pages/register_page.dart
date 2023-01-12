@@ -23,6 +23,7 @@ class _RegisterPageState extends State<RegisterPage> {
   String email = "";
   String password = "";
   String fullName = "";
+  String photoUrl = "";
   AuthService authService = AuthService();
   @override
   Widget build(BuildContext context) {
@@ -175,7 +176,7 @@ class _RegisterPageState extends State<RegisterPage> {
         _isLoading = true;
       });
       await authService
-          .registerUserWithEmailandPassword(fullName, email, password)
+          .registerUserWithEmailandPassword(fullName, email, password, photoUrl)
           .then((value) async {
         if (value == true) {
           // saving the shared preference state

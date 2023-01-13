@@ -26,6 +26,8 @@ final usersRef = FirebaseFirestore.instance.collection('users');
 final postsRef = FirebaseFirestore.instance.collection('posts');
 final commentRef = FirebaseFirestore.instance.collection('comments');
 final activityFeedRef = FirebaseFirestore.instance.collection('feed');
+final followersRef = FirebaseFirestore.instance.collection('followers');
+final followingRef = FirebaseFirestore.instance.collection('following');
 AppUser currentUser = AppUser(
     id: 'id', username: 'username', email: 'email', password: 'password', photoUrl: 'photoUrl', about: 'about');
 DateTime timestamp = DateTime.now();
@@ -195,7 +197,7 @@ class _FormScreenState extends State<registerScreen> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.transparent;
+    final color = Colors.black38;
 
     return Scaffold(
       backgroundColor: Colors.white,
@@ -327,7 +329,7 @@ class _FormScreenState extends State<registerScreen> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 95, width: 95,),
+            child: Image.asset('asset/profile.png', height: 100, width: 100,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
@@ -344,9 +346,9 @@ class _FormScreenState extends State<registerScreen> {
     all: 0,
     child: buildCircle(
       color: color,
-      all: 0,
+      all: 8,
       child: const Icon(
-        color: Colors.black38,
+        color: Colors.white30,
         Icons.camera_alt_outlined,
         size: 25,
       ),

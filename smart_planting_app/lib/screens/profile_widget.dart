@@ -15,7 +15,7 @@ class ProfileWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.transparent;
+    final color = Colors.black26;
 
     return Center(
       child: Stack(
@@ -72,7 +72,7 @@ class ProfileWidget extends StatelessWidget {
      color: color,
      all: 0,
      child: const Icon(
-       color: Colors.black38,
+       color: Colors.white30,
        Icons.camera_alt_outlined,
        size: 30,
      ),

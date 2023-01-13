@@ -1,5 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/post_Screen.dart';
+import 'package:smart_planting_app/screens/profile.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -103,10 +105,15 @@ class activityFeedItem extends StatelessWidget {
     );
   }
 
-  configureMediaPreview() {
+  showPost(context) {
+    Navigator.of(context).push(MaterialPageRoute(builder: (context)
+    => postScreen(userId: userId, postId: postId)));
+  }
+
+  configureMediaPreview(context) {
     if(type == 'like' || type == 'comment') {
       mediaPreview = GestureDetector(
-        onTap: () => print('showing post'),
+        onTap: () => showPost(context),
         child: Container(
           height: 50,
           width: 50,
@@ -141,7 +148,7 @@ class activityFeedItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    configureMediaPreview();
+    configureMediaPreview(context);
 
     return Padding(
       padding: const EdgeInsets.only(bottom: 2),
@@ -149,7 +156,7 @@ class activityFeedItem extends StatelessWidget {
         color: Colors.white54,
         child: ListTile(
           title: GestureDetector(
-            onTap: () => print('show profile'),
+            onTap: () => showProfile(context, profileId: userId),
             child: RichText(
               overflow: TextOverflow.ellipsis,
               text: TextSpan(
@@ -181,5 +188,10 @@ class activityFeedItem extends StatelessWidget {
     ),
     );
   }
+}
+
+showProfile(BuildContext context, { required String profileId }) {
+  Navigator.push(context, MaterialPageRoute(builder: (context) =>
+  profileScreen(profileId: profileId)));
 }
 

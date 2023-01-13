@@ -132,7 +132,7 @@ class _profileScreenState extends State<profileScreen> {
         elevation: 0,
         actions: [
           IconButton(
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => editProfile())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => editProfile(currentUserId: currentUser.id,))),
             icon: const Icon(Icons.edit, color: Colors.black),
           ),
           IconButton(
@@ -293,47 +293,6 @@ class _profileScreenState extends State<profileScreen> {
       this.postOrientation = postOrientation;
     });
   }
-
-  // buildStatWidget() {
-  //   Row(
-  //     mainAxisAlignment: MainAxisAlignment.center,
-  //     children: [
-  //       BuildButton(context, postCount, 'Posts'),
-  //       buildDivider(),
-  //       BuildButton(context, 0, 'Following'),
-  //       buildDivider(),
-  //       BuildButton(context, 0, 'Followers'),
-  //     ],
-  //   );
-  // }
-  //
-  // Widget BuildButton(BuildContext context, int value, String text) =>
-  //     MaterialButton(
-  //       padding: const EdgeInsets.all(8),
-  //       onPressed: () {},
-  //       materialTapTargetSize: MaterialTapTargetSize.shrinkWrap,
-  //       child: Column(
-  //         mainAxisSize: MainAxisSize.min,
-  //         mainAxisAlignment: MainAxisAlignment.start,
-  //         children: [
-  //           Text(
-  //             '$value',
-  //             style: const TextStyle(fontSize: 25, fontWeight: FontWeight.bold),
-  //           ),
-  //           const SizedBox(height: 2,),
-  //           Text(
-  //             text,
-  //             style: const TextStyle(fontWeight: FontWeight.bold),
-  //           )
-  //         ],
-  //       ),
-  //     );
-  //
-  // Widget buildDivider() => Container(
-  //   height: 24,
-  //   child: const VerticalDivider(color: Colors.black,),
-  // );
-
 }
 
 class StatWidget extends StatelessWidget {

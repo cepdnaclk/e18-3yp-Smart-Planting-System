@@ -5,6 +5,7 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:http/http.dart';
+import 'package:smart_planting_app/screens/activityFeed.dart';
 import 'package:smart_planting_app/screens/comments.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
@@ -41,6 +42,16 @@ class posts extends StatefulWidget {
       likes: doc['likes'],
     );
   }
+
+  static posts fromJson(Map<String, dynamic> json) => posts(
+      postId: json['postId'],
+      ownerId: json['ownerId'],
+      username: json['username'],
+      location: json['location'],
+      caption: json['caption'],
+      mediaUrl: json['mediaUrl'],
+      likes: json['likes']
+  );
 
   int getLikeCount(likes) {
     if(likes == null) {
@@ -115,9 +126,9 @@ class _postsState extends State<posts> {
                 backgroundColor: Colors.grey,
               ),
               title: GestureDetector(
-                onTap: () => print('show profile'),
+                onTap: () => showProfile(context, profileId: newUser.id),
                 child: Text(
-                  newUser!.username,
+                  newUser.username,
                   style: const TextStyle(
                     color: Colors.black, fontWeight: FontWeight.bold,
                   ),

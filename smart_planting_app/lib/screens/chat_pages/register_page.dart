@@ -32,7 +32,6 @@ class _RegisterPageState extends State<RegisterPage> {
   String password = "";
   String fullName = "";
   String photoUrl = "";
-  String userId = 'skjdfhsdbfsuhfn';
   AuthService authService = AuthService();
 
   File? image;

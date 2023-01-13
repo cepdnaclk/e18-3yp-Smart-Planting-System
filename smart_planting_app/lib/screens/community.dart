@@ -7,9 +7,9 @@ import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/search.dart';
 import 'package:smart_planting_app/screens/upload.dart';
-import 'package:smart_planting_app/screens/user_profile.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:smart_planting_app/screens/user_profile.dart';
 
 final usersRef = FirebaseFirestore.instance.collection('Users_Collection');
 
@@ -39,7 +39,7 @@ class _communityScreenState extends State<communityScreen> {
                 onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const searchScreen())),
             ),
             IconButton(
-              icon: const Icon(Icons.notifications_active_outlined, color: Colors.lightGreenAccent,),
+              icon: const Icon(Icons.notifications_active_outlined, color: Colors.black,),
               onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const activityFeed())),
             ),
             IconButton(
@@ -100,7 +100,8 @@ class _communityScreenState extends State<communityScreen> {
                   IconButton(
                     icon: const Icon(Icons.add_box_outlined),
                     iconSize: 30,
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
+                    onPressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
                   ),
                   IconButton(
                     icon: CircleAvatar(
@@ -108,7 +109,9 @@ class _communityScreenState extends State<communityScreen> {
                     ),
                     color: CupertinoColors.activeGreen,
                     iconSize: 30,
-                    onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const profileScreen(name: '', about: ''))),
+                    onPressed: () =>
+                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                        profileScreen(about: '',name: '',))),
                   ),
                 ],
               ),

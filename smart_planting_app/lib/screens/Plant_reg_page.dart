@@ -4,6 +4,9 @@ import 'package:smart_planting_app/screens/plant.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert' as cnv;
 import 'package:smart_planting_app/Models/PlantModel.dart';
+import 'package:smart_planting_app/screens/progress.dart';
+import '../../service/database_service.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({Key? key}) : super(key: key);
@@ -14,6 +17,8 @@ class plantRegScreen extends StatefulWidget {
 
 class _plantRegScreenState extends State<plantRegScreen> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
+  var selectedPlant, selectedType;
 
   String? dropDownVal;
   String? plantTpID;
@@ -26,6 +31,8 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
+  String plantID ="";
+
   late String _name;
   late String _email;
   late String _password;
@@ -37,30 +44,29 @@ class _plantRegScreenState extends State<plantRegScreen> {
 
   @override
   void initState() {
-    // getData();
+    //getData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    print("Here is the data");
+    //print("Here is the data");
     late List<String> items = [];
 
     for (int i = 0; i < plantModel.length; i++) {
       items.add(plantModel[i].commonName ?? "");
     }
 
-    const color = Colors.lightGreen;
-
+    const color = Colors.green;
 
     return Scaffold(
       backgroundColor: Colors.white,
       // body: isLoading ?
-      body: plantModel.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(),
-            )
-          : Container(
+      // body: !plantModel.isEmpty
+      //     ? const Center(
+      //         child: CircularProgressIndicator(color: Colors.green)
+      //       )
+       body : Container(
               margin: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
@@ -99,14 +105,80 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         keyboardType: TextInputType.number,
                         style:
                             const TextStyle(fontSize: 15, color: Colors.black),
-                        onChanged: (plantID) {
-                          plant1.plantID = int.parse(plantID);
+                        onChanged: (val) {
+                          setState(() {
+                            plantID = val;
+                          });
+                          plant1.plantID = int.parse(val);
                         },
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
+
+                    // StreamBuilder<QuerySnapshot>(
+                    //     stream: FirebaseFirestore.instance.collection("plants_Database").snapshots(),
+                    //     builder: (context, snapshot){
+                    //       if (!snapshot.hasData) {
+                    //       return circularProgress();
+                    //       }
+                    //         List<DropdownMenuItem> plantItems = [];
+                    //         //final docs = snapshot.data!.docs;
+                    //         for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                    //           DocumentSnapshot snap = snapshot.data!.docs[i];
+                    //           print(snap.id);
+                    //           plantItems.add(
+                    //             DropdownMenuItem(
+                    //               child: Text(
+                    //                 snap.id,
+                    //                 style: TextStyle(color: Color(0xff11b719)),
+                    //               ),
+                    //               value: "${snap.id}",
+                    //             ),
+                    //           );
+                    //         }
+                    //         return Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             // Icon(FontAwesomeIcons.coins,
+                    //             //     size: 25.0, color: Color(0xff11b719)),
+                    //             // SizedBox(width: 50.0),
+                    //             DropdownButton(
+                    //               items: plantItems,
+                    //               onChanged: (val) {
+                    //                 // final snackBar = SnackBar(
+                    //                 //   content: Text(
+                    //                 //     'Selected Currency value is $currencyValue',
+                    //                 //     style: TextStyle(color: Color(0xff11b719)),
+                    //                 //   ),
+                    //                 // );
+                    //                 //Scaffold.of(context).showSnackBar(snackBar);
+                    //                 setState(() {
+                    //                   selectedPlant = val;
+                    //                 });
+                    //               },
+                    //               value: selectedPlant,
+                    //               isExpanded: false,
+                    //               hint: new Text(
+                    //                 "Choose plant Type",
+                    //                 style: TextStyle(color: Colors.black),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         );
+                    //     }),
+                    // StreamBuilder<List<PlantModel>>(
+                    //   stream: readPlants(),
+                    //   builder:(context,snapshot) {
+                    //     if (snapshot.hasData) {
+                    //       final plants = snapshot.data!;
+                    //       return ListView(
+                    //         children: plants.map().List(),
+                    //       );
+                    //     }
+                    //   }),
+
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: Container(
@@ -165,7 +237,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             side: BorderSide(color: Colors.black45)),
                         child: _dateTime == null
-                            ? Text(
+                            ? const Text(
                                 'Date',
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 20),
@@ -302,14 +374,31 @@ class _plantRegScreenState extends State<plantRegScreen> {
       );
 
   // API calls
-  Future<void> getData() async {
+  /*Future<void> getData() async {
     Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
     http.Response res = await http.get(url);
     print(res.body);
     List<dynamic> body = cnv.jsonDecode(res.body);
     plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
     setState(() {});
-  }
+  }*/
+
+  // Future<void> getData() async{
+  // StreamBuilder<List<PlantModel>>(
+  //   stream: readPlants(),
+  //   builder:(context,snapshot =>
+  //     if(snapshot.hasData){
+  //       final plants = snapshot.data!;
+  //       plantModel = plants.map().toList();
+  //       print(plantModel);
+  //     }),);
+  // }
+
+Stream<List<PlantModel>> readPlants() => FirebaseFirestore.instance
+  .collection('Plants_Database')
+  .snapshots()
+  .map((snapshot) => snapshot.docs.map((doc)=>PlantModel.fromJson(doc.data())).toList());
+
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {

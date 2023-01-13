@@ -11,6 +11,8 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 
+import 'chat_pages/group_page.dart';
+
 final usersRef = FirebaseFirestore.instance.collection('Users_Collection');
 
 class communityScreen extends StatefulWidget {
@@ -44,8 +46,7 @@ class _communityScreenState extends State<communityScreen> {
             ),
             IconButton(
                 onPressed: () =>
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                        const activityFeed())),
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GroupPage())),
                 icon: const Icon(Icons.message_outlined, color: Colors.black,))
           ],
         ),

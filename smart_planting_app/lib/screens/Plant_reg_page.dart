@@ -31,6 +31,8 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
+  String plantID ="";
+
   late String _name;
   late String _email;
   late String _password;
@@ -60,11 +62,11 @@ class _plantRegScreenState extends State<plantRegScreen> {
     return Scaffold(
       backgroundColor: Colors.white,
       // body: isLoading ?
-      body: !plantModel.isEmpty
-          ? const Center(
-              child: CircularProgressIndicator(color: Colors.green)
-            )
-          : Container(
+      // body: !plantModel.isEmpty
+      //     ? const Center(
+      //         child: CircularProgressIndicator(color: Colors.green)
+      //       )
+       body : Container(
               margin: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
@@ -103,8 +105,11 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         keyboardType: TextInputType.number,
                         style:
                             const TextStyle(fontSize: 15, color: Colors.black),
-                        onChanged: (plantID) {
-                          plant1.plantID = int.parse(plantID);
+                        onChanged: (val) {
+                          setState(() {
+                            plantID = val;
+                          });
+                          plant1.plantID = int.parse(val);
                         },
                       ),
                     ),
@@ -112,101 +117,112 @@ class _plantRegScreenState extends State<plantRegScreen> {
                       height: 10,
                     ),
 
-                    StreamBuilder<QuerySnapshot>(
-                        stream: FirebaseFirestore.instance.collection("plants_Database").snapshots(),
-                        builder: (context, snapshot){
-                          if (!snapshot.hasData) {
-                          return circularProgress();
-                          }
-                            List<DropdownMenuItem> plantItems = [];
-                            //final docs = snapshot.data!.docs;
-                            for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                              DocumentSnapshot snap = snapshot.data!.docs[i];
-                              print(snap.id);
-                              plantItems.add(
-                                DropdownMenuItem(
-                                  child: Text(
-                                    snap.id,
-                                    style: TextStyle(color: Color(0xff11b719)),
-                                  ),
-                                  value: "${snap.id}",
-                                ),
-                              );
-                            }
-                            return Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              children: <Widget>[
-                                // Icon(FontAwesomeIcons.coins,
-                                //     size: 25.0, color: Color(0xff11b719)),
-                                // SizedBox(width: 50.0),
-                                DropdownButton(
-                                  items: plantItems,
-                                  onChanged: (plantValue) {
-                                    // final snackBar = SnackBar(
-                                    //   content: Text(
-                                    //     'Selected Currency value is $currencyValue',
-                                    //     style: TextStyle(color: Color(0xff11b719)),
-                                    //   ),
-                                    // );
-                                    //Scaffold.of(context).showSnackBar(snackBar);
-                                    setState(() {
-                                      selectedPlant = plantValue;
-                                    });
-                                  },
-                                  value: selectedPlant,
-                                  isExpanded: false,
-                                  hint: new Text(
-                                    "Choose plant Type",
-                                    style: TextStyle(color: Colors.black),
-                                  ),
-                                ),
-                              ],
-                            );
-                        }),
-                    // Padding(
-                    //   padding: const EdgeInsets.all(5),
-                    //   child: Container(
-                    //     decoration: BoxDecoration(
-                    //       border: Border.all(
-                    //         color: Colors.black45,
-                    //       ),
-                    //       shape: BoxShape.rectangle,
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       color: Colors.green.shade100,
-                    //     ),
-                    //     height: 40,
-                    //     width: 300,
-                    //     padding: EdgeInsets.only(left: 5, right: 5),
-                    //     child: DropdownButton<String>(
-                    //       icon: const Icon(
-                    //         Icons.arrow_drop_down_outlined,
-                    //         color: Colors.green,
-                    //         size: 40,
-                    //       ),
-                    //       alignment: Alignment.centerLeft,
-                    //       borderRadius: BorderRadius.circular(10),
-                    //       menuMaxHeight: 300,
-                    //       underline: Container(
-                    //         color: Colors.transparent,
-                    //       ),
-                    //       dropdownColor: Colors.grey.shade300,
-                    //       hint: const Text(
-                    //         'Select Plant Type                        ',
-                    //         style: TextStyle(fontSize: 18),
-                    //       ),
-                    //       value: dropDownVal,
-                    //       items: items
-                    //           .map((item) => DropdownMenuItem(
-                    //               value: item, child: Text(item)))
-                    //           .toList(),
-                    //       onChanged: (item) {
-                    //         dropDownVal = item;
-                    //         plant1.plantType = item;
-                    //         setState(() {});
-                    //       },
-                    //     ),
-                    //   ),
-                    // ),
+                    // StreamBuilder<QuerySnapshot>(
+                    //     stream: FirebaseFirestore.instance.collection("plants_Database").snapshots(),
+                    //     builder: (context, snapshot){
+                    //       if (!snapshot.hasData) {
+                    //       return circularProgress();
+                    //       }
+                    //         List<DropdownMenuItem> plantItems = [];
+                    //         //final docs = snapshot.data!.docs;
+                    //         for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                    //           DocumentSnapshot snap = snapshot.data!.docs[i];
+                    //           print(snap.id);
+                    //           plantItems.add(
+                    //             DropdownMenuItem(
+                    //               child: Text(
+                    //                 snap.id,
+                    //                 style: TextStyle(color: Color(0xff11b719)),
+                    //               ),
+                    //               value: "${snap.id}",
+                    //             ),
+                    //           );
+                    //         }
+                    //         return Row(
+                    //           mainAxisAlignment: MainAxisAlignment.center,
+                    //           children: <Widget>[
+                    //             // Icon(FontAwesomeIcons.coins,
+                    //             //     size: 25.0, color: Color(0xff11b719)),
+                    //             // SizedBox(width: 50.0),
+                    //             DropdownButton(
+                    //               items: plantItems,
+                    //               onChanged: (val) {
+                    //                 // final snackBar = SnackBar(
+                    //                 //   content: Text(
+                    //                 //     'Selected Currency value is $currencyValue',
+                    //                 //     style: TextStyle(color: Color(0xff11b719)),
+                    //                 //   ),
+                    //                 // );
+                    //                 //Scaffold.of(context).showSnackBar(snackBar);
+                    //                 setState(() {
+                    //                   selectedPlant = val;
+                    //                 });
+                    //               },
+                    //               value: selectedPlant,
+                    //               isExpanded: false,
+                    //               hint: new Text(
+                    //                 "Choose plant Type",
+                    //                 style: TextStyle(color: Colors.black),
+                    //               ),
+                    //             ),
+                    //           ],
+                    //         );
+                    //     }),
+                    // StreamBuilder<List<PlantModel>>(
+                    //   stream: readPlants(),
+                    //   builder:(context,snapshot) {
+                    //     if (snapshot.hasData) {
+                    //       final plants = snapshot.data!;
+                    //       return ListView(
+                    //         children: plants.map().List(),
+                    //       );
+                    //     }
+                    //   }),
+
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black45,
+                          ),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green.shade100,
+                        ),
+                        height: 40,
+                        width: 300,
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        child: DropdownButton<String>(
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.green,
+                            size: 40,
+                          ),
+                          alignment: Alignment.centerLeft,
+                          borderRadius: BorderRadius.circular(10),
+                          menuMaxHeight: 300,
+                          underline: Container(
+                            color: Colors.transparent,
+                          ),
+                          dropdownColor: Colors.grey.shade300,
+                          hint: const Text(
+                            'Select Plant Type                        ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          value: dropDownVal,
+                          items: items
+                              .map((item) => DropdownMenuItem(
+                                  value: item, child: Text(item)))
+                              .toList(),
+                          onChanged: (item) {
+                            dropDownVal = item;
+                            plant1.plantType = item;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
                     SizedBox(
                       height: 10,
                     ),
@@ -367,9 +383,22 @@ class _plantRegScreenState extends State<plantRegScreen> {
     setState(() {});
   }*/
 
-Future<void> getData() async{
-  CollectionReference plants = FirebaseFirestore.instance.collection('Plants_Database');
-}
+  // Future<void> getData() async{
+  // StreamBuilder<List<PlantModel>>(
+  //   stream: readPlants(),
+  //   builder:(context,snapshot =>
+  //     if(snapshot.hasData){
+  //       final plants = snapshot.data!;
+  //       plantModel = plants.map().toList();
+  //       print(plantModel);
+  //     }),);
+  // }
+
+Stream<List<PlantModel>> readPlants() => FirebaseFirestore.instance
+  .collection('Plants_Database')
+  .snapshots()
+  .map((snapshot) => snapshot.docs.map((doc)=>PlantModel.fromJson(doc.data())).toList());
+
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {

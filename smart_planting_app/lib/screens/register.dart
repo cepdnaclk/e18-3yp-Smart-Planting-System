@@ -318,7 +318,13 @@ class _FormScreenState extends State<registerScreen> {
     "about" : ""
     });
 
-    currentUser = AppUser(id: userId, username: name, email: email, password: password, photoUrl: photoUrl, about: '');
+    currentUser = AppUser(
+        id: userId,
+        username: name,
+        email: email,
+        password: password,
+        photoUrl: photoUrl,
+        about: '');
 
   }
 

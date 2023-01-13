@@ -100,7 +100,7 @@ class _commentsState extends State<comments> {
       "userId" : currentUser.id,
     });
     bool isNotPostOwner = currentUser.id != postOwnerId;
-    if(isNotPostOwner) {
+    if(!isNotPostOwner) {
       activityFeedRef.doc(postOwnerId).collection('feedItems').add({
         "type": "comment",
         "comment" : commentController.text,

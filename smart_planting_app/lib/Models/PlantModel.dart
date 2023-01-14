@@ -1,16 +1,16 @@
 import 'dart:ffi';
 
 class PlantModel {
-  String? commonName;
-  String? plantTypeID;
+  final String commonName;
+  final String plantTypeID;
 
 
-  PlantModel({this.plantTypeID, this.commonName});
+  PlantModel({required this.plantTypeID, required this.commonName});
 
-  PlantModel.fromJson(Map<String, dynamic> json) {
-    plantTypeID = json['plantTypeID'];
-    commonName = json['commonName'];
-  }
+  static PlantModel fromJson(Map<String, dynamic> json)=> PlantModel(
+      plantTypeID: json['plantTypeID'],
+      commonName: json['commonName']);
+
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();

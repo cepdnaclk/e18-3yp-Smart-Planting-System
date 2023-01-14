@@ -1,12 +1,12 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as cnv;
 import 'package:smart_planting_app/Models/PlantModel.dart';
 import 'package:smart_planting_app/screens/progress.dart';
-import '../../service/database_service.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({Key? key}) : super(key: key);
@@ -16,7 +16,7 @@ class plantRegScreen extends StatefulWidget {
 }
 
 class _plantRegScreenState extends State<plantRegScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   var selectedPlant, selectedType;
 
@@ -33,12 +33,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
 
   String plantID ="";
 
-  late String _name;
-  late String _email;
-  late String _password;
-  late String _confirmPwd;
-  late int _mobile;
-
   late List<PlantModel> plantModel = [];
 
 
@@ -53,19 +47,10 @@ class _plantRegScreenState extends State<plantRegScreen> {
     //print("Here is the data");
     late List<String> items = [];
 
-    for (int i = 0; i < plantModel.length; i++) {
-      items.add(plantModel[i].commonName ?? "");
-    }
-
-    const color = Colors.green;
 
     return Scaffold(
       backgroundColor: Colors.white,
-      // body: isLoading ?
-      // body: !plantModel.isEmpty
-      //     ? const Center(
-      //         child: CircularProgressIndicator(color: Colors.green)
-      //       )
+      
        body : Container(
               margin: const EdgeInsets.all(24.0),
               child: Form(
@@ -117,112 +102,66 @@ class _plantRegScreenState extends State<plantRegScreen> {
                       height: 10,
                     ),
 
-                    // StreamBuilder<QuerySnapshot>(
-                    //     stream: FirebaseFirestore.instance.collection("plants_Database").snapshots(),
-                    //     builder: (context, snapshot){
-                    //       if (!snapshot.hasData) {
-                    //       return circularProgress();
-                    //       }
-                    //         List<DropdownMenuItem> plantItems = [];
-                    //         //final docs = snapshot.data!.docs;
-                    //         for (int i = 0; i < snapshot.data!.docs.length; i++) {
-                    //           DocumentSnapshot snap = snapshot.data!.docs[i];
-                    //           print(snap.id);
-                    //           plantItems.add(
-                    //             DropdownMenuItem(
-                    //               child: Text(
-                    //                 snap.id,
-                    //                 style: TextStyle(color: Color(0xff11b719)),
-                    //               ),
-                    //               value: "${snap.id}",
-                    //             ),
-                    //           );
-                    //         }
-                    //         return Row(
-                    //           mainAxisAlignment: MainAxisAlignment.center,
-                    //           children: <Widget>[
-                    //             // Icon(FontAwesomeIcons.coins,
-                    //             //     size: 25.0, color: Color(0xff11b719)),
-                    //             // SizedBox(width: 50.0),
-                    //             DropdownButton(
-                    //               items: plantItems,
-                    //               onChanged: (val) {
-                    //                 // final snackBar = SnackBar(
-                    //                 //   content: Text(
-                    //                 //     'Selected Currency value is $currencyValue',
-                    //                 //     style: TextStyle(color: Color(0xff11b719)),
-                    //                 //   ),
-                    //                 // );
-                    //                 //Scaffold.of(context).showSnackBar(snackBar);
-                    //                 setState(() {
-                    //                   selectedPlant = val;
-                    //                 });
-                    //               },
-                    //               value: selectedPlant,
-                    //               isExpanded: false,
-                    //               hint: new Text(
-                    //                 "Choose plant Type",
-                    //                 style: TextStyle(color: Colors.black),
-                    //               ),
-                    //             ),
-                    //           ],
-                    //         );
-                    //     }),
-                    // StreamBuilder<List<PlantModel>>(
-                    //   stream: readPlants(),
-                    //   builder:(context,snapshot) {
-                    //     if (snapshot.hasData) {
-                    //       final plants = snapshot.data!;
-                    //       return ListView(
-                    //         children: plants.map().List(),
-                    //       );
-                    //     }
-                    //   }),
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance.collection("Plants_Database").snapshots(),
+                        builder: (context, snapshot){
+                          if (!snapshot.hasData) {
+                          return circularProgress();
+                          }
+                            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                              DocumentSnapshot snap = snapshot.data!.docs[i];
+                              String name = snap.get("commonName");
+                              items.add(name);
+                            }
 
-                    Padding(
-                      padding: const EdgeInsets.all(5),
-                      child: Container(
-                        decoration: BoxDecoration(
-                          border: Border.all(
-                            color: Colors.black45,
-                          ),
-                          shape: BoxShape.rectangle,
-                          borderRadius: BorderRadius.circular(10),
-                          color: Colors.green.shade100,
-                        ),
-                        height: 40,
-                        width: 300,
-                        padding: EdgeInsets.only(left: 5, right: 5),
-                        child: DropdownButton<String>(
-                          icon: const Icon(
-                            Icons.arrow_drop_down_outlined,
-                            color: Colors.green,
-                            size: 40,
-                          ),
-                          alignment: Alignment.centerLeft,
-                          borderRadius: BorderRadius.circular(10),
-                          menuMaxHeight: 300,
-                          underline: Container(
-                            color: Colors.transparent,
-                          ),
-                          dropdownColor: Colors.grey.shade300,
-                          hint: const Text(
-                            'Select Plant Type                        ',
-                            style: TextStyle(fontSize: 18),
-                          ),
-                          value: dropDownVal,
-                          items: items
-                              .map((item) => DropdownMenuItem(
-                                  value: item, child: Text(item)))
-                              .toList(),
-                          onChanged: (item) {
-                            dropDownVal = item;
-                            plant1.plantType = item;
-                            setState(() {});
-                          },
-                        ),
-                      ),
-                    ),
+                            return Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black45,
+                                  ),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green.shade100,
+                                ),
+                                height: 40,
+                                width: 300,
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child: DropdownButton<String>(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_outlined,
+                                    color: Colors.green,
+                                    size: 40,
+                                  ),
+                                  alignment: Alignment.centerLeft,
+                                  borderRadius: BorderRadius.circular(10),
+                                  menuMaxHeight: 300,
+                                  underline: Container(
+                                    color: Colors.transparent,
+                                  ),
+                                  dropdownColor: Colors.grey.shade300,
+                                  hint: const Text(
+                                    'Select Plant Type                        ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  items: items
+                                      .map((item) => DropdownMenuItem(
+                                      value: item,child: Text(item)))
+                                      .toList(),
+                                  onChanged: (val) {
+                                    //dropDownVal = val;
+                                    plant1.plantType = val;
+                                    print(plant1.plantType);
+                                    setState((){});
+                                  },
+                                  value:dropDownVal,
+                                ),
+                              ),
+                            );
+                        }),
+
+                   
                     SizedBox(
                       height: 10,
                     ),
@@ -265,7 +204,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     Container(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          backgroundColor: Colors.white,
                           minimumSize: const Size(120.0, 40.0),
                           //side: BorderSide(color: Colors.yellow, width: 5),
                           textStyle: const TextStyle(
@@ -279,7 +218,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
-                          addPlant(context, dropDownVal!);
+                          addPlant(context, plant1.plantType!);
                           // Get ID from List
                           setPlantTypeID();
                           Navigator.of(context).push(MaterialPageRoute(
@@ -294,85 +233,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     );
   }
 
-  Widget buildPlant() => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.black26,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          height: 550,
-          width: 320,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Image.asset(
-                'asset/plant.png',
-                scale: 4,
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png',
-                        scale: 7),
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png',
-                        scale: 8),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/water-9-xxl.png',
-                        scale: 8),
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png',
-                        scale: 6),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-
+  
   // API calls
   /*Future<void> getData() async {
     Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
@@ -383,34 +244,14 @@ class _plantRegScreenState extends State<plantRegScreen> {
     setState(() {});
   }*/
 
-  // Future<void> getData() async{
-  // StreamBuilder<List<PlantModel>>(
-  //   stream: readPlants(),
-  //   builder:(context,snapshot =>
-  //     if(snapshot.hasData){
-  //       final plants = snapshot.data!;
-  //       plantModel = plants.map().toList();
-  //       print(plantModel);
-  //     }),);
-  // }
-
-Stream<List<PlantModel>> readPlants() => FirebaseFirestore.instance
-  .collection('Plants_Database')
-  .snapshots()
-  .map((snapshot) => snapshot.docs.map((doc)=>PlantModel.fromJson(doc.data())).toList());
-
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {
       if (plantModel[i].commonName == plant1.plantType) {
-        plant1.plantTypeID = plantModel[i].plantTypeID!;
+        plant1.plantTypeID = plantModel[i].plantTypeID;
         continue;
       }
     }
-    print(plant1.plantTypeID);
-    print(plant1.plantID);
-    // print();
-    print(_dateTime);
     setState(() {});
   }
 }

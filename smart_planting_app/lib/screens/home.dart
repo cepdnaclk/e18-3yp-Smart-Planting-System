@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
-<<<<<<< HEAD
+//<<<<<<< HEAD
 import 'package:smart_planting_app/screens/profile.dart';
-=======
+//=======
 import 'package:smart_planting_app/screens/plant_add.dart';
->>>>>>> ea8f1d524b0dd9f6ee96059233b3f78d5d584c73
+//>>>>>>> ea8f1d524b0dd9f6ee96059233b3f78d5d584c73
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 

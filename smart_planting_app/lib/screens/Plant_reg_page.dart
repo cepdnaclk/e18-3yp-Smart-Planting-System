@@ -4,11 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
 import 'package:smart_planting_app/Models/PlantModel.dart';
-<<<<<<< HEAD
-=======
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
+import 'package:http/http.dart' as http;
+import 'dart:convert' as cnv;
+
 
 
 class plantRegScreen extends StatefulWidget {
@@ -32,15 +32,13 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
-<<<<<<< HEAD
   late String _name;
   late String _email;
   late String _password;
   late String _confirmPwd;
   late int _mobile;
-=======
+
   String plantID ="";
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
   late List<PlantModel> plantModel = [];
 
@@ -56,7 +54,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     print("Here is the data");
     late List<String> items = [];
 
-<<<<<<< HEAD
+
     for (int i = 0; i < plantModel.length; i++) {
       items.add(plantModel[i].commonName ?? "");
     }
@@ -72,13 +70,9 @@ class _plantRegScreenState extends State<plantRegScreen> {
               child: CircularProgressIndicator(),
             )
           : Container(
-=======
-
-    return Scaffold(
+      child: Scaffold(
       backgroundColor: Colors.white,
-      
        body : Container(
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
               margin: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
@@ -125,7 +119,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     SizedBox(
                       height: 10,
                     ),
-<<<<<<< HEAD
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: Container(
@@ -170,7 +163,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         ),
                       ),
                     ),
-=======
 
                     StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance.collection("Plants_Database").snapshots(),
@@ -183,7 +175,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                               String name = snap.get("commonName");
                               items.add(name);
                             }
-
                             return Padding(
                               padding: const EdgeInsets.all(5),
                               child: Container(
@@ -230,9 +221,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                               ),
                             );
                         }),
-
-                   
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
                     SizedBox(
                       height: 10,
                     ),
@@ -301,6 +289,8 @@ class _plantRegScreenState extends State<plantRegScreen> {
                 ),
               ),
             ),
+        )
+      )
     );
   }
 
@@ -313,12 +303,9 @@ class _plantRegScreenState extends State<plantRegScreen> {
     List<dynamic> body = cnv.jsonDecode(res.body);
     plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
     setState(() {});
-<<<<<<< HEAD
-  }
-=======
-  }*/
 
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
+  }
+
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {

@@ -4,8 +4,6 @@ import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/upload.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
 
-import 'chat_pages/group_page.dart';
-
 class communityScreen2 extends StatefulWidget {
   const communityScreen2({Key? key}) : super(key: key);
 
@@ -27,9 +25,7 @@ class _communityScreen2State extends State<communityScreen2> {
         ),
         actions: [
           IconButton(
-              onPressed: () {
-                Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GroupPage()));
-              },
+              onPressed: () {},
               icon: Icon(Icons.message_outlined, color: Colors.black,)),
 
           IconButton(

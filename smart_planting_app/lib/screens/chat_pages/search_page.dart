@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/register.dart';
 
 import '../../helper/helper_function.dart';
 import '../../service/database_service.dart';
@@ -111,7 +112,7 @@ class _SearchPageState extends State<SearchPage> {
       setState(() {
         isLoading = true;
       });
-      await DatabaseService()
+      await DatabaseService(uid: currentUser.id)
           .searchByName(searchController.text)
           .then((snapshot) {
         setState(() {

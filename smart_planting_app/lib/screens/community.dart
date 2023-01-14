@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:like_button/like_button.dart';
 import 'package:smart_planting_app/screens/activityFeed.dart';
+import 'package:smart_planting_app/screens/chat_pages/group_page.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
@@ -10,8 +11,6 @@ import 'package:smart_planting_app/screens/upload.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:smart_planting_app/screens/user_profile.dart';
-
-import 'chat_pages/group_page.dart';
 
 final usersRef = FirebaseFirestore.instance.collection('Users_Collection');
 
@@ -46,7 +45,8 @@ class _communityScreenState extends State<communityScreen> {
             ),
             IconButton(
                 onPressed: () =>
-                    Navigator.of(context).push(MaterialPageRoute(builder: (context) => const GroupPage())),
+                    Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                        const GroupPage())),
                 icon: const Icon(Icons.message_outlined, color: Colors.black,))
           ],
         ),

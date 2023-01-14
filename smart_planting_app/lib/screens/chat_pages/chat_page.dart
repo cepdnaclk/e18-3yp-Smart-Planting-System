@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/register.dart';
 
 import '../../service/database_service.dart';
 import '../../widgets/message_tile.dart';
@@ -33,12 +34,12 @@ class _ChatPageState extends State<ChatPage> {
   }
 
   getChatandAdmin() {
-    DatabaseService().getChats(widget.groupId).then((val) {
+    DatabaseService(uid: currentUser.id).getChats(widget.groupId).then((val) {
       setState(() {
         chats = val;
       });
     });
-    DatabaseService().getGroupAdmin(widget.groupId).then((val) {
+    DatabaseService(uid: currentUser.id).getGroupAdmin(widget.groupId).then((val) {
       setState(() {
         admin = val;
       });
@@ -146,7 +147,7 @@ class _ChatPageState extends State<ChatPage> {
         "time": DateTime.now().millisecondsSinceEpoch,
       };
 
-      DatabaseService().sendMessage(widget.groupId, chatMessageMap);
+      DatabaseService(uid: currentUser.id).sendMessage(widget.groupId, chatMessageMap);
       setState(() {
         messageController.clear();
       });

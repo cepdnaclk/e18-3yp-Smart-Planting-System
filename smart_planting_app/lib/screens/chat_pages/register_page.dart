@@ -10,6 +10,7 @@ import 'package:path_provider/path_provider.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:image/image.dart' as Im;
 import 'package:smart_planting_app/screens/register.dart';
+import 'package:uuid/uuid.dart';
 
 
 import '../../helper/helper_function.dart';
@@ -32,6 +33,8 @@ class _RegisterPageState extends State<RegisterPage> {
   String password = "";
   String fullName = "";
   String photoUrl = "";
+  String userId = Uuid().v4();
+  final noProfileUrl = 'https://i0.wp.com/collegecore.com/wp-content/uploads/2018/05/facebook-no-profile-picture-icon-620x389.jpg?ssl=1';
   AuthService authService = AuthService();
 
   File? image;
@@ -328,7 +331,7 @@ class _RegisterPageState extends State<RegisterPage> {
       photoUrl = await uploadImage(image);
 
       await authService
-          .registerUserWithEmailandPassword(fullName, email, password, photoUrl)
+          .registerUserWithEmailandPassword(fullName, email, password, photoUrl == null ? noProfileUrl : photoUrl)
           .then((value) async {
         if (value == true) {
           // saving the shared preference state

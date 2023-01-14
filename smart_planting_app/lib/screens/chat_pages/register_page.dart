@@ -12,6 +12,7 @@ import 'package:image/image.dart' as Im;
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:uuid/uuid.dart';
 
+
 import '../../helper/helper_function.dart';
 import '../../service/auth_service.dart';
 import '../../widgets/widgets.dart';
@@ -32,11 +33,8 @@ class _RegisterPageState extends State<RegisterPage> {
   String password = "";
   String fullName = "";
   String photoUrl = "";
-<<<<<<< HEAD
   String userId = Uuid().v4();
   final noProfileUrl = 'https://i0.wp.com/collegecore.com/wp-content/uploads/2018/05/facebook-no-profile-picture-icon-620x389.jpg?ssl=1';
-=======
->>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
   AuthService authService = AuthService();
 
   File? image;
@@ -124,7 +122,11 @@ class _RegisterPageState extends State<RegisterPage> {
     ),
   );
 
-  Widget buildCircle({required Color color, required double all, required Widget child}) => ClipOval(
+  Widget buildCircle({
+    required Color color,
+    required double all,
+    required Widget child}) =>
+      ClipOval(
         child: Container(
           padding: EdgeInsets.all(all),
           color: color,
@@ -160,7 +162,7 @@ class _RegisterPageState extends State<RegisterPage> {
 
   @override
   Widget build(BuildContext context) {
-    final color = Colors.transparent;
+    final color = Colors.black26;
 
     return Scaffold(
       body: _isLoading
@@ -199,8 +201,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       buildImage(),
                       Positioned(
-                          bottom: 4,
-                          right: 5,
+                          bottom: 0,
+                          right: 0,
                           child: buildEditIcon(color)
                       )
                     ],

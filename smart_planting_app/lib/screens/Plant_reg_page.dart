@@ -1,9 +1,15 @@
+import 'dart:core';
+
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
-import 'package:http/http.dart' as http;
-import 'dart:convert' as cnv;
 import 'package:smart_planting_app/Models/PlantModel.dart';
+<<<<<<< HEAD
+=======
+import 'package:smart_planting_app/screens/progress.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
+
 
 class plantRegScreen extends StatefulWidget {
   const plantRegScreen({Key? key}) : super(key: key);
@@ -13,7 +19,7 @@ class plantRegScreen extends StatefulWidget {
 }
 
 class _plantRegScreenState extends State<plantRegScreen> {
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+ // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   String? dropDownVal;
   String? plantTpID;
@@ -26,11 +32,15 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
+<<<<<<< HEAD
   late String _name;
   late String _email;
   late String _password;
   late String _confirmPwd;
   late int _mobile;
+=======
+  String plantID ="";
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
   late List<PlantModel> plantModel = [];
 
@@ -46,6 +56,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     print("Here is the data");
     late List<String> items = [];
 
+<<<<<<< HEAD
     for (int i = 0; i < plantModel.length; i++) {
       items.add(plantModel[i].commonName ?? "");
     }
@@ -61,6 +72,13 @@ class _plantRegScreenState extends State<plantRegScreen> {
               child: CircularProgressIndicator(),
             )
           : Container(
+=======
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      
+       body : Container(
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
               margin: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
@@ -107,6 +125,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     SizedBox(
                       height: 10,
                     ),
+<<<<<<< HEAD
                     Padding(
                       padding: const EdgeInsets.all(5),
                       child: Container(
@@ -151,6 +170,69 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         ),
                       ),
                     ),
+=======
+
+                    StreamBuilder<QuerySnapshot>(
+                        stream: FirebaseFirestore.instance.collection("Plants_Database").snapshots(),
+                        builder: (context, snapshot){
+                          if (!snapshot.hasData) {
+                          return circularProgress();
+                          }
+                            for (int i = 0; i < snapshot.data!.docs.length; i++) {
+                              DocumentSnapshot snap = snapshot.data!.docs[i];
+                              String name = snap.get("commonName");
+                              items.add(name);
+                            }
+
+                            return Padding(
+                              padding: const EdgeInsets.all(5),
+                              child: Container(
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.black45,
+                                  ),
+                                  shape: BoxShape.rectangle,
+                                  borderRadius: BorderRadius.circular(10),
+                                  color: Colors.green.shade100,
+                                ),
+                                height: 40,
+                                width: 300,
+                                padding: EdgeInsets.only(left: 5, right: 5),
+                                child: DropdownButton<String>(
+                                  icon: const Icon(
+                                    Icons.arrow_drop_down_outlined,
+                                    color: Colors.green,
+                                    size: 40,
+                                  ),
+                                  alignment: Alignment.centerLeft,
+                                  borderRadius: BorderRadius.circular(10),
+                                  menuMaxHeight: 300,
+                                  underline: Container(
+                                    color: Colors.transparent,
+                                  ),
+                                  dropdownColor: Colors.grey.shade300,
+                                  hint: const Text(
+                                    'Select Plant Type                        ',
+                                    style: TextStyle(fontSize: 18),
+                                  ),
+                                  items: items
+                                      .map((item) => DropdownMenuItem(
+                                      value: item,child: Text(item)))
+                                      .toList(),
+                                  onChanged: (val) {
+                                    //dropDownVal = val;
+                                    plant1.plantType = val;
+                                    print(plant1.plantType);
+                                    setState((){});
+                                  },
+                                  value:dropDownVal,
+                                ),
+                              ),
+                            );
+                        }),
+
+                   
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
                     SizedBox(
                       height: 10,
                     ),
@@ -193,7 +275,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                     Container(
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          primary: Colors.white,
+                          backgroundColor: Colors.white,
                           minimumSize: const Size(120.0, 40.0),
                           //side: BorderSide(color: Colors.yellow, width: 5),
                           textStyle: const TextStyle(
@@ -207,7 +289,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
-                          addPlant(context, dropDownVal!);
+                          addPlant(context, plant1.plantType!);
                           // Get ID from List
                           setPlantTypeID();
                           Navigator.of(context).push(MaterialPageRoute(
@@ -222,85 +304,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     );
   }
 
-  Widget buildPlant() => Padding(
-        padding: EdgeInsets.symmetric(horizontal: 5),
-        child: Container(
-          decoration: const BoxDecoration(
-              color: Colors.black26,
-              borderRadius: BorderRadius.all(Radius.circular(20))),
-          height: 550,
-          width: 320,
-          child: Column(
-            children: [
-              const SizedBox(
-                height: 40,
-              ),
-              Image.asset(
-                'asset/plant.png',
-                scale: 4,
-              ),
-              SizedBox(
-                height: 4,
-              ),
-              const SizedBox(
-                height: 100,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png',
-                        scale: 7),
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png',
-                        scale: 8),
-                  ),
-                ],
-              ),
-              const SizedBox(
-                height: 50,
-              ),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.center,
-                children: [
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/water-9-xxl.png',
-                        scale: 8),
-                  ),
-                  const SizedBox(
-                    width: 50,
-                  ),
-                  FloatingActionButton.large(
-                    elevation: 2,
-                    onPressed: () {},
-                    backgroundColor: Colors.green.shade200,
-                    child: Image.network(
-                        'https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png',
-                        scale: 6),
-                  ),
-                ],
-              ),
-            ],
-          ),
-        ),
-      );
-
+  
   // API calls
   Future<void> getData() async {
     Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
@@ -309,19 +313,20 @@ class _plantRegScreenState extends State<plantRegScreen> {
     List<dynamic> body = cnv.jsonDecode(res.body);
     plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
     setState(() {});
+<<<<<<< HEAD
   }
+=======
+  }*/
+
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {
       if (plantModel[i].commonName == plant1.plantType) {
-        plant1.plantTypeID = plantModel[i].plantTypeID!;
+        plant1.plantTypeID = plantModel[i].plantTypeID;
         continue;
       }
     }
-    print(plant1.plantTypeID);
-    print(plant1.plantID);
-    // print();
-    print(_dateTime);
     setState(() {});
   }
 }

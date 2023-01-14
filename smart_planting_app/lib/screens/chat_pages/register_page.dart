@@ -32,8 +32,11 @@ class _RegisterPageState extends State<RegisterPage> {
   String password = "";
   String fullName = "";
   String photoUrl = "";
+<<<<<<< HEAD
   String userId = Uuid().v4();
   final noProfileUrl = 'https://i0.wp.com/collegecore.com/wp-content/uploads/2018/05/facebook-no-profile-picture-icon-620x389.jpg?ssl=1';
+=======
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
   AuthService authService = AuthService();
 
   File? image;

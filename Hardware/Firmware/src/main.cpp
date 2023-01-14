@@ -64,6 +64,10 @@ extern void tftInit(String);
 extern void showMsgXY(int, int, int, const char *, int);
 // void showMsgXY(int, int, int, const GFXfont *, const char *, int);
 extern void drawBitmap(int16_t, int16_t,const uint8_t *, int16_t, int16_t, uint16_t);
+extern void clearScreen();
+extern void drawBoxes();
+extern void motorBox();
+extern void lightBox();
 
 // Graphics
 extern uint8_t wifiGraphic[];
@@ -133,12 +137,13 @@ void setup()
 	Firebase.setDoubleDigits(5);
 	timeClient.begin();
 	timeClient.setTimeOffset(utcOffsetInSeconds);
+	clearScreen();
 }
 
 void loop()
 {
+	drawBoxes();
 	sendData();
-	
 	delay(5000);
 }
 

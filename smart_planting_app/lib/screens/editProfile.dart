@@ -32,7 +32,8 @@ class _editProfileState extends State<editProfile> {
   bool isLoading = false;
   late AppUser user;
   final String currentUserId;
-  late String userName;
+  String userName = currentUser.username;
+  String photoUrl = currentUser.photoUrl;
   bool _usernameValid = true;
   bool _bioValid = true;
 
@@ -309,7 +310,7 @@ class _editProfileState extends State<editProfile> {
 
     if(_usernameValid && _bioValid) {
       await compressImage();
-      String photoUrl = await uploadImage(image);
+      photoUrl = await uploadImage(image);
 
       usersRef.doc(currentUserId).update({
         "username" : userName,

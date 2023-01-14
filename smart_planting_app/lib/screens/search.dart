@@ -34,18 +34,19 @@ class _searchScreenState extends State<searchScreen> {
 
   AppBar buildSearchField() {
     return AppBar(
-      leadingWidth: 0,
+      automaticallyImplyLeading: false,
       shadowColor: Colors.green,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.green,
       title: TextFormField(
         controller: searchController,
         decoration: InputDecoration(
+
           hintText: "Search for a user...",
-          filled:  true,
+          filled:  false,
           prefixIcon: Icon(
             Icons.account_box_outlined,
             size: 28,
-            color: Colors.green.shade400,
+            color: Colors.black,
           ),
           suffixIcon: IconButton(
             icon: Icon(Icons.clear_rounded),

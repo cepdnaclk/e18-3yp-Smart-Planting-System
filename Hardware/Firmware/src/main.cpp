@@ -142,9 +142,8 @@ void setup()
 
 void loop()
 {
-	sendData();
 	drawBoxes();
-	
+	sendData();
 	delay(5000);
 }
 

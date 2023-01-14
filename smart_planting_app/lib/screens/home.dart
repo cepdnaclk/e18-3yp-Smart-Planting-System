@@ -5,8 +5,6 @@ import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
 import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/profile.dart';
-import 'package:smart_planting_app/screens/profile.dart';
-import 'package:smart_planting_app/screens/plant_add.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -17,11 +15,11 @@ final stream2 = FirebaseFirestore.instance.collection('Plants_Data').snapshots()
 String soilMoisture="";
 String waterLevel="";
 String lightIntensity="";
-int temperature=0;
+num temperature=0;
 
 String reqSoil = "";
 String reqWater = "";
-int reqTemp = 0;
+num reqTemp = 0;
 String reqLight="";
 
 class homeScreen extends StatefulWidget {
@@ -282,33 +280,43 @@ class addPlant {
         StreamBuilder(
           stream: stream1,
           builder: (context,snapshot1){
-            if(!snapshot1.hasData){
-              return Text("Loading1");
-            }
-            else{
-              for (int i = 0; i < snapshot1.data!.docs.length; i++) {
-                DocumentSnapshot snap = snapshot1.data!.docs[i];
+            // if(!snapshot1.hasData){
+            //   return Text("Loading1");
+            // }
+            // else{
+            //   for (int i = 0; i < snapshot1.data!.docs.length; i++) {
+            //     DocumentSnapshot snap = snapshot1.data!.docs[i];
+            //
+            //     if(snap.id == plantID){
+            //       reqSoil = snap.get("soilMoisture");
+            //       reqWater = "level3";
+            //       reqTemp = snap.get("maxTemp");
+            //       reqLight = snap.get("shade");
+            //     }
+            //   }
 
-                if(snap.id == plantID){
-                  reqSoil = snap.get("soilMoisture");
-                  reqWater = "level3";
-                  reqTemp = snap.get("maxTemp");
-                  reqLight = snap.get("shade");
-                }
-              }
-
-              StreamBuilder(
+              return StreamBuilder(
                 stream: stream2,
                 builder: (context,snapshot2){
-                  if(!snapshot2.hasData){
-                    print("check");
-                    return Text("Loading2");
+                  if(!snapshot2.hasData || !snapshot1.hasData){
+                    //print("check");
+                    return Text("Loading");
                   }
                   else{
+                    for (int i = 0; i < snapshot1.data!.docs.length; i++) {
+                      DocumentSnapshot snap1 = snapshot1.data!.docs[i];
+
+                      if(snap1.id == plantID){
+                      reqSoil = snap1.get("soilMoisture");
+                      reqWater = "level3";
+                      reqTemp = snap1.get("minTemp");
+                      reqLight = snap1.get("shade");
+                      }
+                   }
                     for (int i = 0; i < snapshot2.data!.docs.length; i++) {
                       DocumentSnapshot snap = snapshot2.data!.docs[i];
 
-                      print(snap.id);
+                      //print(snap.id);
                       //print("check");
                       if(int.parse(snap.id)== potID){
                         soilMoisture = snap.get("SoilMoisture");
@@ -318,17 +326,15 @@ class addPlant {
                       }
                     }
                   }
-                  return Text("Done");
+                  return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
                 },
               );
               //print(potID);
-              return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
-            }
           }
       );
 
 
-    Widget buildPlant(BuildContext context,String plantType,String reqSoil,String reqWater,int reqTemp,String reqLight,String soil,String water,int temp,String light) => Padding(
+    Widget buildPlant(BuildContext context,String plantType,String reqSoil,String reqWater,num reqTemp,String reqLight,String soil,String water,num temp,String light) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
       child: Container(
         decoration: const BoxDecoration(
@@ -354,7 +360,7 @@ class addPlant {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 2,
-                        backgroundColor: Colors.green.shade200,
+                        backgroundColor: reqLight != light? Colors.red:Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: const BorderSide(
@@ -375,7 +381,7 @@ class addPlant {
                   child: ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         elevation: 2,
-                        backgroundColor: Colors.green.shade200,
+                        backgroundColor: reqTemp < temp? Colors.red:Colors.green,
                         shape: RoundedRectangleBorder(
                             borderRadius: BorderRadius.circular(10),
                             side: const BorderSide(
@@ -402,7 +408,7 @@ class addPlant {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           elevation: 2,
-                          backgroundColor: Colors.green.shade200,
+                          backgroundColor: water != reqWater? Colors.red:Colors.green,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               side: const BorderSide(
@@ -424,7 +430,7 @@ class addPlant {
                     child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
                             elevation: 2,
-                            backgroundColor: Colors.green.shade200,
+                            backgroundColor: soil != reqSoil? Colors.red:Colors.green,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10),
                                 side: const BorderSide(

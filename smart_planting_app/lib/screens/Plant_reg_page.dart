@@ -111,6 +111,9 @@ class _plantRegScreenState extends State<plantRegScreen> {
                             for (int i = 0; i < snapshot.data!.docs.length; i++) {
                               DocumentSnapshot snap = snapshot.data!.docs[i];
                               String name = snap.get("commonName");
+                              String id = snap.id;
+                              PlantModel plant2= PlantModel(plantTypeID: id, commonName:name);
+                              plantModel.add(plant2);
                               items.add(name);
                             }
 
@@ -152,7 +155,6 @@ class _plantRegScreenState extends State<plantRegScreen> {
                                   onChanged: (val) {
                                     //dropDownVal = val;
                                     plant1.plantType = val;
-                                    print(plant1.plantType);
                                     setState((){});
                                   },
                                   value:dropDownVal,
@@ -218,9 +220,9 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           style: TextStyle(color: Colors.black),
                         ),
                         onPressed: () {
-                          addPlant(context, plant1.plantType!);
-                          // Get ID from List
                           setPlantTypeID();
+                          addPlant(context, plant1.plantType!,plant1.plantTypeID,plant1.plantID);
+                          // Get ID from List
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const homeScreen()));
                         },
@@ -252,6 +254,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
         continue;
       }
     }
+
     setState(() {});
   }
 }

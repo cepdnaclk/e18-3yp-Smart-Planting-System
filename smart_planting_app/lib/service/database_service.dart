@@ -1,8 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:smart_planting_app/helper/helper_function.dart';
+import 'package:smart_planting_app/screens/register.dart';
+import 'package:smart_planting_app/screens/user.dart';
 
 class DatabaseService {
-  final String? uid;
-  DatabaseService({this.uid});
+  final String uid;
+  DatabaseService({required this.uid});
 
   // reference for our collections
   final CollectionReference userCollection =
@@ -14,6 +17,14 @@ class DatabaseService {
 
   // saving the userdata
   Future savingUserData(String fullName, String email, String password ,String photoUrl) async {
+    currentUser = AppUser(
+        id: uid,
+        username: fullName,
+        email: email,
+        password: password,
+        photoUrl: photoUrl,
+        about: 'Bio');
+
     return await userCollection.doc(uid).set({
       "username": fullName,
       "email": email,
@@ -22,7 +33,7 @@ class DatabaseService {
       "photoUrl": photoUrl,
       "userId": uid,
       "mobileNo" : 0778765209,
-      "about" : "",
+      "about" : "Bio",
     });
   }
 

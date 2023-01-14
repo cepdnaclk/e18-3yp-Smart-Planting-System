@@ -4,8 +4,11 @@ import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
 import 'package:smart_planting_app/Models/PlantModel.dart';
+<<<<<<< HEAD
+=======
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
 
 class plantRegScreen extends StatefulWidget {
@@ -18,8 +21,6 @@ class plantRegScreen extends StatefulWidget {
 class _plantRegScreenState extends State<plantRegScreen> {
  // final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  var selectedPlant, selectedType;
-
   String? dropDownVal;
   String? plantTpID;
   DateTime? _dateTime;
@@ -31,27 +32,53 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
+<<<<<<< HEAD
+  late String _name;
+  late String _email;
+  late String _password;
+  late String _confirmPwd;
+  late int _mobile;
+=======
   String plantID ="";
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
   late List<PlantModel> plantModel = [];
 
 
   @override
   void initState() {
-    //getData();
+    // getData();
     super.initState();
   }
 
   @override
   Widget build(BuildContext context) {
-    //print("Here is the data");
+    print("Here is the data");
     late List<String> items = [];
 
+<<<<<<< HEAD
+    for (int i = 0; i < plantModel.length; i++) {
+      items.add(plantModel[i].commonName ?? "");
+    }
+
+    const color = Colors.lightGreen;
+
+
+    return Scaffold(
+      backgroundColor: Colors.white,
+      // body: isLoading ?
+      body: plantModel.isEmpty
+          ? const Center(
+              child: CircularProgressIndicator(),
+            )
+          : Container(
+=======
 
     return Scaffold(
       backgroundColor: Colors.white,
       
        body : Container(
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
               margin: const EdgeInsets.all(24.0),
               child: Form(
                 child: Column(
@@ -90,17 +117,60 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         keyboardType: TextInputType.number,
                         style:
                             const TextStyle(fontSize: 15, color: Colors.black),
-                        onChanged: (val) {
-                          setState(() {
-                            plantID = val;
-                          });
-                          plant1.plantID = int.parse(val);
+                        onChanged: (plantID) {
+                          plant1.plantID = int.parse(plantID);
                         },
                       ),
                     ),
                     SizedBox(
                       height: 10,
                     ),
+<<<<<<< HEAD
+                    Padding(
+                      padding: const EdgeInsets.all(5),
+                      child: Container(
+                        decoration: BoxDecoration(
+                          border: Border.all(
+                            color: Colors.black45,
+                          ),
+                          shape: BoxShape.rectangle,
+                          borderRadius: BorderRadius.circular(10),
+                          color: Colors.green.shade100,
+                        ),
+                        height: 40,
+                        width: 300,
+                        padding: EdgeInsets.only(left: 5, right: 5),
+                        child: DropdownButton<String>(
+                          icon: const Icon(
+                            Icons.arrow_drop_down_outlined,
+                            color: Colors.green,
+                            size: 40,
+                          ),
+                          alignment: Alignment.centerLeft,
+                          borderRadius: BorderRadius.circular(10),
+                          menuMaxHeight: 300,
+                          underline: Container(
+                            color: Colors.transparent,
+                          ),
+                          dropdownColor: Colors.grey.shade300,
+                          hint: const Text(
+                            'Select Plant Type                        ',
+                            style: TextStyle(fontSize: 18),
+                          ),
+                          value: dropDownVal,
+                          items: items
+                              .map((item) => DropdownMenuItem(
+                                  value: item, child: Text(item)))
+                              .toList(),
+                          onChanged: (item) {
+                            dropDownVal = item;
+                            plant1.plantType = item;
+                            setState(() {});
+                          },
+                        ),
+                      ),
+                    ),
+=======
 
                     StreamBuilder<QuerySnapshot>(
                         stream: FirebaseFirestore.instance.collection("Plants_Database").snapshots(),
@@ -162,6 +232,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         }),
 
                    
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
                     SizedBox(
                       height: 10,
                     ),
@@ -176,7 +247,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                                 borderRadius: BorderRadius.circular(10)),
                             side: BorderSide(color: Colors.black45)),
                         child: _dateTime == null
-                            ? const Text(
+                            ? Text(
                                 'Date',
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 20),
@@ -235,15 +306,19 @@ class _plantRegScreenState extends State<plantRegScreen> {
 
   
   // API calls
-  /*Future<void> getData() async {
+  Future<void> getData() async {
     Uri url = Uri.http('3.111.170.113:8000', '/api/plantData');
     http.Response res = await http.get(url);
     print(res.body);
     List<dynamic> body = cnv.jsonDecode(res.body);
     plantModel = body.map((dynamic item) => PlantModel.fromJson(item)).toList();
     setState(() {});
+<<<<<<< HEAD
+  }
+=======
   }*/
 
+>>>>>>> 32229998d6cacc3155741abe63a9766d4cd3f426
 
   setPlantTypeID() {
     for (int i = 0; i < plantModel.length; i++) {

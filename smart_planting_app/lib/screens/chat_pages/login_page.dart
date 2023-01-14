@@ -3,7 +3,10 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/chat_pages/register_page.dart';
+import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/home.dart';
+import 'package:smart_planting_app/screens/register.dart';
+import 'package:smart_planting_app/screens/user.dart';
 
 import '../../helper/helper_function.dart';
 import '../../service/auth_service.dart';
@@ -161,6 +164,14 @@ class _LoginPageState extends State<LoginPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(snapshot.docs[0]['fullName']);
+          currentUser = AppUser(
+              id: snapshot.docs[0]['userId'],
+              username: snapshot.docs[0]['username'],
+              email: snapshot.docs[0]['email'],
+              password: snapshot.docs[0]['password'],
+              photoUrl: snapshot.docs[0]['photoUrl'],
+              about: snapshot.docs[0]['about']);
+
           nextScreenReplace(context, const homeScreen());
         } else {
           showSnackbar(context, Colors.red, value);

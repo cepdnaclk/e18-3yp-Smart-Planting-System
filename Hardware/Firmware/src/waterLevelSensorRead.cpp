@@ -1,7 +1,18 @@
 #include <Arduino.h>
 
+void waterLevelInit() {
+    // Y2
+    digitalWrite(D2, LOW);
+    digitalWrite(D1, HIGH);
+    digitalWrite(D0, LOW);
+    delay(20000);			// Wait 20 seconds
+}
+
 int waterLevelRead(int sensor_pin)
 {	
+	// Select water level sensor from demux
+	waterLevelInit();
+
 	int val = 0;
 	int result = 1000;
 

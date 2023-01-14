@@ -70,11 +70,11 @@ class ProfileWidget extends StatelessWidget {
    all: 0,
    child: buildCircle(
      color: color,
-     all: 0,
+     all: 5,
      child: const Icon(
        color: Colors.white30,
        Icons.camera_alt_outlined,
-       size: 30,
+       size: 25,
      ),
    ),
  );

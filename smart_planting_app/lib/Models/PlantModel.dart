@@ -1,9 +1,6 @@
-import 'dart:ffi';
-
 class PlantModel {
-  String? commonName;
   String? plantTypeID;
-
+  String? commonName;
 
   PlantModel({this.plantTypeID, this.commonName});
 

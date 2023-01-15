@@ -9,8 +9,8 @@ import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
 List<Widget> adds = [];
-final stream1 = FirebaseFirestore.instance.collection('Plants_Database').snapshots();
-final stream2 = FirebaseFirestore.instance.collection('Plants_Data').snapshots();
+//final stream1 = FirebaseFirestore.instance.collection('Plants_Database').snapshots();
+//final stream2 = FirebaseFirestore.instance.collection('Plants_Data').snapshots();
 
 String soilMoisture="";
 String waterLevel="";
@@ -127,76 +127,16 @@ class _homeScreenState extends State<homeScreen> {
       ),
     );
   }
-
-
-  // Widget buildPlant() => Padding(
-  //   padding: const EdgeInsets.symmetric(horizontal: 5),
-  //   child: Container(
-  //     decoration: const BoxDecoration(
-  //         color: Colors.black26,
-  //         borderRadius: BorderRadius.all(Radius.circular(20))
-  //     ),
-  //     height: 550,
-  //     width: 320,
-  //       child: Column(
-  //         children: [
-  //           const SizedBox(height: 40,),
-  //           Image.asset('asset/plant.png', scale: 4,),
-  //           const SizedBox(height: 4,),
-  //           const SizedBox(height: 100,),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               FloatingActionButton.large(
-  //                 elevation: 2,
-  //                 onPressed: () {},
-  //                 backgroundColor: Colors.green.shade200,
-  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/sun-4-xxl.png', scale: 7),
-  //               ),
-  //               const SizedBox(width: 50,),
-  //               FloatingActionButton.large(
-  //                 elevation: 2,
-  //                 onPressed: () {},
-  //                 backgroundColor: Colors.green.shade200,
-  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/temperature-2-xxl.png', scale: 8),
-  //               ),
-  //             ],
-  //           ),
-  //           const SizedBox(height: 50,),
-  //           Row(
-  //             mainAxisAlignment: MainAxisAlignment.center,
-  //             children: [
-  //               FloatingActionButton.large(
-  //                 elevation: 2,
-  //                 onPressed: () {},
-  //                 backgroundColor: Colors.green.shade200,
-  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/water-9-xxl.png', scale: 8),
-  //               ),
-  //               const SizedBox(width: 50,),
-  //               FloatingActionButton.large(
-  //                 elevation: 2,
-  //                 onPressed: () {},
-  //                 backgroundColor: Colors.green.shade200,
-  //                 child: Image.network('https://www.iconsdb.com/icons/preview/green/eye-3-xxl.png', scale: 6),
-  //               ),
-  //             ],
-  //           ),
-  //         ],
-  //       ),
-  //   ),
-  // );
-
 }
 
 class addPlant {
   //Plant p1 = new Plant(plantType: plantType, plantID: plantID, scientificName: scientificName, about: about);
-
   String? plantTypeId;
 
   addPlant(BuildContext context,String plantName,String TypeId,int potId) {
     //adds.add(buildPlant(context, plantName));
     adds.add(buildData(context,plantName,TypeId,potId));
-    //buildData(context,plantName,TypeId);
+    // buildData(context,plantName,TypeId,potId);
     plantTypeId = TypeId;
   }
 
@@ -252,55 +192,16 @@ class addPlant {
       }
   );
 
-  // Future<Widget> buildData(BuildContext context) async {
-  //
-  //   return StreamBuilder(
-  //     stream: stream1,
-  //     builder:(context,snapshot1) {
-  //       if(!snapshot1.hasData){
-  //         return Text("Loading");
-  //       }
-  //       else{
-  //         return StreamBuilder(
-  //             stream: stream2,
-  //             builder: (context,snapshot2){
-  //               if(!snapshot2.hasData){
-  //                 return Text("Loading");
-  //               }
-  //               else{
-  //                 return Text("Hi");
-  //               }
-  //             });
-  //       }
-  //     }
-  //   );
-  //}
 
     Widget buildData (BuildContext context,String plantName,String plantID,int potID) =>
         StreamBuilder(
-          stream: stream1,
+          stream: FirebaseFirestore.instance.collection('Plants_Database').snapshots(),
           builder: (context,snapshot1){
-            // if(!snapshot1.hasData){
-            //   return Text("Loading1");
-            // }
-            // else{
-            //   for (int i = 0; i < snapshot1.data!.docs.length; i++) {
-            //     DocumentSnapshot snap = snapshot1.data!.docs[i];
-            //
-            //     if(snap.id == plantID){
-            //       reqSoil = snap.get("soilMoisture");
-            //       reqWater = "level3";
-            //       reqTemp = snap.get("maxTemp");
-            //       reqLight = snap.get("shade");
-            //     }
-            //   }
-
               return StreamBuilder(
-                stream: stream2,
+                stream: FirebaseFirestore.instance.collection('Plants_Data').snapshots(),
                 builder: (context,snapshot2){
                   if(!snapshot2.hasData || !snapshot1.hasData){
-                    //print("check");
-                    return Text("Loading");
+                    return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
                   }
                   else{
                     for (int i = 0; i < snapshot1.data!.docs.length; i++) {
@@ -308,28 +209,30 @@ class addPlant {
 
                       if(snap1.id == plantID){
                       reqSoil = snap1.get("soilMoisture");
-                      reqWater = "level3";
+                      reqWater = "level 3";
                       reqTemp = snap1.get("minTemp");
                       reqLight = snap1.get("shade");
                       }
                    }
                     for (int i = 0; i < snapshot2.data!.docs.length; i++) {
-                      DocumentSnapshot snap = snapshot2.data!.docs[i];
+                      DocumentSnapshot snap2 = snapshot2.data!.docs[i];
 
-                      //print(snap.id);
-                      //print("check");
-                      if(int.parse(snap.id)== potID){
-                        soilMoisture = snap.get("SoilMoisture");
-                        waterLevel = snap.get("WaterLevel");
-                        temperature = snap.get("Temperature");
-                        lightIntensity = snap.get("LightIntensity");
+                      int id = int.parse(snap2.id);
+                      if(id == potID){
+                        soilMoisture = snap2.get("SoilMoisture");
+                        waterLevel = snap2.get("WaterLevel");
+                        temperature = snap2.get("Temperature");
+                        lightIntensity = snap2.get("LightIntensity");
+
+                        return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
                       }
+
                     }
                   }
-                  return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
+                  // return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
+                  return Text("Incorrect");
                 },
               );
-              //print(potID);
           }
       );
 
@@ -408,7 +311,7 @@ class addPlant {
                     child: ElevatedButton(
                       style: ElevatedButton.styleFrom(
                           elevation: 2,
-                          backgroundColor: water != reqWater? Colors.red:Colors.green,
+                          backgroundColor: (water != "level 3") || (water != "level 2")? ((water=="level 1")?Colors.yellow:Colors.red):Colors.green,
                           shape: RoundedRectangleBorder(
                               borderRadius: BorderRadius.circular(10),
                               side: const BorderSide(

@@ -146,7 +146,7 @@ class _searchScreenState extends State<searchScreen> {
 class UserResult extends StatelessWidget {
   final AppUser user;
 
-  const UserResult(this.user);
+  UserResult(this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -159,12 +159,12 @@ class UserResult extends StatelessWidget {
               leading: CircleAvatar(
                 backgroundImage: CachedNetworkImageProvider(user.photoUrl),
               ),
-              title: Text(user.username, style: TextStyle(
+              title: Text(user.username, style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold,
               ),),
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.white54,
             height: 2,
           )

@@ -96,7 +96,7 @@ class _RegisterPageState extends State<RegisterPage> {
       child: Material(
         color: Colors.transparent,
         child: InkWell(
-            child: Image.asset('asset/profile.png', fit: BoxFit.cover, height: 95, width: 95,),
+            child: Image.asset('asset/register.png', fit: BoxFit.cover, height: 95, width: 95,),
             onTap: () async {
               final source = await showImageSource(context);
               if (source == null) return;
@@ -113,7 +113,7 @@ class _RegisterPageState extends State<RegisterPage> {
     all: 0,
     child: buildCircle(
       color: color,
-      all: 0,
+      all: 3,
       child: const Icon(
         color: Colors.black38,
         Icons.camera_alt_outlined,
@@ -190,7 +190,6 @@ class _RegisterPageState extends State<RegisterPage> {
                       "Create your account now to chat and explore",
                       style: TextStyle(
                           fontSize: 15, fontWeight: FontWeight.w400)),
-                  //Image.asset("assets/login.png"),
                   const SizedBox(height: 50,),
                   if (image != null)
                     ProfileWidget(
@@ -201,8 +200,8 @@ class _RegisterPageState extends State<RegisterPage> {
                     children: [
                       buildImage(),
                       Positioned(
-                          bottom: 0,
-                          right: 0,
+                          bottom: 4,
+                          right: 5,
                           child: buildEditIcon(color)
                       )
                     ],
@@ -338,6 +337,9 @@ class _RegisterPageState extends State<RegisterPage> {
           await HelperFunctions.saveUserLoggedInStatus(true);
           await HelperFunctions.saveUserEmailSF(email);
           await HelperFunctions.saveUserNameSF(fullName);
+          await followersRef
+              .doc(currentUser.id).collection('userFollowers').doc(currentUser.id).set({});
+
           nextScreenReplace(context, const homeScreen());
         } else {
           showSnackbar(context, Colors.red, value);

@@ -28,6 +28,7 @@ final commentRef = FirebaseFirestore.instance.collection('comments');
 final activityFeedRef = FirebaseFirestore.instance.collection('feed');
 final followersRef = FirebaseFirestore.instance.collection('followers');
 final followingRef = FirebaseFirestore.instance.collection('following');
+final timelineRef = FirebaseFirestore.instance.collection('timeline');
 AppUser currentUser = AppUser(
     id: 'id', username: 'username', email: 'email', password: 'password', photoUrl: 'photoUrl', about: 'about');
 DateTime timestamp = DateTime.now();

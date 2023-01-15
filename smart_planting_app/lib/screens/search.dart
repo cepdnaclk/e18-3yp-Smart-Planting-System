@@ -34,18 +34,19 @@ class _searchScreenState extends State<searchScreen> {
 
   AppBar buildSearchField() {
     return AppBar(
-      leadingWidth: 0,
+      automaticallyImplyLeading: false,
       shadowColor: Colors.green,
-      backgroundColor: Colors.white,
+      backgroundColor: Colors.green,
       title: TextFormField(
         controller: searchController,
         decoration: InputDecoration(
+
           hintText: "Search for a user...",
-          filled:  true,
+          filled:  false,
           prefixIcon: Icon(
             Icons.account_box_outlined,
             size: 28,
-            color: Colors.green.shade400,
+            color: Colors.black,
           ),
           suffixIcon: IconButton(
             icon: Icon(Icons.clear_rounded),
@@ -145,7 +146,7 @@ class _searchScreenState extends State<searchScreen> {
 class UserResult extends StatelessWidget {
   final AppUser user;
 
-  const UserResult(this.user);
+  UserResult(this.user);
 
   @override
   Widget build(BuildContext context) {
@@ -158,12 +159,12 @@ class UserResult extends StatelessWidget {
               leading: CircleAvatar(
                 backgroundImage: CachedNetworkImageProvider(user.photoUrl),
               ),
-              title: Text(user.username, style: TextStyle(
+              title: Text(user.username, style: const TextStyle(
                 color: Colors.black, fontWeight: FontWeight.bold,
               ),),
             ),
           ),
-          Divider(
+          const Divider(
             color: Colors.white54,
             height: 2,
           )

@@ -2,11 +2,13 @@ import 'package:cached_network_image/cached_network_image.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/chat_pages/group_page.dart';
 import 'package:smart_planting_app/screens/editProfile.dart';
 import 'package:smart_planting_app/screens/post_tile.dart';
 import 'package:smart_planting_app/screens/posts.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
+import 'package:smart_planting_app/screens/timeline.dart';
 import 'package:smart_planting_app/screens/user.dart';
 
 
@@ -76,7 +78,10 @@ class _profileScreenState extends State<profileScreen> {
     setState(() {
       isLoading = true;
     });
-    QuerySnapshot snapshot = await postsRef.doc(profileId).collection('userPosts').get();
+    QuerySnapshot snapshot = await postsRef
+        .doc(profileId)
+        .collection('userPosts')
+        .orderBy("timestamp", descending: true).get();
 
     setState(() {
       isLoading = false;
@@ -96,6 +101,22 @@ class _profileScreenState extends State<profileScreen> {
         centerTitle: true,
         title: const Text("Profile", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),
         backgroundColor: Colors.green,
+        actions: [
+          IconButton(
+              onPressed: () =>
+                  Navigator.of(context).push(MaterialPageRoute(builder: (
+                      context) =>
+                  const GroupPage())),
+              icon: const Icon(Icons.message_outlined, color: Colors.black,)),
+          IconButton(
+            icon: CircleAvatar(
+              backgroundColor: Colors.transparent,
+              child: Image.asset('asset/community.png', scale: 5,),
+            ),
+            color: Colors.black,
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const timelineScreen())),
+          ),
+        ],
       ),
       body: ListView(
         children: [
@@ -214,7 +235,7 @@ class _profileScreenState extends State<profileScreen> {
                           children: [
                             BuildButton(context, postCount, 'Posts'),
                             buildDivider(),
-                            BuildButton(context, followerCount, 'Followers'),
+                            BuildButton(context, followerCount - 1, 'Followers'),
                             buildDivider(),
                             BuildButton(context, followingCount, 'Following'),
                           ],
@@ -294,6 +315,9 @@ class _profileScreenState extends State<profileScreen> {
     timestamp = DateTime.now();
     activityFeedRef.doc(profileId).collection('feedItems').doc(currentProfileId).set({
       "type": "follow",
+      "comment" : '',
+      "mediaUrl": '',
+      "postId": '',
       "username": currentUser.username,
       "userId": currentProfileId,
       "userProfileImg": currentUser.photoUrl,

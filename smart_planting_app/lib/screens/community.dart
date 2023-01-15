@@ -27,7 +27,8 @@ class _communityScreenState extends State<communityScreen> {
     return SafeArea(
       child: Scaffold(
         appBar: AppBar(
-          backgroundColor: Colors.transparent,
+          leadingWidth: 10,
+          backgroundColor: Colors.green,
           elevation: 0,
           leading: IconButton(
             icon: const Icon(Icons.arrow_back_ios_new_outlined),
@@ -94,27 +95,30 @@ class _communityScreenState extends State<communityScreen> {
               ),
             ),
             Expanded(
-              flex: 10,
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  IconButton(
-                    icon: const Icon(Icons.add_box_outlined),
-                    iconSize: 30,
-                    onPressed: () =>
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
-                  ),
-                  IconButton(
-                    icon: CircleAvatar(
-                      backgroundImage: CachedNetworkImageProvider(currentUser.photoUrl),
+              flex: 8,
+              child: Container(
+                color: Colors.green,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    IconButton(
+                      icon: const Icon(Icons.add_box_outlined),
+                      iconSize: 30,
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
                     ),
-                    color: CupertinoColors.activeGreen,
-                    iconSize: 30,
-                    onPressed: () =>
-                        Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
-                        profileScreen(about: '',name: '',))),
-                  ),
-                ],
+                    IconButton(
+                      icon: CircleAvatar(
+                        backgroundImage: CachedNetworkImageProvider(currentUser.photoUrl),
+                      ),
+                      color: CupertinoColors.activeGreen,
+                      iconSize: 30,
+                      onPressed: () =>
+                          Navigator.of(context).push(MaterialPageRoute(builder: (context) =>
+                          profileScreen(about: '',name: '',))),
+                    ),
+                  ],
+                ),
               ),
             )
           ],

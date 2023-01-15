@@ -277,6 +277,7 @@ class addPlant {
               flex: 50,
               child: Column(
                 children: [
+<<<<<<< HEAD
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
@@ -294,6 +295,19 @@ class addPlant {
                                   side: const BorderSide(
                                     color: Colors.black,
                                   )
+=======
+                  Container(
+                    height: 100,
+                    width: 100,
+                    child: ElevatedButton(
+                      style: ElevatedButton.styleFrom(
+                          elevation: 2,
+                          backgroundColor: ((water == "level 3") || (water == "level 2"))? Colors.green : ((water=="level 1")?Colors.yellow:Colors.red),
+                          shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(10),
+                              side: const BorderSide(
+                                color: Colors.black,
+>>>>>>> c88ecd7468cff4971166ea6cd131adce38aa2250
                               )
                           ),
                           child: Image.asset('asset/light.png', scale: 7),

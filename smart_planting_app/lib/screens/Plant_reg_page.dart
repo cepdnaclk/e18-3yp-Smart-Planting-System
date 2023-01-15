@@ -1,5 +1,4 @@
 import 'dart:core';
-
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/home.dart';
 import 'package:smart_planting_app/screens/plant.dart';
@@ -28,16 +27,10 @@ class _plantRegScreenState extends State<plantRegScreen> {
       plantID: 0,
       scientificName: '');
 
-  late String _name;
-  late String _email;
-  late String _password;
-  late String _confirmPwd;
-  late int _mobile;
 
   String plantID ="";
 
   late List<PlantModel> plantModel = [];
-
 
   @override
   void initState() {
@@ -216,7 +209,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                           setPlantTypeID();
                           writeData(plant1.plantID, plant1.plantType!, plant1.plantTypeID);
                           addPlant(context, plant1.plantType!,plant1.plantTypeID,plant1.plantID);
-                          // Get ID from List
+
                           Navigator.of(context).push(MaterialPageRoute(
                               builder: (context) => const homeScreen()));
                         },

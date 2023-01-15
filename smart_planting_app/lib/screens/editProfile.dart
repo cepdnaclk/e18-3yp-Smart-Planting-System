@@ -7,11 +7,13 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:path_provider/path_provider.dart';
+import 'package:smart_planting_app/screens/chat_pages/login_page.dart';
 import 'package:smart_planting_app/screens/profile_widget.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/user.dart';
 import 'package:image/image.dart' as Im;
+import 'package:smart_planting_app/service/auth_service.dart';
 
 import '../AuthRepository/authRepo.dart';
 
@@ -36,6 +38,7 @@ class _editProfileState extends State<editProfile> {
   String photoUrl = currentUser.photoUrl;
   bool _usernameValid = true;
   bool _bioValid = true;
+  AuthService authService = AuthService();
 
   _editProfileState({Key? key, required this.currentUserId});
 
@@ -202,9 +205,7 @@ class _editProfileState extends State<editProfile> {
                       elevation: 0,
                       backgroundColor: Colors.transparent,
                     ),
-                    onPressed: () {
-                      AuthenticationRepository.instance.logout();
-                    },
+                    onPressed: () => logOut(),
                     icon: Icon(Icons.cancel, color: Colors.red,),
                     label: Text('Logout', style: TextStyle(color: Colors.red),
                     )
@@ -328,6 +329,42 @@ class _editProfileState extends State<editProfile> {
       const snackbar = SnackBar(content: Text('Profile updated!'));
       ScaffoldMessenger.of(context).showSnackBar(snackbar);
     }
+  }
+
+  logOut() async {
+    showDialog(
+        barrierDismissible: false,
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text("Logout"),
+            content: const Text("Are you sure you want to logout?"),
+            actions: [
+              IconButton(
+                onPressed: () {
+                  Navigator.pop(context);
+                },
+                icon: const Icon(
+                  Icons.cancel,
+                  color: Colors.red,
+                ),
+              ),
+              IconButton(
+                onPressed: () async {
+                  await authService.signOut();
+                  Navigator.of(context).pushAndRemoveUntil(
+                      MaterialPageRoute(
+                          builder: (context) => const LoginPage()),
+                          (route) => false);
+                },
+                icon: const Icon(
+                  Icons.done,
+                  color: Colors.green,
+                ),
+              ),
+            ],
+          );
+        });
   }
 
 

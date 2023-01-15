@@ -7,7 +7,6 @@ import '../../service/auth_service.dart';
 import '../../service/database_service.dart';
 import '../../widgets/group_tile.dart';
 import '../../widgets/widgets.dart';
-import '../user_profile.dart';
 import 'login_page.dart';
 
 class GroupPage extends StatefulWidget {
@@ -245,7 +244,7 @@ class _GroupPageState extends State<GroupPage> {
                     Navigator.of(context).pop();
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor),
+                      backgroundColor: Theme.of(context).primaryColor),
                   child: const Text("CANCEL"),
                 ),
                 ElevatedButton(
@@ -267,7 +266,7 @@ class _GroupPageState extends State<GroupPage> {
                     }
                   },
                   style: ElevatedButton.styleFrom(
-                      primary: Theme.of(context).primaryColor),
+                      backgroundColor: Theme.of(context).primaryColor),
                   child: const Text("CREATE"),
                 )
               ],

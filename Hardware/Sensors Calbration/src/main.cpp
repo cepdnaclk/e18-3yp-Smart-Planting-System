@@ -64,7 +64,7 @@ void setup()
 	tempSensor.begin(); // initialize the temperature sensor
 
 	delay(2000);
-	WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
+	/*WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
 	Serial.print("Connecting to Wi-Fi");
 	while (WiFi.status() != WL_CONNECTED)
 	{
@@ -93,16 +93,16 @@ void setup()
 	// Comment or pass false value when WiFi reconnection will control by your code or third party library
 	// Firebase.reconnectWiFi(true);
 
-	Firebase.setDoubleDigits(5);
+	Firebase.setDoubleDigits(5);*/
 	Serial.println("Start");
 }
 
 void loop()
 {
-	soilMoistVal = soilMoistCalibration(SOIL_MOIST_SENSOR_IN);
+	// soilMoistVal = soilMoistCalibration(SOIL_MOIST_SENSOR_IN);
 	// waterLevelCalibration(WATER_LEVEL_SENSOR_IN);
 	// temperatureRead(tempSensor, TEMP_SENSOR_IN);
-	// Serial.println(LDRRead(LDR_SENSOR_IN));
+	Serial.println(LDRRead(LDR_SENSOR_IN));
 	// Serial.println("----------------------------");
 
 	/*if (Firebase.ready())
@@ -118,6 +118,6 @@ void loop()
 		Serial.println();
 		Serial.println("------------------");
 		Serial.println();
-	}
-	delay(10000);*/
+	}*/
+	// delay(1000);
 }

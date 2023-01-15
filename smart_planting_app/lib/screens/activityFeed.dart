@@ -44,7 +44,7 @@ class _activityFeedState extends State<activityFeed> {
       backgroundColor: Colors.teal,
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black,),
           onPressed: () => Navigator.pop(context),
         ),
         title: const Text("Notifications", style: TextStyle(fontWeight: FontWeight.bold, color: Colors.black)),

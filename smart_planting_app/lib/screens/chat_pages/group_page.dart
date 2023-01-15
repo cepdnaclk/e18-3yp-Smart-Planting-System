@@ -290,7 +290,7 @@ class _GroupPageState extends State<GroupPage> {
                   return GroupTile(
                       groupId: getId(snapshot.data['groups'][reverseIndex]),
                       groupName: getName(snapshot.data['groups'][reverseIndex]),
-                      userName: snapshot.data['fullName']);
+                      userName: snapshot.data['username']);
                 },
               );
             } else {

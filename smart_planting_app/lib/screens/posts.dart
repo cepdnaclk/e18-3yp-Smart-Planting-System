@@ -119,6 +119,7 @@ class _postsState extends State<posts> {
           }
           else if(snapshot.hasData) {
             final newUser = snapshot.data;
+            bool isPostOwner = currentUser.id == ownerId;
 
             return ListTile(
               leading: CircleAvatar(
@@ -135,10 +136,10 @@ class _postsState extends State<posts> {
                 ),
               ),
               subtitle: Text(location),
-              trailing: IconButton(
-                onPressed: () => print('deleting post'),
+              trailing: isPostOwner ? IconButton(
+                onPressed: () => handleDeletePost(context),
                 icon: const Icon(Icons.more_vert),
-              ),
+              ) : Text(''),
             );
           }
           else {
@@ -146,6 +147,64 @@ class _postsState extends State<posts> {
           }
         }
     );
+  }
+
+  handleDeletePost(BuildContext parentContext) {
+    return showDialog(
+        context: parentContext,
+        builder: (context) {
+          return SimpleDialog(title: Text('Remove this Post?'),
+          children: [
+            SimpleDialogOption(
+              onPressed: () {
+                Navigator.pop(context);
+                deletePost();
+              },
+              child: Text('Delete',
+              style: TextStyle(color: Colors.red),),
+            ),
+            SimpleDialogOption(
+              onPressed: () => Navigator.pop(context),
+              child: Text('Cancel',
+                style: TextStyle(color: Colors.lightBlue),),
+            )
+          ],
+          );
+        });
+  }
+
+  deletePost() async {
+    postsRef
+        .doc(ownerId)
+        .collection('userPosts')
+        .doc(postId).get().then((doc) => {
+          if(doc.exists) {
+            doc.reference.delete()
+          }
+    });
+
+    storageRef.child("posts/$postId.jpg").delete();
+
+    QuerySnapshot activityFeedSnapshot = await activityFeedRef
+        .doc(ownerId)
+        .collection('feedItem')
+        .where('postId', isEqualTo: postId)
+        .get();
+    activityFeedSnapshot.docs.forEach((doc) {
+      if(doc.exists) {
+        doc.reference.delete();
+    }
+    });
+    QuerySnapshot commentsSnapshot = await commentRef
+        .doc(postId)
+        .collection('comments')
+        .get();
+    commentsSnapshot.docs.forEach((doc) {
+      if(doc.exists) {
+      doc.reference.delete();
+    }
+    });
+
   }
 
   handleLikePost() {
@@ -193,10 +252,10 @@ class _postsState extends State<posts> {
   addLikeToActivityFeed() {
     timestamp = DateTime.now();
     bool isNotPostOwner = currentUser.id != ownerId;
-    if(!isNotPostOwner) {
+    if(isNotPostOwner) {
       activityFeedRef.doc(ownerId).collection('feedItems').doc(postId).set({
         "type": "like",
-        "comment": '',
+        "comment" : "",
         "username": currentUser.username,
         "userId": currentUser.id,
         "userProfileImg": currentUser.photoUrl,

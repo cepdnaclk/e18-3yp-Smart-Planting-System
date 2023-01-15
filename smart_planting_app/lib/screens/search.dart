@@ -2,7 +2,6 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens//user.dart';
 import 'package:smart_planting_app/screens/activityFeed.dart';
-import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:cached_network_image/cached_network_image.dart';
 
@@ -43,13 +42,13 @@ class _searchScreenState extends State<searchScreen> {
 
           hintText: "Search for a user...",
           filled:  false,
-          prefixIcon: Icon(
+          prefixIcon: const Icon(
             Icons.account_box_outlined,
             size: 28,
             color: Colors.black,
           ),
           suffixIcon: IconButton(
-            icon: Icon(Icons.clear_rounded),
+            icon: const Icon(Icons.clear_rounded),
             onPressed: () {
               clearSearch();
             },
@@ -68,7 +67,7 @@ class _searchScreenState extends State<searchScreen> {
           shrinkWrap: true,
           children: [
             Image.network('https://hicomcare.com.au/Images/icon-finder.png?t=1', height: 300,),
-            SizedBox(height: 40,),
+            const SizedBox(height: 40,),
             Text("Find Users", textAlign: TextAlign.center, style: TextStyle(
               color: Colors.green.shade400,
               fontSize: 60,
@@ -92,26 +91,6 @@ class _searchScreenState extends State<searchScreen> {
       searchResultsFuture = users;
     });
   }
-
-  // buildSearchResults() {
-  //   return StreamBuilder(
-  //       stream: readUsers(),
-  //       builder: (context, snapshot) {
-  //         if(snapshot.hasError) {
-  //           return Text('Something went wrong! ${snapshot.error}');
-  //         }
-  //         else if(snapshot.hasData) {
-  //           final users = snapshot.data!;
-  //           return ListView(
-  //             children: users.map(buildUser).toList(),
-  //           );
-  //         } else {
-  //           return circularProgress();
-  //         }
-  //
-  //       }
-  //   );
-  // }
 
   Widget buildUser(AppUser user) => ListTile(
     leading: CircleAvatar(child: Image.asset('asset/profile.png'),),
@@ -155,18 +134,21 @@ class UserResult extends StatelessWidget {
         children: [
           GestureDetector(
             onTap: () => showProfile(context, profileId: user.id),
-            child: ListTile(
-              leading: CircleAvatar(
-                backgroundImage: CachedNetworkImageProvider(user.photoUrl),
+            child: Container(
+              color: Colors.green.shade50,
+              child: ListTile(
+                leading: CircleAvatar(
+                  backgroundImage: CachedNetworkImageProvider(user.photoUrl),
+                ),
+                title: Text(user.username, style: const TextStyle(
+                  color: Colors.black, fontWeight: FontWeight.bold,
+                ),),
               ),
-              title: Text(user.username, style: const TextStyle(
-                color: Colors.black, fontWeight: FontWeight.bold,
-              ),),
             ),
           ),
           const Divider(
             color: Colors.white54,
-            height: 2,
+            height: 1,
           )
         ],
       ),

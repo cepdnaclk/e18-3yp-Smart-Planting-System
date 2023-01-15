@@ -57,19 +57,19 @@ class _plantRegScreenState extends State<plantRegScreen> {
                       width: 300,
                       child: TextField(
                         decoration: InputDecoration(
-                          border: OutlineInputBorder(
+                          border: const OutlineInputBorder(
                               borderSide: BorderSide(
                                 color: Colors.black54,
                               ),
-                              borderRadius: const BorderRadius.all(
-                                const Radius.circular(10.0),
+                              borderRadius: BorderRadius.all(
+                                Radius.circular(10.0),
                               )),
                           alignLabelWithHint: false,
                           contentPadding:
                               const EdgeInsets.only(top: 5, left: 8, right: 5),
                           filled: true,
                           fillColor: Colors.green.shade100,
-                          label: Text(
+                          label: const Text(
                             'Plant ID',
                             style:
                                 TextStyle(fontSize: 15, color: Colors.black87),
@@ -87,7 +87,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                         },
                       ),
                     ),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
 
@@ -101,7 +101,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                               DocumentSnapshot snap = snapshot.data!.docs[i];
                               String name = snap.get("commonName");
                               String id = snap.id;
-                              PlantModel plant2= PlantModel(plantTypeID: id, commonName:name);
+                              PlantModel plant2 = PlantModel(plantTypeID: id, commonName:name);
                               plantModel.add(plant2);
                               items.add(name);
                             }
@@ -118,7 +118,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                                 ),
                                 height: 40,
                                 width: 300,
-                                padding: EdgeInsets.only(left: 5, right: 5),
+                                padding: const EdgeInsets.only(left: 5, right: 5),
                                 child: DropdownButton<String>(
                                   icon: const Icon(
                                     Icons.arrow_drop_down_outlined,
@@ -150,7 +150,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
                               ),
                             );
                         }),
-                    SizedBox(
+                    const SizedBox(
                       height: 10,
                     ),
                     Center(
@@ -162,16 +162,16 @@ class _plantRegScreenState extends State<plantRegScreen> {
                             alignment: Alignment.centerLeft,
                             shape: RoundedRectangleBorder(
                                 borderRadius: BorderRadius.circular(10)),
-                            side: BorderSide(color: Colors.black45)),
+                            side: const BorderSide(color: Colors.black45)),
                         child: _dateTime == null
-                            ? Text(
+                            ? const Text(
                                 'Date',
                                 style: TextStyle(
                                     color: Colors.black45, fontSize: 20),
                               )
                             : Text(
                                 _dateTime.toString().substring(0, 10),
-                                style: TextStyle(
+                                style: const TextStyle(
                                     color: Colors.black45, fontSize: 20),
                               ),
                         onPressed: () {
@@ -232,7 +232,7 @@ class _plantRegScreenState extends State<plantRegScreen> {
     setState(() {});
   }
 
-  Future writeData(num potID,String plantType, String plantTypeID)async{
+  Future writeData(num potID,String plantType, String plantTypeID) async {
     final potData = FirebaseFirestore.instance.collection('plant_pot').doc();
 
     final json = {

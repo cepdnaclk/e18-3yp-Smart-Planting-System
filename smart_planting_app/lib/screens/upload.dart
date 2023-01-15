@@ -4,9 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Im;
@@ -14,7 +12,6 @@ import 'package:smart_planting_app/screens/register.dart';
 import 'package:smart_planting_app/screens/timeline.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 
 class upload extends StatefulWidget {

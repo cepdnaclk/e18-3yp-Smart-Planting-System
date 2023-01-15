@@ -1,9 +1,6 @@
-//import 'dart:js';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:smart_planting_app/screens/Plant_reg_page.dart';
-import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/profile.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
@@ -13,10 +10,10 @@ List<Widget> adds = [];
 //final stream1 = FirebaseFirestore.instance.collection('Plants_Database').snapshots();
 //final stream2 = FirebaseFirestore.instance.collection('Plants_Data').snapshots();
 
-String soilMoisture="";
-String waterLevel="";
-String lightIntensity="";
-num temperature=0;
+String soilMoisture = "";
+String waterLevel = "";
+String lightIntensity = "";
+num temperature = 0;
 
 String reqSoil = "";
 String reqWater = "";
@@ -47,7 +44,8 @@ class _homeScreenState extends State<homeScreen> {
               child: Image.asset('asset/community.png', scale: 5,),
             ),
             color: Colors.black,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const timelineScreen())),
+            onPressed: () => Navigator.of(context)
+                .push(MaterialPageRoute(builder: (context) => const timelineScreen())),
           ),
           actions: [
             IconButton(
@@ -85,11 +83,6 @@ class _homeScreenState extends State<homeScreen> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 height: double.infinity,
                 width: double.infinity,
-                // decoration: BoxDecoration(
-                //   border: Border.all(
-                //     color: Colors.indigo.shade300,
-                //   )
-                // ),
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -133,6 +126,7 @@ class _homeScreenState extends State<homeScreen> {
 class addPlant {
   //Plant p1 = new Plant(plantType: plantType, plantID: plantID, scientificName: scientificName, about: about);
   String? plantTypeId;
+  late String plantPhotoUrl;
 
   addPlant(BuildContext context,String plantName,String TypeId,int potId) {
     //adds.add(buildPlant(context, plantName));
@@ -202,13 +196,24 @@ class addPlant {
                 stream: FirebaseFirestore.instance.collection('Plants_Data').snapshots(),
                 builder: (context,snapshot2){
                   if(!snapshot2.hasData || !snapshot1.hasData){
-                    return buildPlant(context,plantName,reqSoil,reqWater,reqTemp,reqLight,soilMoisture,waterLevel,temperature,lightIntensity);
+                    return buildPlant(
+                        context,
+                        plantName,
+                        reqSoil,
+                        reqWater,
+                        reqTemp,
+                        reqLight,
+                        soilMoisture,
+                        waterLevel,
+                        temperature,
+                        lightIntensity);
                   }
                   else{
                     for (int i = 0; i < snapshot1.data!.docs.length; i++) {
                       DocumentSnapshot snap1 = snapshot1.data!.docs[i];
 
                       if(snap1.id == plantID){
+                      plantPhotoUrl = snap1.get('photo');
                       reqSoil = snap1.get("soilMoisture");
                       reqWater = "level 3";
                       reqTemp = snap1.get("minTemp");
@@ -237,6 +242,7 @@ class addPlant {
           }
       );
 
+    //String plantPhotoUrl = storageRef.child('plant/$plant')
 
     Widget buildPlant(BuildContext context,String plantType,String reqSoil,String reqWater,num reqTemp,String reqLight,String soil,String water,num temp,String light) => Padding(
       padding: const EdgeInsets.symmetric(horizontal: 5),
@@ -250,7 +256,7 @@ class addPlant {
         child: Column(
           children: [
             const SizedBox(height: 20,),
-            Image.asset('asset/plan2.png', scale: 7,),
+            Image.network(plantPhotoUrl, scale: 7,),
             const SizedBox(height: 8,),
             Text(plantType, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), ),
             const SizedBox(height: 4,),

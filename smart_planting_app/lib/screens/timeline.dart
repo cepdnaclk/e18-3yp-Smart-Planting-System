@@ -79,7 +79,6 @@ class _timelineScreenState extends State<timelineScreen> {
         List<UserResult> userResults = [];
         snapshot.data!.docs.forEach((doc) {
           AppUser newUser = AppUser.fromDocument(doc);
-          print(newUser.username);
           final bool isAuthUser = currentUser.id == newUser.id;
           final bool isFollowingUser = followingList.contains(newUser.id);
 
@@ -94,7 +93,7 @@ class _timelineScreenState extends State<timelineScreen> {
         });
 
         return Container(
-          color: Colors.green.shade200,
+          color: Colors.green.shade50,
           child: SingleChildScrollView(
             child: Column(
               children: [

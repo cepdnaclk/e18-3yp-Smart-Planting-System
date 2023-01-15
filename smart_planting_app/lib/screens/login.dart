@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:smart_planting_app/screens/confirm.dart';
-import 'package:smart_planting_app/screens/home.dart';
 import 'package:get/get.dart';
 import 'configs/login_config.dart';
-import 'user_profile.dart';
 
 class loginScreen extends StatefulWidget {
   @override

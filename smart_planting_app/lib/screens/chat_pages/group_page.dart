@@ -7,6 +7,8 @@ import '../../service/auth_service.dart';
 import '../../service/database_service.dart';
 import '../../widgets/group_tile.dart';
 import '../../widgets/widgets.dart';
+import '../profile.dart';
+import '../register.dart';
 import 'login_page.dart';
 
 class GroupPage extends StatefulWidget {
@@ -119,12 +121,10 @@ class _GroupPageState extends State<GroupPage> {
               ),
               ListTile(
                 onTap: () {
-                  /*nextScreenReplace(
+
+                  nextScreenReplace(
                       context,
-                      ProfilePage(
-                        userName: userName,
-                        email: email,
-                      ));*/
+                      profileScreen(profileId: currentUser.id,));
                 },
                 contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 5),

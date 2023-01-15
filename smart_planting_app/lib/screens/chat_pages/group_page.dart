@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:smart_planting_app/screens/chat_pages/search_page.dart';
 import 'package:flutter/material.dart';
+import 'package:smart_planting_app/screens/register.dart';
 
 import '../../helper/helper_function.dart';
 import '../../service/auth_service.dart';
@@ -8,8 +9,12 @@ import '../../service/database_service.dart';
 import '../../widgets/group_tile.dart';
 import '../../widgets/widgets.dart';
 import '../profile.dart';
+<<<<<<< HEAD
+=======
 import '../register.dart';
+>>>>>>> c88ecd7468cff4971166ea6cd131adce38aa2250
 import 'login_page.dart';
+import 'package:cached_network_image/cached_network_image.dart';
 
 class GroupPage extends StatefulWidget {
   const GroupPage({Key? key}) : super(key: key);
@@ -73,6 +78,7 @@ class _GroupPageState extends State<GroupPage> {
               },
               icon: const Icon(
                 Icons.search,
+                color: Colors.black,
               ))
         ],
         elevation: 0,
@@ -81,17 +87,17 @@ class _GroupPageState extends State<GroupPage> {
         title: const Text(
           "Groups",
           style: TextStyle(
-              color: Colors.white, fontWeight: FontWeight.bold, fontSize: 27),
+              color: Colors.black, fontWeight: FontWeight.bold),
         ),
       ),
       drawer: Drawer(
           child: ListView(
             padding: const EdgeInsets.symmetric(vertical: 50),
             children: <Widget>[
-              Icon(
-                Icons.account_circle,
-                size: 150,
-                color: Colors.grey[700],
+              CircleAvatar(
+                maxRadius: 100,
+                backgroundImage: CachedNetworkImageProvider(
+                    currentUser.photoUrl),
               ),
               const SizedBox(
                 height: 15,
@@ -120,12 +126,19 @@ class _GroupPageState extends State<GroupPage> {
                 ),
               ),
               ListTile(
+<<<<<<< HEAD
+                onTap: () =>
+                    Navigator.of(context).push(
+                        MaterialPageRoute(builder: (context) =>
+                            profileScreen(profileId: currentUser.id,))),
+=======
                 onTap: () {
 
                   nextScreenReplace(
                       context,
                       profileScreen(profileId: currentUser.id,));
                 },
+>>>>>>> c88ecd7468cff4971166ea6cd131adce38aa2250
                 contentPadding:
                 const EdgeInsets.symmetric(horizontal: 20, vertical: 5),
                 leading: const Icon(Icons.group),
@@ -189,7 +202,7 @@ class _GroupPageState extends State<GroupPage> {
         backgroundColor: Theme.of(context).primaryColor,
         child: const Icon(
           Icons.add,
-          color: Colors.white,
+          color: Colors.black,
           size: 30,
         ),
       ),

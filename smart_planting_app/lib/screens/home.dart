@@ -255,63 +255,47 @@ class addPlant {
         width: 320,
         child: Column(
           children: [
-            const SizedBox(height: 20,),
-            Image.network(plantPhotoUrl, scale: 7,),
-            const SizedBox(height: 8,),
-            Text(plantType, style: const TextStyle(fontSize: 20, fontWeight: FontWeight.bold, color: Colors.black), ),
-            const SizedBox(height: 4,),
-            const SizedBox(height: 50,),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                Container(
-                  height: 100,
-                  width: 100,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 2,
-                        backgroundColor: reqLight != light? Colors.red:Colors.green,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              color: Colors.black,
-                            )
-                        )
-                    ),
-                    child: Image.asset('asset/light.png', scale: 7),
-                    onPressed: () {
-                      popUpWindow(context, 'Light Intensity', light, reqLight);
-                    },
-                  ),
-                ),
-                const SizedBox(width: 50,),
-                Container(
-                  height: 100,
-                  width: 100,
-                  child: ElevatedButton(
-                    style: ElevatedButton.styleFrom(
-                        elevation: 2,
-                        backgroundColor: reqTemp < temp? Colors.red:Colors.green,
-                        shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(10),
-                            side: const BorderSide(
-                              color: Colors.black,
-                            )
-                        )
-                    ),
-                    child: Image.asset('asset/temp.png', scale: 8),
-                    onPressed: () {
-                      popUpWindow(context, 'Temperature', temp, reqTemp);
-                    },
-                  ),
-                ),
-              ],
+            Expanded(
+                flex: 50,
+                child: Column(
+                    children: [
+                      const SizedBox(height: 50,),
+                      Image.network(plantPhotoUrl, scale: 7,),
+                      const SizedBox(height: 8,),
+                      Text(plantType,
+                        style: const TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: Colors.black), ),
+                    ]
+                )
             ),
 
-            const SizedBox(height: 25,),
-            Row(
-                mainAxisAlignment: MainAxisAlignment.center,
+            // const SizedBox(height: 4,),
+            // const SizedBox(height: 50,),
+            Expanded(
+              flex: 50,
+              child: Column(
                 children: [
+<<<<<<< HEAD
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                              backgroundColor:
+                              reqLight != light ? Colors.red : Colors.green,
+
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    color: Colors.black,
+                                  )
+=======
                   Container(
                     height: 100,
                     width: 100,
@@ -323,40 +307,99 @@ class addPlant {
                               borderRadius: BorderRadius.circular(10),
                               side: const BorderSide(
                                 color: Colors.black,
+>>>>>>> c88ecd7468cff4971166ea6cd131adce38aa2250
                               )
-                          )
-                      ),
-                      child: Image.asset('asset/waterlevel.png', scale: 8),
-                      onPressed: () {
-                        popUpWindow(context, 'Water Level', water, reqWater);
-                      },
-                    ),
-                  ),
-
-                  const SizedBox(width: 50,),
-                  Container(
-                    height: 100,
-                    width: 100,
-                    child: ElevatedButton(
-                        style: ElevatedButton.styleFrom(
-                            elevation: 2,
-                            backgroundColor: soil != reqSoil? Colors.red:Colors.green,
-                            shape: RoundedRectangleBorder(
-                                borderRadius: BorderRadius.circular(10),
-                                side: const BorderSide(
-                                  color: Colors.black,
-                                )
-                            )
+                          ),
+                          child: Image.asset('asset/light.png', scale: 7),
+                          onPressed: () {
+                            popUpWindow(context, 'Light Intensity', light, reqLight);
+                          },
                         ),
-                        child: Image.asset('asset/soil.png', scale: 6),
-                        onPressed: () {
-                          popUpWindow(context, 'Soil Moisture', soil, reqSoil);
-
-                        }
-                    ),
+                      ),
+                      const SizedBox(width: 50,),
+                      Container(
+                        height: 100,
+                        width: 100,
+                        child: ElevatedButton(
+                          style: ElevatedButton.styleFrom(
+                              elevation: 2,
+                              backgroundColor:
+                              reqTemp < temp ? Colors.red :
+                              reqTemp == temp ? Colors.green : Colors.yellow,
+                              shape: RoundedRectangleBorder(
+                                  borderRadius: BorderRadius.circular(10),
+                                  side: const BorderSide(
+                                    color: Colors.black,
+                                  )
+                              )
+                          ),
+                          child: Image.asset('asset/temp.png', scale: 8),
+                          onPressed: () {
+                            popUpWindow(context, 'Temperature', temp, reqTemp);
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ]
+                  const SizedBox(height: 25,),
+                  Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: ElevatedButton(
+                            style: ElevatedButton.styleFrom(
+                                elevation: 2,
+                                backgroundColor:
+                                (water != "level 3") || (water != "level 2") ?
+                                ((water=="level 1") ? Colors.yellow:Colors.red):Colors.green,
+                                shape: RoundedRectangleBorder(
+                                    borderRadius: BorderRadius.circular(10),
+                                    side: const BorderSide(
+                                      color: Colors.black,
+                                    )
+                                )
+                            ),
+                            child: Image.asset('asset/waterlevel.png', scale: 8),
+                            onPressed: () {
+                              popUpWindow(context, 'Water Level', water, reqWater);
+                            },
+                          ),
+                        ),
+
+                        const SizedBox(width: 50,),
+                        Container(
+                          height: 100,
+                          width: 100,
+                          child: ElevatedButton(
+                              style: ElevatedButton.styleFrom(
+                                  elevation: 2,
+                                  backgroundColor:
+                                  soil != reqSoil? Colors.red : Colors.green,
+
+                                  shape: RoundedRectangleBorder(
+                                      borderRadius: BorderRadius.circular(10),
+                                      side: const BorderSide(
+                                        color: Colors.black,
+                                      )
+                                  )
+                              ),
+                              child: Image.asset('asset/soil.png', scale: 6),
+                              onPressed: () {
+                                popUpWindow(context, 'Soil Moisture', soil, reqSoil);
+
+                              }
+                          ),
+                        ),
+                      ]
+                  )
+                ],
+              ),
+
             ),
+
+
           ],
         ),
       ),

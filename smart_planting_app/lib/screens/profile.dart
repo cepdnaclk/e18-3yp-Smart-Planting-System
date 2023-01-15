@@ -95,7 +95,7 @@ class _profileScreenState extends State<profileScreen> {
     return Scaffold(
       appBar: AppBar(
         leading: IconButton(
-          icon: const Icon(Icons.arrow_back_ios_new_outlined),
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black,),
           onPressed: () => Navigator.pop(context),
         ),
         centerTitle: true,
@@ -107,7 +107,8 @@ class _profileScreenState extends State<profileScreen> {
                   Navigator.of(context).push(MaterialPageRoute(builder: (
                       context) =>
                   const GroupPage())),
-              icon: const Icon(Icons.message_outlined, color: Colors.black,)),
+              icon: Image.asset('asset/msg.png')
+          ),
           IconButton(
             icon: CircleAvatar(
               backgroundColor: Colors.transparent,

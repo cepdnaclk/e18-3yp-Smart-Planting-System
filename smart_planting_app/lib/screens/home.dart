@@ -9,6 +9,7 @@ import 'package:smart_planting_app/screens/profile.dart';
 import 'package:smart_planting_app/screens/plant_add.dart';
 import 'package:smart_planting_app/screens/register.dart';
 import 'package:cached_network_image/cached_network_image.dart';
+import 'package:smart_planting_app/screens/timeline.dart';
 
 List<Widget> adds = [];
 final stream1 = FirebaseFirestore.instance.collection('Plants_Database').snapshots();
@@ -48,7 +49,7 @@ class _homeScreenState extends State<homeScreen> {
               child: Image.asset('asset/community.png', scale: 5,),
             ),
             color: Colors.black,
-            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const communityScreen())),
+            onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const timelineScreen())),
           ),
           actions: [
             IconButton(

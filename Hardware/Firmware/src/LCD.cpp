@@ -2,6 +2,9 @@
 #include <Adafruit_GFX.h>
 #include <MCUFRIEND_kbv.h>
 #include <Fonts/FreeSans9pt7b.h>
+#include <OneWire.h>
+#include <DallasTemperature.h>
+#include <Arduino.h>
 
 MCUFRIEND_kbv tft;
 
@@ -19,6 +22,10 @@ const int TS_LEFT = 760, TS_RT = 135, TS_TOP = 180, TS_BOT = 910;
 #define PURPLE 0x780F
 
 extern uint8_t logoGraphic[];
+
+extern float getTemperature(DallasTemperature);
+extern char LDRRead(int);
+extern String soilMoistureRead(int);
 
 // void showMsgXY(int x, int y, int sz, const GFXfont *f, const char *msg, int color) {
 void showMsgXY(int x, int y, int sz, const char *msg, int color)
@@ -71,7 +78,7 @@ void tftInit(String DEVICE_ID)
   String myId = "Device ID ";
   myId.concat(DEVICE_ID);
   showMsgXY(5, 25, 1, myId.c_str(), WHITE);
-  drawBitmap(58, 100, logoGraphic, 124, 180, DARKGREEN);
+  drawBitmap(58, 100, logoGraphic, 124, 180, GREEN);
 }
 
 void temperatureBox() {
@@ -80,21 +87,50 @@ void temperatureBox() {
 }
 void soilMoistBox() {
   tft.drawRoundRect(123, 50, 108, 82, 5, WHITE);
+  showMsgXY(125, 68, 1, "Soil Moisture", WHITE);
 }
 void LDRBox() {
   tft.drawRoundRect(8, 140, 108, 82, 5, WHITE);
+  showMsgXY(44, 158, 1, "Light", WHITE);
 }
 void waterLvlBox() {
   tft.drawRoundRect(123, 140, 108, 82, 5, WHITE);
+  showMsgXY(132, 158, 1, "Water level", WHITE);
 }
 void lightBox() {
   tft.drawRoundRect(8, 230, 108, 82, 5, WHITE);
+  showMsgXY(42, 248, 1, "Lamp", WHITE);
+
 }
 void motorBox() {
   tft.drawRoundRect(123, 230, 108, 82, 5, WHITE);
+  showMsgXY(128, 248, 1, "Water Pump", WHITE);
 }
 
-void drawBoxes()
+void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor) {
+  // Temperature
+  float tempVal = getTemperature(tempSensor);
+  char str[6];
+  dtostrf(tempVal, 2, 1, str);
+  tft.fillRect(13, 74, 38, 19, BLACK);
+  showMsgXY(52, 90, 1, "`C", WHITE);
+  showMsgXY(14, 90, 1, str, WHITE);
+
+  // Light
+  char ldrVal = LDRRead(ldrSensor);
+  tft.fillRect(13, 164, 100, 19, BLACK);
+  if(ldrVal == 'F') showMsgXY(14, 180, 1, "Full Shade", WHITE);
+  else if(ldrVal == 'S') showMsgXY(14, 178, 1, "Semi Shade", WHITE);
+  else showMsgXY(14, 178, 1, "No Shade", WHITE);
+
+  // soil moisture
+  String soilVal = soilMoistureRead(soilSensor);
+  tft.fillRect(125, 70, 38, 19, GREEN);
+  // if(soilVal == )
+  showMsgXY(14, 70, 1, "Full Shade", WHITE);
+}
+
+void drawBoxes(DallasTemperature tempSensor, int ldrSensor, int soilSensor)
 {
   temperatureBox();
   soilMoistBox();
@@ -102,6 +138,7 @@ void drawBoxes()
   LDRBox();
   waterLvlBox();
   motorBox();
+  showValues(tempSensor, ldrSensor, soilSensor);
 }
 
 void clearScreen() {

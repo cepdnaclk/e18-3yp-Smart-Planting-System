@@ -65,7 +65,7 @@ extern void showMsgXY(int, int, int, const char *, int);
 // void showMsgXY(int, int, int, const GFXfont *, const char *, int);
 extern void drawBitmap(int16_t, int16_t,const uint8_t *, int16_t, int16_t, uint16_t);
 extern void clearScreen();
-extern void drawBoxes();
+extern void drawBoxes(DallasTemperature, int, int);
 extern void motorBox();
 extern void lightBox();
 
@@ -91,8 +91,10 @@ String dateString = "";
 // #define WIFI_PASSWORD "576E5Fc3"
 // #define WIFI_SSID "Redmi Note 7"
 // #define WIFI_PASSWORD "Anush123ga"
-#define WIFI_SSID "Dialog_4G_336"
-#define WIFI_PASSWORD "56483cdD"
+// #define WIFI_SSID "Dialog_4G_336"
+// #define WIFI_PASSWORD "56483cdD"
+#define WIFI_SSID "Eng-Student"
+#define WIFI_PASSWORD "3nG5tuDt"
 
 // For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
@@ -119,6 +121,9 @@ void setup()
 
 	// Power for temperature sensor
 	pinMode(16, OUTPUT);
+	pinMode(18, OUTPUT);
+	pinMode(21, OUTPUT);
+	pinMode(23, OUTPUT);
 
 	connectWiFi();
 
@@ -142,8 +147,14 @@ void setup()
 
 void loop()
 {
-	drawBoxes();
-	sendData();
+	digitalWrite(18, HIGH);	// LED
+	delay(1000);
+	digitalWrite(18, LOW);
+	// digitalWrite(23, HIGH);	// motor
+	// delay(1000);
+	// digitalWrite(23, LOW);
+	// drawBoxes(tempSensor, LDR_SENSOR_IN, SOIL_MOIST_SENSOR_IN);
+	// sendData();
 	delay(5000);
 }
 
@@ -223,26 +234,28 @@ void sendData() {
 	delay(10);
 
 	// Take readings from temperature sensor
-	/*temperatureVal = temperatureRead(tempSensor);
+	temperatureVal = temperatureRead(tempSensor);
 	Serial.print(temperatureVal);
 	Serial.println("°C");
-	delay(10);*/
+	delay(10);
 
 	String path = "/plants/";
 	path.concat(DEVICE_ID);
 
-	if (Firebase.ready())
+	/*if (Firebase.ready())
 	{
 
 		Firebase.setString(fbdo, stringAdd(path, "/soilMoisture"), soilMoistVal);
 		Firebase.setInt(fbdo, stringAdd(path, "/waterLevel"), 1);
 
-		Serial.print("Soil moisture- ");
-		Serial.println(soilMoistVal);
+		// Serial.print("Soil moisture- ");
+		// Serial.println(soilMoistVal);
 
 		// Serial.println();
 		Serial.println("------------------");
 		Serial.println();
-	}
+	}*/
+		Serial.println("------------------");
+
 	delay(10000);
 }

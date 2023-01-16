@@ -50,9 +50,13 @@ class _ChatPageState extends State<ChatPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        leading: IconButton(
+          icon: const Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black,),
+          onPressed: () => Navigator.pop(context),
+        ),
         centerTitle: true,
         elevation: 0,
-        title: Text(widget.groupName),
+        title: Text(widget.groupName, style: TextStyle(color: Colors.black)),
         backgroundColor: Theme.of(context).primaryColor,
         actions: [
           IconButton(
@@ -65,7 +69,7 @@ class _ChatPageState extends State<ChatPage> {
                       adminName: admin,
                     ));
               },
-              icon: const Icon(Icons.info))
+              icon: const Icon(Icons.info, color: Colors.black,))
         ],
       ),
       body: Stack(
@@ -85,6 +89,7 @@ class _ChatPageState extends State<ChatPage> {
                       controller: messageController,
                       style: const TextStyle(color: Colors.white),
                       decoration: const InputDecoration(
+                        helperMaxLines: 100,
                         hintText: "Send a message...",
                         hintStyle: TextStyle(color: Colors.white, fontSize: 16),
                         border: InputBorder.none,
@@ -101,13 +106,14 @@ class _ChatPageState extends State<ChatPage> {
                     height: 50,
                     width: 50,
                     decoration: BoxDecoration(
-                      color: Theme.of(context).primaryColor,
+                      color: Colors.transparent,
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: const Center(
                         child: Icon(
                           Icons.send,
-                          color: Colors.white,
+                          color: Colors.green,
+                          size: 30,
                         )),
                   ),
                 )

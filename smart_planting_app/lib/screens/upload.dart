@@ -123,11 +123,11 @@ class _uploadState extends State<upload> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black,),
+            icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black,),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
           ),
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.green,
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(

@@ -150,7 +150,8 @@ class _timelineScreenState extends State<timelineScreen> {
                     Navigator.of(context).push(MaterialPageRoute(builder: (
                         context) =>
                     const GroupPage())),
-                icon: const Icon(Icons.message_outlined, color: Colors.black,))
+                icon: Image.asset('asset/msg.png')
+            )
           ],
         ),
         body: Column(

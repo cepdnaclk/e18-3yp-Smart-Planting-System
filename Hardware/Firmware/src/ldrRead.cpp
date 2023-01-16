@@ -7,9 +7,9 @@ char LDRRead(int sensor)
     val = analogRead(sensor);
     Serial.print("LDR read: "); // print the value to serial port
 
-    if(val >= 3500) return 'F';
+    if(val >= 3500) return 'N';
     else if(val >= 1500) return 'S';
-    else return 'N';
+    else return 'F';
 }
 
 // value_1 = 3400

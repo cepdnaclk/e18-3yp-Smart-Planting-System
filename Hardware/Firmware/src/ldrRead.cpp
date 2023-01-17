@@ -1,5 +1,8 @@
 #include "Arduino.h"
 
+extern void turnOnLamp();
+extern void turnOffLamp();
+
 char LDRRead(int sensor)
 {
     int val = 0;
@@ -7,9 +10,18 @@ char LDRRead(int sensor)
     val = analogRead(sensor);
     Serial.print("LDR read: "); // print the value to serial port
 
-    if(val >= 3500) return 'N';
-    else if(val >= 1500) return 'S';
-    else return 'F';
+    if(val >= 3500) {
+        turnOffLamp();
+        return 'N';
+    }
+    else if(val >= 1500) {
+        turnOffLamp();
+        return 'S';
+    }
+    else {
+        turnOnLamp();
+        return 'F';
+    }
 }
 
 // value_1 = 3400

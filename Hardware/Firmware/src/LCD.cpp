@@ -22,10 +22,12 @@ const int TS_LEFT = 760, TS_RT = 135, TS_TOP = 180, TS_BOT = 910;
 #define PURPLE 0x780F
 
 extern uint8_t logoGraphic[];
+extern uint8_t tempOuter[];
 
 extern float getTemperature(DallasTemperature);
 extern char LDRRead(int);
 extern String soilMoistureRead(int);
+extern String waterLevelRead(int);
 
 // void showMsgXY(int x, int y, int sz, const GFXfont *f, const char *msg, int color) {
 void showMsgXY(int x, int y, int sz, const char *msg, int color)
@@ -107,7 +109,7 @@ void motorBox() {
   showMsgXY(128, 248, 1, "Water Pump", WHITE);
 }
 
-void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor) {
+void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor, int waterSensor) {
   // Temperature
   float tempVal = getTemperature(tempSensor);
   char str[6];
@@ -115,6 +117,10 @@ void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor) {
   tft.fillRect(13, 74, 38, 19, BLACK);
   showMsgXY(52, 90, 1, "`C", WHITE);
   showMsgXY(14, 90, 1, str, WHITE);
+
+  drawBitmap(78, 72, tempOuter, 28, 56, WHITE);
+  tft.fillCircle(88, 118, 4, RED);
+  tft.fillRoundRect(87, 90, 4, 30, 2, RED);
 
   // Light
   char ldrVal = LDRRead(ldrSensor);
@@ -125,12 +131,27 @@ void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor) {
 
   // soil moisture
   String soilVal = soilMoistureRead(soilSensor);
-  tft.fillRect(125, 70, 38, 19, GREEN);
-  // if(soilVal == )
-  showMsgXY(14, 70, 1, "Full Shade", WHITE);
+  tft.fillRect(128, 73, 100, 19, BLACK);
+  if(soilVal.equals("D")) {
+    showMsgXY(129, 88, 1, "Dry Soil", WHITE);
+  }
+  else if(soilVal.equals("M")) {
+    showMsgXY(129, 88, 1, "Low moisture", WHITE);
+  }
+  else if(soilVal.equals("We")) {
+    showMsgXY(129, 88, 1, "Wet", WHITE);
+  }
+  else {
+    showMsgXY(129, 88, 1, "Watery", WHITE);
+  }
+
+  // Water level
+  tft.fillRect(128, 164, 100, 20, BLACK);
+  String waterLvlVal = waterLevelRead(waterSensor);
+  showMsgXY(148, 180, 1, waterLvlVal.c_str(), WHITE);
 }
 
-void drawBoxes(DallasTemperature tempSensor, int ldrSensor, int soilSensor)
+void drawBoxes(DallasTemperature tempSensor, int ldrSensor, int soilSensor, int waterSensor)
 {
   temperatureBox();
   soilMoistBox();
@@ -138,9 +159,27 @@ void drawBoxes(DallasTemperature tempSensor, int ldrSensor, int soilSensor)
   LDRBox();
   waterLvlBox();
   motorBox();
-  showValues(tempSensor, ldrSensor, soilSensor);
+  showValues(tempSensor, ldrSensor, soilSensor, waterSensor);
 }
 
 void clearScreen() {
   tft.fillRect(0, 40, 240, 280, BLACK);
+}
+
+void lampOn() {
+  tft.fillRect(46, 253, 38, 19, BLACK);
+  showMsgXY(47, 268, 1, "On", WHITE);
+}
+void lampOff() {
+  tft.fillRect(46, 253, 38, 19, BLACK);
+  showMsgXY(47, 268, 1, "Off", WHITE);
+}
+
+void pumpOn() {
+  tft.fillRect(156, 253, 40, 19, BLACK);
+  showMsgXY(157, 268, 1, "On", WHITE);
+}
+void pumpOff() {
+  tft.fillRect(156, 253, 40, 19, BLACK);
+    showMsgXY(157, 268, 1, "Off", WHITE);
 }

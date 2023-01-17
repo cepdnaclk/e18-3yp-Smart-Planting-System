@@ -31,7 +31,7 @@ const int TS_LEFT = 760, TS_RT = 135, TS_TOP = 180, TS_BOT = 910;
 #define DARKGREEN 0x03E0
 #define PURPLE 0x780F
 
-const String DEVICE_ID = "02";
+const String DEVICE_ID = "2";
 // Input pins
 const int WATER_LEVEL_SENSOR_IN = 34; // Water level sensor on GPIO34
 const int SOIL_MOIST_SENSOR_IN = 39;  // Soil moisture sensor on GPIO39 (SN)
@@ -52,7 +52,7 @@ OneWire oneWire(TEMP_SENSOR_IN);		// setup a oneWire instance
 DallasTemperature tempSensor(&oneWire); // pass oneWire to DallasTemperature library
 
 extern String soilMoistureRead(int);
-extern int waterLevelRead(int);
+extern String waterLevelRead(int);
 extern float temperatureRead(DallasTemperature tempSensor);
 extern int LDRRead(int);
 String getDateTime();
@@ -65,16 +65,17 @@ extern void showMsgXY(int, int, int, const char *, int);
 // void showMsgXY(int, int, int, const GFXfont *, const char *, int);
 extern void drawBitmap(int16_t, int16_t,const uint8_t *, int16_t, int16_t, uint16_t);
 extern void clearScreen();
-extern void drawBoxes(DallasTemperature, int, int);
+extern void drawBoxes(DallasTemperature, int, int, int);
 extern void motorBox();
 extern void lightBox();
+extern void watering(String, String);
 
 // Graphics
 extern uint8_t wifiGraphic[];
 extern uint8_t noWifiGraphic[];
 
 String soilMoistVal = "";
-int waterLevelVal = 0;
+String waterLevelVal = "";
 char lightIntensityVal;
 float temperatureVal = 0;
 String timeString = "";
@@ -87,14 +88,14 @@ String dateString = "";
 #include <addons/RTDBHelper.h>
 
 /* 1. Define the WiFi credentials */
-// #define WIFI_SSID "Dialog 4G 517"
-// #define WIFI_PASSWORD "576E5Fc3"
+#define WIFI_SSID "Dialog 4G 517"
+#define WIFI_PASSWORD "576E5Fc3"
 // #define WIFI_SSID "Redmi Note 7"
 // #define WIFI_PASSWORD "Anush123ga"
 // #define WIFI_SSID "Dialog_4G_336"
 // #define WIFI_PASSWORD "56483cdD"
-#define WIFI_SSID "Eng-Student"
-#define WIFI_PASSWORD "3nG5tuDt"
+// #define WIFI_SSID "Eng-Student"
+// #define WIFI_PASSWORD "3nG5tuDt"
 
 // For the following credentials, see examples/Authentications/SignInAsUser/EmailPassword/EmailPassword.ino
 
@@ -120,7 +121,7 @@ void setup()
 	delay(2000);
 
 	// Power for temperature sensor
-	pinMode(16, OUTPUT);
+	pinMode(19, OUTPUT);
 	pinMode(18, OUTPUT);
 	pinMode(21, OUTPUT);
 	pinMode(23, OUTPUT);
@@ -139,7 +140,7 @@ void setup()
 	// Comment or pass false value when WiFi reconnection will control by your code or third party library
 	// Firebase.reconnectWiFi(true);
 
-	Firebase.setDoubleDigits(5);
+	Firebase.setDoubleDigits(2);
 	timeClient.begin();
 	timeClient.setTimeOffset(utcOffsetInSeconds);
 	clearScreen();
@@ -147,15 +148,14 @@ void setup()
 
 void loop()
 {
-	digitalWrite(18, HIGH);	// LED
-	delay(1000);
-	digitalWrite(18, LOW);
+	// digitalWrite(18, HIGH);	// LED
+	// delay(1000);
+	// digitalWrite(18, LOW);
 	// digitalWrite(23, HIGH);	// motor
 	// delay(1000);
 	// digitalWrite(23, LOW);
-	// drawBoxes(tempSensor, LDR_SENSOR_IN, SOIL_MOIST_SENSOR_IN);
-	// sendData();
-	delay(5000);
+	drawBoxes(tempSensor, LDR_SENSOR_IN, SOIL_MOIST_SENSOR_IN, WATER_LEVEL_SENSOR_IN);
+	sendData();
 }
 
 String getDateTime()
@@ -242,11 +242,15 @@ void sendData() {
 	String path = "/plants/";
 	path.concat(DEVICE_ID);
 
-	/*if (Firebase.ready())
-	{
+	watering(soilMoistVal, waterLevelVal);
 
-		Firebase.setString(fbdo, stringAdd(path, "/soilMoisture"), soilMoistVal);
-		Firebase.setInt(fbdo, stringAdd(path, "/waterLevel"), 1);
+	if (Firebase.ready())
+	{
+		Firebase.setString(fbdo, stringAdd(path, "/DateTime"), getDateTime());
+		Firebase.setString(fbdo, stringAdd(path, "/SoilMoisture"), soilMoistVal);
+		Firebase.setString(fbdo, stringAdd(path, "/WaterLevel"), waterLevelVal);
+		Firebase.setString(fbdo, stringAdd(path, "/LightIntensity"), String(lightIntensityVal));
+		Firebase.setFloat(fbdo, stringAdd(path, "/Temperature"), temperatureVal);
 
 		// Serial.print("Soil moisture- ");
 		// Serial.println(soilMoistVal);
@@ -254,8 +258,7 @@ void sendData() {
 		// Serial.println();
 		Serial.println("------------------");
 		Serial.println();
-	}*/
-		Serial.println("------------------");
+	}
 
-	delay(10000);
+	delay(1000);
 }

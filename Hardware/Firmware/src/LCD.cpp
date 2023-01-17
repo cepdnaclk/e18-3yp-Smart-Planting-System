@@ -20,9 +20,20 @@ const int TS_LEFT = 760, TS_RT = 135, TS_TOP = 180, TS_BOT = 910;
 #define NAVY 0x000F
 #define DARKGREEN 0x03E0
 #define PURPLE 0x780F
+// #define BROWN 0xC530
+#define BROWN 0xFFFA
+
 
 extern uint8_t logoGraphic[];
 extern uint8_t tempOuter[];
+extern uint8_t lampOnGraphic[];
+extern uint8_t lampOffGraphic[];
+extern uint8_t soil[];
+extern uint8_t waterPumpOn[];
+extern uint8_t waterPumpOff[];
+extern uint8_t level[];
+extern uint8_t sunHigh[];
+extern uint8_t sunLow[];
 
 extern float getTemperature(DallasTemperature);
 extern char LDRRead(int);
@@ -83,6 +94,15 @@ void tftInit(String DEVICE_ID)
   drawBitmap(58, 100, logoGraphic, 124, 180, GREEN);
 }
 
+void highLight() { 
+  tft.fillRect(47, 187, 30, 30, BLACK);
+  drawBitmap(47, 187, sunHigh, 30, 30, RED);
+}
+void lowLight() { 
+  tft.fillRect(47, 187, 30, 30, BLACK);
+  drawBitmap(47, 187, sunLow, 30, 30, TFT_ORANGE);
+}
+
 void temperatureBox() {
   tft.drawRoundRect(8, 50, 108, 82, 5, WHITE);
   showMsgXY(10, 68, 1, "Temperature", WHITE);
@@ -90,6 +110,7 @@ void temperatureBox() {
 void soilMoistBox() {
   tft.drawRoundRect(123, 50, 108, 82, 5, WHITE);
   showMsgXY(125, 68, 1, "Soil Moisture", WHITE);
+  drawBitmap(160, 93, soil, 30, 30, BROWN);
 }
 void LDRBox() {
   tft.drawRoundRect(8, 140, 108, 82, 5, WHITE);
@@ -98,6 +119,7 @@ void LDRBox() {
 void waterLvlBox() {
   tft.drawRoundRect(123, 140, 108, 82, 5, WHITE);
   showMsgXY(132, 158, 1, "Water level", WHITE);
+  drawBitmap(160, 186, level, 20, 30, WHITE);
 }
 void lightBox() {
   tft.drawRoundRect(8, 230, 108, 82, 5, WHITE);
@@ -125,9 +147,18 @@ void showValues(DallasTemperature tempSensor, int ldrSensor, int soilSensor, int
   // Light
   char ldrVal = LDRRead(ldrSensor);
   tft.fillRect(13, 164, 100, 19, BLACK);
-  if(ldrVal == 'F') showMsgXY(14, 180, 1, "Full Shade", WHITE);
-  else if(ldrVal == 'S') showMsgXY(14, 178, 1, "Semi Shade", WHITE);
-  else showMsgXY(14, 178, 1, "No Shade", WHITE);
+  if(ldrVal == 'F') {
+    showMsgXY(14, 180, 1, "Full Shade", WHITE);
+    highLight();
+  }
+  else if(ldrVal == 'S') {
+    showMsgXY(14, 178, 1, "Semi Shade", WHITE);
+    lowLight();
+  }
+  else {
+    showMsgXY(14, 178, 1, "No Shade", WHITE);
+    lowLight();
+  }
 
   // soil moisture
   String soilVal = soilMoistureRead(soilSensor);
@@ -169,17 +200,25 @@ void clearScreen() {
 void lampOn() {
   tft.fillRect(46, 253, 38, 19, BLACK);
   showMsgXY(47, 268, 1, "On", WHITE);
+  tft.fillRect(44, 275, 35, 35, BLACK);
+  drawBitmap(44, 275, lampOnGraphic, 35, 35, YELLOW);
 }
 void lampOff() {
   tft.fillRect(46, 253, 38, 19, BLACK);
   showMsgXY(47, 268, 1, "Off", WHITE);
+  tft.fillRect(44, 275, 35, 35, BLACK);
+  drawBitmap(44, 275, lampOffGraphic, 35, 35, WHITE);
 }
 
 void pumpOn() {
   tft.fillRect(156, 253, 40, 19, BLACK);
   showMsgXY(157, 268, 1, "On", WHITE);
+  tft.fillRect(156, 273, 35, 35, BLACK);
+  drawBitmap(156, 273, waterPumpOn, 35, 35, BLUE);
 }
 void pumpOff() {
   tft.fillRect(156, 253, 40, 19, BLACK);
-    showMsgXY(157, 268, 1, "Off", WHITE);
+  showMsgXY(157, 268, 1, "Off", WHITE);
+  tft.fillRect(156, 273, 35, 35, BLACK);
+  drawBitmap(156, 273, waterPumpOff, 35, 35, BLUE);
 }

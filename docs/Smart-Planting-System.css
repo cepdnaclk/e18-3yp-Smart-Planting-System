@@ -1119,7 +1119,7 @@
 }
 
 .u-section-8 .u-image-1 {
-  width: 840px;
+  width: 841px;
   height: 611px;
   --animation-custom_in-translate_x: 0px;
   --animation-custom_in-translate_y: 0px;
@@ -1131,7 +1131,7 @@
 
 @media (max-width: 1199px) {
   .u-section-8 .u-image-1 {
-    margin-right: 100px;
+    margin-right: 99px;
   }
 }
 

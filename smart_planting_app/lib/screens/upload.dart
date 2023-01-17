@@ -4,16 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
-import 'package:http/http.dart';
 import 'package:image_picker/image_picker.dart';
-import 'package:smart_planting_app/screens/community.dart';
 import 'package:smart_planting_app/screens/progress.dart';
 import 'package:path_provider/path_provider.dart';
 import 'package:image/image.dart' as Im;
 import 'package:smart_planting_app/screens/register.dart';
+import 'package:smart_planting_app/screens/timeline.dart';
 import 'package:uuid/uuid.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:firebase_storage/firebase_storage.dart';
 
 
 class upload extends StatefulWidget {
@@ -99,7 +97,7 @@ class _uploadState extends State<upload> {
 
   Widget buildSplashScreen() {
     return Container(
-      color: Theme.of(context).accentColor.withOpacity(0.6),
+      color: Colors.green.shade200,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -109,7 +107,12 @@ class _uploadState extends State<upload> {
               onPressed: () {
                 selectImage(context);
               },
-              child: const Text('Upload Image', style: TextStyle(fontSize: 20, color: Colors.black, fontWeight: FontWeight.bold),))
+              child: const Text(
+                'Upload Image',
+                style: TextStyle(
+                    fontSize: 20,
+                    color: Colors.black,
+                    fontWeight: FontWeight.bold),))
         ],
       ),
     );
@@ -120,11 +123,11 @@ class _uploadState extends State<upload> {
       child: Scaffold(
         appBar: AppBar(
           leading: IconButton(
-            icon: Icon(Icons.arrow_back, color: Colors.black,),
+            icon: Icon(Icons.arrow_back_ios_new_outlined, color: Colors.black,),
             onPressed: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => const upload())),
           ),
           elevation: 0,
-          backgroundColor: Colors.transparent,
+          backgroundColor: Colors.green,
           actions: [
             ElevatedButton(
                 style: ElevatedButton.styleFrom(
@@ -133,7 +136,7 @@ class _uploadState extends State<upload> {
                 ),
                 onPressed: isUploading ? null : () {
                   handleSubmit();
-                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const communityScreen()));
+                  Navigator.of(context).push(MaterialPageRoute(builder: (context) => const timelineScreen()));
                 },
                 child: Text(
                   'Post',
@@ -279,10 +282,6 @@ class _uploadState extends State<upload> {
 
     final downloadUrl = await snapshot.ref.getDownloadURL();
     return downloadUrl;
-    // StorageUploadTask uploadTask = storageRef.child("post_$postId.jpg").putFile(imageFile);
-    // StorageTaskSnapshot storageSnap = await uploadTask.onComplete;
-    // String downloadUrl = await storageSnap.ref.getDownloadURL();
-    // return downloadUrl;
   }
 
   handleSubmit() async {
@@ -310,6 +309,8 @@ class _uploadState extends State<upload> {
   }
 
   Future creatPostInFirestore({required String mediaUrl, required String location, required String caption}) async {
+    timestamp = DateTime.now();
+
     final json = {
       "postId" : postId,
       "ownerId" : currentUser.id,
@@ -317,7 +318,8 @@ class _uploadState extends State<upload> {
       "mediaUrl" : mediaUrl,
       "caption" : caption,
       "location" : location,
-      "likes" : {}
+      "likes" : {},
+      "timestamp" : timestamp
     };
     await postsRef.doc(currentUser.id).collection("userPosts").doc(postId).set(json);
 

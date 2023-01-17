@@ -20,7 +20,7 @@ from firebase_admin import credentials
 
 # Change deviceID, and sleep time as your preference
 DEVICE_ID = 1
-SLEEP_TIME = 5      # minutes
+SLEEP_TIME = 1      # minutes
 
 # initializations 
 cred = credentials.Certificate('smart-planting-system-b7c5e-firebase-adminsdk-hvco0-74098b389d.json')
@@ -64,8 +64,8 @@ while True:
 
     #Multi-location update data
     doc_ref.set({"DateTime":DateTime, "LightIntensity" : LightIntensity, "SoilMoisture": SoilMoisture, "Temperature":Temperature, "WaterLevel": WaterLevel})
-    
+    # print(Temperature)
     # Sleep time
-    time.sleep(SLEEP_TIME * 60)
+    time.sleep(SLEEP_TIME * 30)
 
 # ---------------------------

@@ -88,10 +88,10 @@ String dateString = "";
 #include <addons/RTDBHelper.h>
 
 /* 1. Define the WiFi credentials */
-#define WIFI_SSID "Dialog 4G 517"
-#define WIFI_PASSWORD "576E5Fc3"
-// #define WIFI_SSID "Redmi Note 7"
-// #define WIFI_PASSWORD "Anush123ga"
+// #define WIFI_SSID "Dialog 4G 517"
+// #define WIFI_PASSWORD "576E5Fc3"
+#define WIFI_SSID "Redmi Note 7"
+#define WIFI_PASSWORD "Anush123ga"
 // #define WIFI_SSID "Dialog_4G_336"
 // #define WIFI_PASSWORD "56483cdD"
 // #define WIFI_SSID "Eng-Student"

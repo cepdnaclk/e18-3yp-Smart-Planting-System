@@ -21,14 +21,8 @@ int getNowHour()
 void turnOnLamp() {
     int hour = getNowHour();
     Serial.println(hour);
-    if(hour > 7 && 18 > hour) {
-        digitalWrite(LED_PIN, HIGH);
-        lampOn();
-    }
-    else {
-        digitalWrite(LED_PIN, LOW);
-        lampOff();
-    }
+    digitalWrite(LED_PIN, HIGH);
+    lampOn();
 }
 
 void turnOffLamp() {

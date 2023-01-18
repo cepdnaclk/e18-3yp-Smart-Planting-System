@@ -17,15 +17,19 @@ int getNowHour()
 	int hour = timeClient2.getHours();
 	return hour;
 }
+void turnOffLamp() {
+    digitalWrite(LED_PIN, LOW);
+    lampOff();
+}
 
 void turnOnLamp() {
     int hour = getNowHour();
     Serial.println(hour);
-    digitalWrite(LED_PIN, HIGH);
-    lampOn();
-}
-
-void turnOffLamp() {
-    digitalWrite(LED_PIN, LOW);
-    lampOff();
+    if(hour < 7 || hour > 17) {
+        digitalWrite(LED_PIN, HIGH);
+        lampOn();
+    }
+    else {
+        turnOffLamp();
+    }
 }

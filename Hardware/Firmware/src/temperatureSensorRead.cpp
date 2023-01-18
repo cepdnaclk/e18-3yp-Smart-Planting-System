@@ -4,6 +4,8 @@
 float tempCelsius;	  // temperature in Celsius
 float tempFahrenheit; // temperature in Fahrenheit
 
+extern void showTemperature(float);
+
 float temperatureRead(DallasTemperature tempSensor)
 {
 	// Initialize temperature probe by write high to GPIO16
@@ -27,27 +29,7 @@ float temperatureRead(DallasTemperature tempSensor)
 	// Serial.print("°C");
 
 	digitalWrite(16, LOW);
-	return tempCelsius;
+	showTemperature(tempCelsius);
 
-	delay(500);
-}
-
-float getTemperature(DallasTemperature tempSensor) {
-	// Initialize temperature probe by write high to GPIO16
-	digitalWrite(19, HIGH);
-	delay(500);
-
-	tempSensor.requestTemperatures();			 // send the command to get temperatures
-	tempCelsius = tempSensor.getTempCByIndex(0); // read temperature in Celsius
-
-	while(tempCelsius < -100) {
-		// error in connection
-		tempCelsius = tempSensor.getTempCByIndex(0); // read temperature in Celsius
-		Serial.println("..");
-	}
-
-	tempFahrenheit = tempCelsius * 9 / 5 + 32;	 // convert Celsius to Fahrenheit
-
-	digitalWrite(16, LOW);
 	return tempCelsius;
 }

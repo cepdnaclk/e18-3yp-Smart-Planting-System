@@ -58,14 +58,13 @@ extern int LDRRead(int);
 String getDateTime();
 String getTime();
 void connectWiFi();
-void connectFirebase();
 extern void sendData();
 extern void tftInit(String);
 extern void showMsgXY(int, int, int, const char *, int);
 // void showMsgXY(int, int, int, const GFXfont *, const char *, int);
 extern void drawBitmap(int16_t, int16_t,const uint8_t *, int16_t, int16_t, uint16_t);
 extern void clearScreen();
-extern void drawBoxes(DallasTemperature, int, int, int);
+extern void drawBoxes();
 extern void motorBox();
 extern void lightBox();
 extern void watering(String, String);
@@ -90,10 +89,10 @@ String dateString = "";
 /* 1. Define the WiFi credentials */
 // #define WIFI_SSID "Dialog 4G 517"
 // #define WIFI_PASSWORD "576E5Fc3"
-#define WIFI_SSID "Redmi Note 7"
-#define WIFI_PASSWORD "Anush123ga"
-// #define WIFI_SSID "Dialog_4G_336"
-// #define WIFI_PASSWORD "56483cdD"
+// #define WIFI_SSID "Redmi Note 7"
+// #define WIFI_PASSWORD "Anush123ga"
+#define WIFI_SSID "Dialog_4G_336"
+#define WIFI_PASSWORD "56483cdD"
 // #define WIFI_SSID "Eng-Student"
 // #define WIFI_PASSWORD "3nG5tuDt"
 
@@ -154,7 +153,7 @@ void loop()
 	// digitalWrite(23, HIGH);	// motor
 	// delay(1000);
 	// digitalWrite(23, LOW);
-	drawBoxes(tempSensor, LDR_SENSOR_IN, SOIL_MOIST_SENSOR_IN, WATER_LEVEL_SENSOR_IN);
+	drawBoxes();
 	sendData();
 }
 
@@ -202,10 +201,6 @@ void connectWiFi() {
 
 	// Serial.print("Connected with IP: ");
 	// Serial.println(WiFi.localIP());
-}
-
-void connectFirebase() {
-
 }
 
 String stringAdd(String str1, const char* char1) {
@@ -260,5 +255,5 @@ void sendData() {
 		Serial.println();
 	}
 
-	delay(1000);
+	delay(500);
 }

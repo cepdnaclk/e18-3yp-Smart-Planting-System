@@ -1,5 +1,7 @@
 #include <Arduino.h>
 
+extern void soilMoistDisplay(String);
+
 String soilMoistureRead(int sensor)
 {
     int val = 0;
@@ -13,18 +15,30 @@ String soilMoistureRead(int sensor)
     Serial.print("Soil moisture read: "); // print the value to serial port
 
     val = val/10;
-        
-    if(val >= 3100) return "D";
-    else if(val >= 2500) return "M";
-    else if(val >= 2000) return "We";
-    else return "Wa";
+    
+    if(val >= 1850) {
+        soilMoistDisplay("D");
+        return "D";
+    }
+    else if(val >= 1500) {
+        soilMoistDisplay("M");
+        return "M";
+    }
+    else if(val >= 700) {
+        soilMoistDisplay("We");
+        return "We";
+    }
+    else {
+        soilMoistDisplay("Wa");
+        return "Wa";
+    }
 }
 
 // value_1 = 3100   Air
 // value_2 = 2600
 // value_3 = 2200   Water
 
-// Dry > 3100
-// 3100 > Moist > 2500
-// 2500 > Wet > 2000
-// 2000 > Water 
+// Dry > 1900
+// 1900 > Moist > 1500
+// 1500 > Wet > 700
+// 700 > Water 

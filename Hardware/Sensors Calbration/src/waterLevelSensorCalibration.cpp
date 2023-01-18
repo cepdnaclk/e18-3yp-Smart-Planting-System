@@ -25,7 +25,7 @@ int waterLevelCalibration(int sensor_pin)
 // >650 => level 0     -------- Do not turn on pump!!
 
 
-// no water: <1200
-// little water: 1500
-// half water: 1650
-// full water: 1800
+// no water: <900
+// little water: 1100 < x < 900
+// half water: 1100 < x < 1250
+// full water: 1250

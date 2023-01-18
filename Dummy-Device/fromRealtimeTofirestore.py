@@ -39,7 +39,7 @@ waterList = ['level 3', 'level 2', 'level 1', 'level 0']
 print("Read data from realtime db and send to firestore database")
 
 # Update every 3 seconds
-SLEEP_TIME = 3
+SLEEP_TIME = 10
 
 # Do not change
 

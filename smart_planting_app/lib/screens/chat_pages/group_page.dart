@@ -111,7 +111,10 @@ class _GroupPageState extends State<GroupPage> {
                 height: 2,
               ),
               ListTile(
-                onTap: () {},
+                onTap: () =>
+                    Navigator.of(context).push(MaterialPageRoute(builder: (
+                        context) =>
+                    const GroupPage())),
                 selectedColor: Theme.of(context).primaryColor,
                 selected: true,
                 contentPadding:

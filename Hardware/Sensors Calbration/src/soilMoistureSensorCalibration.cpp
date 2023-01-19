@@ -14,7 +14,7 @@ int soilMoistCalibration(int sensor)
 // value_2 = 2600
 // value_3 = 2200   Water
 
-// Dry > 3100
-// 3100 > Moist > 2500
-// 2500 > Wet > 2000
-// 2000 > Water 
+// Dry > 1900
+// 1900 > Moist > 1500
+// 1500 > Wet > 700
+// 700 > Water 

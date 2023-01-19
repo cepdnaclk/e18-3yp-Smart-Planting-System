@@ -100,9 +100,9 @@ void setup()
 void loop()
 {
 	// soilMoistVal = soilMoistCalibration(SOIL_MOIST_SENSOR_IN);
-	// waterLevelCalibration(WATER_LEVEL_SENSOR_IN);
+	waterLevelCalibration(WATER_LEVEL_SENSOR_IN);
 	// temperatureRead(tempSensor, TEMP_SENSOR_IN);
-	Serial.println(LDRRead(LDR_SENSOR_IN));
+	// Serial.println(LDRRead(LDR_SENSOR_IN));
 	// Serial.println("----------------------------");
 
 	/*if (Firebase.ready())

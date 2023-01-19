@@ -16,7 +16,7 @@ int waterLevelCalibration(int sensor_pin)
 	Serial.println(val); // print the value to serial port
 
 	delay(500);
-	return result;
+	return result; 
 }
 
 // 0-300 => level 3    -------- OK
@@ -25,7 +25,7 @@ int waterLevelCalibration(int sensor_pin)
 // >650 => level 0     -------- Do not turn on pump!!
 
 
-// no water: <100
-// little water: 550
-// half water: 610
-// full water: 650
+// no water: <900
+// little water: 1100 < x < 900
+// half water: 1100 < x < 1250
+// full water: 1250

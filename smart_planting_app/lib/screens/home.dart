@@ -338,8 +338,8 @@ class addPlant {
                             style: ElevatedButton.styleFrom(
                                 elevation: 2,
                                 backgroundColor:
-                                (water != "level 3") || (water != "level 2") ?
-                                ((water=="level 1") ? Colors.yellow:Colors.red):Colors.green,
+                                (water == "level 3") || (water == "level 2") ?
+                                Colors.green:((water=="level 1") ? Colors.yellow:Colors.red),
                                 shape: RoundedRectangleBorder(
                                     borderRadius: BorderRadius.circular(10),
                                     side: const BorderSide(

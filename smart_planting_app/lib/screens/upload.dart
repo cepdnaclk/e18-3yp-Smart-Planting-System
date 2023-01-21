@@ -230,7 +230,7 @@ class _uploadState extends State<upload> {
     //     desiredAccuracy: LocationAccuracy.high);
     List<Placemark> placemarks = await placemarkFromCoordinates(position.latitude, position.longitude);
     Placemark placemark = placemarks[0];
-    String formattedAddress = "${placemark.locality}, ${placemark.country}";
+    String formattedAddress = "${placemark.subAdministrativeArea}, ${placemark.country}";
     locationController.text = formattedAddress;
   }
 

@@ -13,7 +13,7 @@ int waterLevelCalibration(int sensor_pin)
 	else if(val > 50) result = 2;
 	else result = 3;
 
-	Serial.println(val); // print the value to serial port
+	// Serial.println(val); // print the value to serial port
 
 	delay(500);
 	return result; 

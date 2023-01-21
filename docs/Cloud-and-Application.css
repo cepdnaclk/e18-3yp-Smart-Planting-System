@@ -49,7 +49,7 @@
 
 @media (max-width: 1199px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 577px;
+    min-height: 689px;
   }
 
   .u-section-1 .u-text-2 {
@@ -60,19 +60,19 @@
 
 @media (max-width: 991px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 442px;
+    min-height: 785px;
   }
 }
 
 @media (max-width: 767px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 308px;
+    min-height: 767px;
   }
 }
 
 @media (max-width: 575px) {
   .u-section-1 .u-sheet-1 {
-    min-height: 148px;
+    min-height: 476px;
   }
 
   .u-section-1 .u-text-2 {

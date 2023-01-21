@@ -5,7 +5,7 @@ int LDRRead(int sensor)
     int val = 0;
     val = analogRead(sensor);
     delay(200);
-    Serial.print("LDR read: "); // print the value to serial port
+    //Serial.print("LDR read: "); // print the value to serial port
     return val;
 }
 

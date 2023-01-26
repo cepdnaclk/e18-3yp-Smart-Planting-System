@@ -11,11 +11,11 @@ import random
 DEVICE_ID = 1
 SLEEP_TIME = 5      # minutes
 
-firebaseConfig={"apiKey": "qSErU9t9a7O8Tj2vTJWPdatLBlbFJ58c7twgkIuh",
-    "authDomain": "smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app",
-    "databaseURL": "https://smart-planting-system-b7c5e-default-rtdb.asia-southeast1.firebasedatabase.app/",
-    "projectId": "smart-planting-system-b7c5e",
-    "storageBucket": "smart-planting-system-b7c5e.appspot.com"}
+firebaseConfig={"apiKey": "",
+    "authDomain": "",
+    "databaseURL": "",
+    "projectId": "",
+    "storageBucket": ""}
 
 # Reference
 # LightIntensity: F = full shade S = semi-shade N = no shade
